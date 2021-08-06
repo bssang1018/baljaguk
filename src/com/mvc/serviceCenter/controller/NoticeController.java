@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.mvc.serviceCenter.service.NoticeService;
 
-@WebServlet({ "/noticelist", "/noticewrite", "/noticedetail", "/noticedel", "/noticeupdateForm", "/noticeupdate" })
+@WebServlet({ "/noticelist", "/noticewrite", "/noticedetail", "/noticedel", "/noticeupdateForm", "/noticeupdate" ,"/noticesearch"})
 public class NoticeController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
@@ -100,6 +100,19 @@ public class NoticeController extends HttpServlet {
 			dis = req.getRequestDispatcher(page);
 			dis.forward(req, resp);
 			break;
+			
+		case "/noticesearch" :
+			System.out.println("notice 검색 요청");
+			String searchKey = req.getParameter("searchKey");//검색어
+			System.out.println("검색어 : " + searchKey);
+			req.setAttribute("map", service.searchlist(searchKey));
+			req.setAttribute("searchlist", searchKey);
+			dis= req.getRequestDispatcher("noticesearch.jsp");
+			dis.forward(req, resp);
+			
+			break;
+			
+			
 
 		}
 

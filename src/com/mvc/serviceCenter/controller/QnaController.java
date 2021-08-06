@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.mvc.serviceCenter.service.QnaService;
 
-@WebServlet({ "/qnalist", "/qnawrite", "/qnadetail", "/qnadel", "/qnaupdateForm", "/qnaupdate", "/qnaSearch" })
+@WebServlet({ "/qnalist", "/qnawrite", "/qnadetail", "/qnadel", "/qnaupdateForm", "/qnaupdate", "/qnasearch" })
 public class QnaController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
@@ -73,27 +73,47 @@ public class QnaController extends HttpServlet {
 		case "/qnadel":
 			System.out.println("Q&A 삭제 요청");
 
-			
+			msg = "삭제 성공";
+			page = "qnalist";
+			if(service.del()>0) {
+				msg="글 작성 성공";
+				page="qnalist";
+			}
+			req.setAttribute("msg", msg);
+			resp.sendRedirect(page);			
 
 			break;
 			
 		case "/qnaupdateForm":
 			System.out.println("Q&A 수정 요청");
-		
+			req.setAttribute("qna", service.qnaupdateForm());
+			dis = req.getRequestDispatcher("qnaupdateForm.jsp");
+			dis.forward(req, resp);
 			break;
 
 			
 		case "/qnaupdate":
 			System.out.println("Q&A 업데이트 완료");
-			
+			String qnano = req.getParameter("qnano");
+			System.out.println("qnano : " + qnano);
+			msg = "수정에 실패 했다";
+			page = "qnaupdateForm?qnano=" + qnano;
+			if (service.qnaupdate(qnano) > 0) {
+				msg = "수정에 성공";
+				page = "qnadetail?qnano=" + qnano;
+			}
+			req.setAttribute("msg", msg);
+			dis = req.getRequestDispatcher(page);
+			dis.forward(req, resp);
 			break;
 
 		
-		case "/qnaSearch" :
+		case "/qnasearch" :
 			System.out.println("qna 검색 요청");
 			String searchKey = req.getParameter("searchKey");//검색어
 			System.out.println("검색어 : " + searchKey);
-			req.setAttribute("searchlist", service.searchlist(searchKey));
+			req.setAttribute("srmap", service.searchlist(searchKey));
+			req.setAttribute("searchlist", searchKey);
 			dis= req.getRequestDispatcher("qnasearch.jsp");
 			dis.forward(req, resp);
 			

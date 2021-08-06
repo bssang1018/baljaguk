@@ -43,6 +43,10 @@ public class UploadService {
 				System.out.println("footPrintNO :"+footPrintNO);
 				dto.setFootPrintNO(Integer.parseInt(footPrintNO));
 			}
+			String hashtag = multi.getParameter("hashtag");
+			System.out.println("hashtag : "+hashtag);
+			dto.setHashTag(hashtag);
+			
 			String ok = multi.getParameter("ok");
 			dto.setRelease(ok.charAt(0));
 			

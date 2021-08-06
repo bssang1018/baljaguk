@@ -16,38 +16,55 @@
 </style>
 </head>
 <body>
-	<!-- 상단 메뉴바 -->
-<c:import url="./view/topmenu.jsp"/>
-	<!-- 내용시작 -->
+
+<h2>공지공지공지</h2>
+
 <table>
 		<tr>
-			<th></th>
-			<th>받은 사람</th>
-			<th>메세지 내용</th>
-			<th>받은날짜</th>
-			<th>읽음 상태</th>
+			<th>번호</th>
+			<th>제목</th>
+			<th>작성자</th>
+			<th>작성일</th>
 		</tr>
 		
-		<c:if test="${searchlist eq null || searchlist eq ''}">
+		<c:if test="${empty srmap}">
 			<tr>
 				<td colspan="5"> 검색 결과가 없어요ㅠ </td>
 			</tr>
 		</c:if>
 		
-		<c:forEach items="${searchlist}" var="qnas">
+		<c:forEach items="${srmap.searchlist}" var="qnas">
 			<tr>
-				<td><input type="checkbox" value='${qnas.qnano}'/></td>
 				
+					<td>${qnas.qnano}</td>
+				<td><a href="qnadetail?qnano=${qnas.qnano}">${qnas.title}</a></td>
 				<td>${qnas.email}</td>
-				<td><a href="qnadetail?qnano=${qnas.qnano}">${qnas.content}</a></td>
-				<td>${qnas.reg_date}</td>
-				
-								
+				<td>${qnas.reg_date}</td>									
 			</tr>
 		</c:forEach>
 	</table>
 	
-	<br/>
+	<br />
+			<ul class="pagination">
+				<c:if test="${srmap.startPage ne 1}">
+				<li class="page-item"><a class="page-link" href="./qnasearch?page=${srmap.startPage-1}&searchKey=${searchlist}"
+					aria-label="Previous"> <span aria-hidden="true">&laquo;</span>		
+				</a></li>
+				</c:if>
+				<c:forEach var="i" begin="${srmap.startPage}" end="${srmap.endPage}">
+				<c:if test="${i ne srmap.currPage}">
+				<li class="page-item"><a class="page-link" href="./qnasearch?page=${i}&searchKey=${searchlist}">${i}</a></li>
+				</c:if>
+				<c:if test="${i eq srmap.currPage}">
+				<li class="page-item active"><a class="page-link" href="./qnasearch?page=${i}&searchKey=${searchlist}">${i}</a></li>
+				</c:if>
+				</c:forEach>
+				<c:if test="${srmap.totalPage ne srmap.endPage}">
+				<li class="page-item"><a class="page-link" href="./qnasearch?page=${srmap.endPage+1}&searchKey=${searchlist}"
+					aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+				</a></li>
+				</c:if>
+			</ul>
 
 </body>
 </html>

@@ -57,29 +57,29 @@ public class ScController extends HttpServlet {
 		//신고 리스트 부르기
 		case "/rcontload":
 			System.out.println("신고글 리스트 부르기");
-			service.contlist();
+			service.rcontlist();
 			break;
 		case "/rcommload":
 			System.out.println("신고댓글 리스트 부르기");
-			service.commlist();
+			service.rcommlist();
 			break;
 		case "/rmessload":
 			System.out.println("신고메세지 리스트 부르기");
-			service.messlist();
+			service.rmesslist();
 			break;
 		
 		//신고 원본 불러오기
 		case "/contentload":
 			System.out.println("신고글 불러오기");
-			service.contlist();
+			service.contentload();
 			break;
 		case "/commentload":
 			System.out.println("신고댓글 불러오기");
-			service.commlist();
+			service.commentload();
 			break;
 		case "/messageload":
 			System.out.println("신고메세지 불러오기");
-			service.messlist();
+			service.messageload();
 			break;
 			
 		//블랙리스트 관련 함수

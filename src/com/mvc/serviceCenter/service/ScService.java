@@ -85,13 +85,13 @@ public class ScService {
 
 	}
 
-	public void contlist() throws IOException {
+	public void rcontlist() throws IOException {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
 		ScDAO dao = new ScDAO();
 		ArrayList<ReportDTO> list = null;
 		
-		list = dao.contlist();
+		list = dao.rcontlist();
 		dao.resClose();
 		map.put("list", list);
 		resp.setContentType("text/html; charset=UTF-8");
@@ -100,31 +100,42 @@ public class ScService {
 		
 	}
 
-	public void commlist() throws IOException {
+	public void rcommlist() throws IOException {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		ScDAO dao = new ScDAO();
 		ArrayList<ReportDTO> list = null;
 		
-		list = dao.commlist();
+		list = dao.rcommlist();
 		dao.resClose();
 		map.put("list", list);
 		resp.setContentType("text/html; charset=UTF-8");
 		resp.getWriter().println(new Gson().toJson(map));
 	}
 
-	public void messlist() throws IOException {
+	public void rmesslist() throws IOException {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		ScDAO dao = new ScDAO();
 		ArrayList<ReportDTO> list = null;
 		
-		list = dao.messlist();
+		list = dao.rmesslist();
 		dao.resClose();
 		map.put("list", list);
 		resp.setContentType("text/html; charset=UTF-8");
 		resp.getWriter().println(new Gson().toJson(map));
 		
 	}
+	public void contentload() {
+	
+	}
 
+	public void commentload() {
+		
+	}
+
+	public void messageload() {
+		
+	}
+	
 	public void blacklist(int page) throws IOException {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		ScDAO dao = new ScDAO();
@@ -306,6 +317,8 @@ public class ScService {
 		
 		return success;
 	}
+
+	
 		
 }
 

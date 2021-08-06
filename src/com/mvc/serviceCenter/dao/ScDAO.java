@@ -134,7 +134,7 @@ public class ScDAO {
 	}
 
 	//신고 글 리스트 불러오기
-	public ArrayList<ReportDTO> contlist() {
+	public ArrayList<ReportDTO> rcontlist() {
 		sql = "SELECT reportNo,rportText,email,reportDate,state FROM" + 
 				"report1 WHERE contentno is not null;";
 		ArrayList<ReportDTO> list = null;
@@ -156,7 +156,7 @@ public class ScDAO {
 	}
 
 	//신고 댓글 리스트 보기
-	public ArrayList<ReportDTO> commlist() {
+	public ArrayList<ReportDTO> rcommlist() {
 		sql = "SELECT reportNo,rportText,email,reportDate,state FROM" + 
 				"report1 WHERE commentno is not null;";
 		ArrayList<ReportDTO> list = null;
@@ -178,7 +178,7 @@ public class ScDAO {
 	}
 
 	//신고 메세지 리스트 보기
-	public ArrayList<ReportDTO> messlist() {
+	public ArrayList<ReportDTO> rmesslist() {
 		sql = "SELECT reportNo,rportText,email,reportDate,state FROM" + 
 				"report1 WHERE msgno is not null;";
 		ArrayList<ReportDTO> list = null;
