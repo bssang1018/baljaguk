@@ -5,7 +5,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+
 
 import com.mvc.board.dao.BoardDAO;
 import com.mvc.board.dto.FootprintDTO;
@@ -45,8 +45,13 @@ public class BoardService {
 
 	public ArrayList<FootprintDTO> Mfeedlist() {
 		BoardDAO dao = new BoardDAO();
-		ArrayList<FootprintDTO> Mfeedlist = dao.Mfeedlist();
+		String page = req.getParameter("page");
+		if(page == null) {
+			page= "1";
+		}
+		ArrayList<FootprintDTO> Mfeedlist = dao.Mfeedlist(Integer.parseInt(page));
 		System.out.println(Mfeedlist.size()+"건의 피드");
+		
 		dao.resClose();
 		return Mfeedlist;
 	}
@@ -186,10 +191,11 @@ public ArrayList<FootprintDTO> hashtaglist(String hashtag){
 	}
 
    public int fdReport() {
-	   //신고넘버, 글너버, 등록일, 신고내용, 신고자 이메일
+	   //신고넘버, 글넘버, 등록일, 신고내용, 신고자 이메일
 	   int success =0;
-	   String 
-	
+	   String footPrintNO = req.getParameter("footPrintNO");
+	   String email = req.getParameter("email");
+	   
 	    return 0;
 }
 
