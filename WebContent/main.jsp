@@ -58,7 +58,7 @@ height :400px;
 				<div class="card text-center ">
 					<p style="display : none;">${M.boardNO}</p>
 					<div id="size">
-					<img src="/photo/${M.newFileName}" onerror="this.src='/photo/noimg.jpg'" />
+					<img src="/photo/${M.newFileName}" />
 					</div>
 					<div class="card-body">
 						<p class="card-title">작성자 : ${M.email} </p>
