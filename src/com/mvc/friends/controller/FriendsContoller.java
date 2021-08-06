@@ -46,7 +46,7 @@ public class FriendsContoller extends HttpServlet {
 		switch (addr) {
 		
 		// 페이징 처리
-		case ("/friendsBlockList"):
+		case "/friendsBlockList":
 			System.out.println("차단 리스트 요청...");
 			req.setAttribute("map", service.friendsBlockList(loginemail));
 			dis = req.getRequestDispatcher("friendsBlockList.jsp");
@@ -54,7 +54,7 @@ public class FriendsContoller extends HttpServlet {
 			break;
 		
 		//페이징 처리	
-		case ("/friendsList"):
+		case "/friendsList":
 			System.out.println("친구 리스트 요청...");
 			req.setAttribute("map",service.friendsList(loginemail));
 			req.setAttribute("recomendList", service.friendsRecomend(loginemail));
@@ -62,7 +62,7 @@ public class FriendsContoller extends HttpServlet {
 			dis.forward(req, resp);
 			break;	
 			
-		case ("/friendsAddOverlay"):
+		case "/friendsAddOverlay":
 			System.out.println("친구 중복 검사 요청...");
 			String friends_email = req.getParameter("friends_email");
 			//로그인이메일 테스트용
@@ -83,7 +83,7 @@ public class FriendsContoller extends HttpServlet {
 			}
 			break;
 		
-		case ("/friendsAdd"):
+		case "/friendsAdd":
 			System.out.println("친구 추가 요청...");
 			friends_email = req.getParameter("friends_email");
 			//로그인이메일 테스트용
@@ -101,7 +101,7 @@ public class FriendsContoller extends HttpServlet {
 			dis.forward(req, resp);
 			break;
 
-		case ("/friendsDel") :
+		case "/friendsDel" :
 			System.out.println("친구 삭제 요청...");
 			friends_email = req.getParameter("friends_email");
 			//로그인이메일 테스트용
@@ -119,7 +119,7 @@ public class FriendsContoller extends HttpServlet {
 			dis.forward(req, resp);
 			break;
 		
-		case ("/friendsBlock"):
+		case "/friendsBlock":
 			System.out.println("친구 차단 요청...");
 			friends_email = req.getParameter("friends_email");
 			success = service.friendsBlock(loginemail, friends_email);
@@ -137,7 +137,7 @@ public class FriendsContoller extends HttpServlet {
 			break;
 			
 			
-		case ("/friendsBlockCancle"):
+		case "/friendsBlockCancle":
 			System.out.println("친구 차단 해제 요청...");
 			friends_email = req.getParameter("friends_email");
 			//로그인이메일 테스트용
