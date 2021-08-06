@@ -50,6 +50,7 @@
       <button onclick="location.href='./fplist'">발자국</button>
       <button onclick="location.href='./fpupdateForm?footPrintNO=${footprint.footPrintNO}'">발자국 수정</button>
       <button onclick="location.href='./fpdel?footPrintNO=${footprint.footPrintNO}'">발자국 삭제</button>
+      <button onclick="location.href='./fpdel?footPrintNO=${footprint.footPrintNO}'">피드 삭제</button>
 </c:if>
   </td>
    </tr>

@@ -185,6 +185,14 @@ public ArrayList<FootprintDTO> hashtaglist(String hashtag){
 		
 	}
 
+   public int fdReport() {
+	   //신고넘버, 글너버, 등록일, 신고내용, 신고자 이메일
+	   int success =0;
+	   String 
+	
+	    return 0;
+}
+
 
 	
 }
