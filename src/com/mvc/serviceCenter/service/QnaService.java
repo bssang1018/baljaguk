@@ -20,7 +20,7 @@ public class QnaService {
 		}
 	}
 
-	public HashMap<String, Object> list() {
+	public HashMap<String, Object> list(String loginemail) {
 		
 		String page = req.getParameter("page");
 		System.out.println("현재 page : " + page);
@@ -42,7 +42,7 @@ public class QnaService {
 		System.out.println(title+"/"+email+"/"+content);
 		QnaDAO dao = new QnaDAO();
 		
-		if(title.equals("")||email.equals("")||content.equals("")) {
+		if(title.equals("")||content.equals("")) {
 			System.out.println("경고 빈 칸이 있습니다.");
 			success = 0;
 			

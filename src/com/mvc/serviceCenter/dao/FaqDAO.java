@@ -13,7 +13,6 @@ import javax.sql.DataSource;
 
 
 import com.mvc.serviceCenter.dto.FaqDTO;
-import com.mvc.serviceCenter.dto.QnaDTO;
 
 public class FaqDAO {
 	public Connection conn = null;
@@ -44,7 +43,7 @@ public class FaqDAO {
 	}
 
 
-	public HashMap<String, Object> list(int page) {
+	public HashMap<String, Object> list(int page,String loginemail) {
 		
 		String sql = "SELECT idx,title,email,reg_date,categoryno FROM"
 				+ "(SELECT ROW_NUMBER() OVER(ORDER BY idx DESC) AS rnum,"

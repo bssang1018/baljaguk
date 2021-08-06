@@ -43,7 +43,10 @@ public class FaqContorller extends HttpServlet {
 
 		case "/faqlist":
 			System.out.println("faq 리스트 요청");
-			req.setAttribute("map", service.list());
+			String loginemail = (String)req.getSession().getAttribute("loginemail");
+			System.out.println("현재 loginemail: "+loginemail);
+			req.setAttribute("map", service.list(loginemail));
+			req.setAttribute("loginemail", loginemail);
 			dis = req.getRequestDispatcher("faqlist.jsp");
 			dis.forward(req, resp);
 

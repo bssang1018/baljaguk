@@ -2,7 +2,6 @@ package com.mvc.serviceCenter.service;
 
 import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
@@ -33,14 +32,14 @@ public class FaqService {
 	 * 
 	 * return list; }
 	 */
-	public HashMap<String, Object> list() {
+	public HashMap<String, Object> list(String loginemail) {
 		String page = req.getParameter("page");
 		System.out.println("현재 page : " + page);
 		FaqDAO dao = new FaqDAO();
 		if(page == null) {
 			page= "1";
 		}
-		HashMap<String, Object> map = dao.list(Integer.parseInt(page));
+		HashMap<String, Object> map = dao.list(Integer.parseInt(page),loginemail);
 		dao.resClose();// 자원 반납
 		return map;
 	}
@@ -56,7 +55,7 @@ public class FaqService {
 		System.out.println(title+"/"+email+"/"+content+"/"+categoryno);
 		FaqDAO dao = new FaqDAO();
 		
-		if(title.equals("")||email.equals("")||content.equals("")) {
+		if(title.equals("")||content.equals("")||categoryno==null) {
 			System.out.println("경고 빈 칸이 있습니다.");
 			success = 0;
 			
