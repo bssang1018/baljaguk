@@ -5,7 +5,13 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-
+<style>
+	table,tr,th,td{
+		border: 1px solid;
+		border-collapse: collapse;
+		padding : 10px;
+	}
+</style>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet" href="css/common.css" type="text/css">
@@ -45,11 +51,13 @@
    
    <tr>
       <td colspan="2">
-      <button onclick="location.href='./feedlist'">피드</button>
+      
+      <button onclick="location.href='commentWrite.jsp?footprintNo=${footprint.footPrintNO}'">댓글 쓰기</button>
       <c:if test='${sessionScope.loginemail eq footprint.email}'>
       <button onclick="location.href='./fplist'">발자국</button>
       <button onclick="location.href='./fpupdateForm?footPrintNO=${footprint.footPrintNO}'">발자국 수정</button>
       <button onclick="location.href='./fpdel?footPrintNO=${footprint.footPrintNO}'">발자국 삭제</button>
+      <button onclick="location.href='./feedReportWrite?contentNo=${fpdetail.contentNo}'">피드 신고하기</button>
 </c:if>
   </td>
    </tr>
