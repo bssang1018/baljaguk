@@ -18,7 +18,7 @@ import com.oreilly.servlet.MultipartRequest;
 
 
 
-@WebServlet({"/fpsearch","/fplist","/fpwrite","/fpwriteNo","/fpdetail","/fpdel","/fpupdateForm","/fpupdate","/fpserach","/feedlist"})
+@WebServlet({"/fpsearch","/fplist","/fpwriteOk","/fpwriteNo","/fpdetail","/fpdel","/fpupdateForm","/fpupdate","/fpserach","/feedlist"})
 
 
 public class BoardController extends HttpServlet {
@@ -76,7 +76,7 @@ public class BoardController extends HttpServlet {
 			  break;
 		 
 		
-		case "/fpwrite":
+		case "/fpwriteOk":
 			System.out.println("발자국 글쓰기 요청");
 			email = (String) req.getSession().getAttribute("loginemail");
 		    int num = service.fpwriteOk(email);
