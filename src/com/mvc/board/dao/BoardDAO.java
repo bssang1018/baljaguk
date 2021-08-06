@@ -94,12 +94,30 @@ public class BoardDAO {
 		return feedlist;
 	}
 
-	public ArrayList<FootprintDTO> Mfeedlist() {
-		String sql="SELECT fnum, footPrintNO, markerNO, email, reg_date, footprintText, oriFileName, newFileName FROM (SELECT ROW_NUMBER() OVER (ORDER BY f.footprintNO DESC) AS fnum, f.footPrintNO, f.markerNO, f.email, f.reg_date, f.footprintText, f.postblind, P.oriFileName, P.newFileName FROM footprint f LEFT OUTER JOIN PostPic P ON f.footPrintNO = P.footPrintNO WHERE f.release = 1 AND f.postblind IS NULL OR f.postblind=0)";
-		 ArrayList<FootprintDTO> Mfeedlist = null;
+	public ArrayList<FootprintDTO> Mfeedlist(int page) {
+		String sql ="SELECT fnum, footPrintNO, markerNO, email, reg_date, footprintText, oriFileName, newFileName "
+				+ "FROM (SELECT ROW_NUMBER() OVER (ORDER BY f.footprintNO DESC) "
+				+ "AS fnum, f.footPrintNO, f.markerNO, f.email, f.reg_date, f.footprintText, f.postblind, P.oriFileName, P.newFileName "
+				+ "FROM footprint f LEFT OUTER JOIN PostPic P ON f.footPrintNO = P.footPrintNO "
+				+ "WHERE f.release = 1 AND f.postblind IS NULL OR f.postblind=0) WHERE fnum BETWEEN 1 AND ? ";
+		// 한블럭당 페이지 갯수
+		int pageLength = 5;
+		// 블럭 인덱스
+		int currentBlock = page % pageLength == 0 ? page / pageLength : (page / pageLength) + 1;
+		// 시작페이지
+		int startPage = (currentBlock - 1) * pageLength + 1;
+		// 끝페이지
+		int endPage = startPage + pageLength - 1;
+		// 노출할 데이터 갯수
+		int pagePerCnt = 8;
+		int end = page * pagePerCnt;
+		int start = (end - pagePerCnt) + 1;
+		ArrayList<FootprintDTO> Mfeedlist = null;
 		    FootprintDTO dto = null;
 		    try {
+		    	
 				ps = conn.prepareStatement(sql);
+				ps.setInt(1, end);
 				rs = ps.executeQuery();
 				Mfeedlist = new ArrayList<FootprintDTO>();
 				while(rs.next()) {
@@ -114,6 +132,7 @@ public class BoardDAO {
 					dto.setNewFileName(rs.getString("newFileName"));
 					Mfeedlist.add(dto);
 				}
+				
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}

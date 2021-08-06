@@ -17,7 +17,7 @@ import com.mvc.board.service.BoardService;
 import com.mvc.member.dto.MemberDTO;
 import com.mvc.member.service.MemberService;
 
-@WebServlet({"/","/main","/login", "/join","/logout","/overlay", "/memberInfo","/memberUpdate","/memberUpdateForm","/uploadphoto","/cancel","/chk"})
+@WebServlet({"/plusMain","/","/main","/login", "/join","/logout","/overlay", "/memberInfo","/memberUpdate","/memberUpdateForm","/uploadphoto","/cancel","/chk"})
 public class MemberController extends HttpServlet {
 
 	@Override
@@ -45,9 +45,17 @@ public class MemberController extends HttpServlet {
 		 BoardService bservice = new BoardService(req);
 		 req.setAttribute("M", bservice.Mfeedlist());
 		  dis = req.getRequestDispatcher("main.jsp");
+		  System.out.println("실행완료");
 		  dis.forward(req, resp);
 		 break;
 		 
+		  case "/plusMain":
+			  bservice = new BoardService(req);
+			  HashMap<String, Object> map = new HashMap<String, Object>();
+			  map.put("list", bservice.Mfeedlist());
+			  resp.setContentType("text/html; charset=UTF-8");
+			  resp.getWriter().print(new Gson().toJson(map));
+			  break;
 		
 		case "/join":
 			

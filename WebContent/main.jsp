@@ -15,15 +15,12 @@ body, head {
 }
 #size{
 max-width: 100%;
-  height: 210px;;
+  height: 210px;
 }
 
  img{
   max-width: 100%;
-  height: auto;
-}
-#frame{
-height :400px;
+  object-fit : cover;
 }
 #text{
   display: inline-block; width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
@@ -53,9 +50,7 @@ height :400px;
    	 </c:if>	
    	 
    	 <c:forEach items="${M}" var="M" >
-
-			<div class="col text-center" id="frame">
-				<div class="card text-center ">
+			<div class="gogo col text-center" id="frame" style="opacity:0;">
 					<p style="display : none;">${M.boardNO}</p>
 					<div id="size">
 					<img src="/photo/${M.newFileName}" />
@@ -63,21 +58,67 @@ height :400px;
 					<div class="card-body">
 						<p class="card-title">작성자 : ${M.email} </p>
 						<hr/>
-						<p class="card-text" id="text">${M.footprintText }</p>
+						<p class="card-text" id="text">${M.footprintText}</p>
 					</div>
 					<div class="card-footer text-center">
 						<button class="btn btn-primary" onclick="location.href='fpdetail?footPrintNO=${M.footPrintNO}'">자세히 보기</button>
 					</div>
-				</div>
 			</div>
    </c:forEach>
+
 		</div>
 	</div>
+	   <div class="text-center">
+   <button id="plusBtn" class="btn btn-primary" style="margin-bottom:100px">더보기</button>
+   </div>
 <!-- 하단단 메뉴바 -->
 <c:import url="./view/bottom.jsp"/>
 </body>
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
+
+$('.gogo').animate({
+	opacity :1
+})
+
+var page = 1;
+$(document).on('click','#plusBtn',function(){
+	page++;
+	$.ajax({
+		 type : 'GET',
+		    url : 'plusMain',
+		    data : { 'page' : page },
+		    dataType : 'JSON',
+		    success : function(data) {
+		       console.log(data);		
+		        content='';
+		        $.each(data.list,function(i,item){
+		       content += 	'<div class="col text-center " id="frame" >'
+		       content += 	'<p style="display : none;">'+item.boardNO+'</p>'
+		       content += 		'<div id="size">'
+		       content += 		'<img src="/photo/'+item.newFileName+'" />'
+		    	   content += 		'</div>'
+		    	   content += 		'<div class="card-body">'
+		    	   content += 			'<p class="card-title">작성자 : '+item.email+' </p>'
+		    	   content += 			'<hr/>'
+		    	   content += 			'<p class="card-text" id="text">'+item.footprintText+'</p>'
+		    	   content += 		'</div>'
+		    	   content += 		'<div class="card-footer text-center">'
+		    	   content += 			'<a class="btn btn-primary" href="fpdetail?footPrintNO='+item.footPrintNO+'">자세히 보기</a>'
+		    	   content += 		'</div>'
+		    	   content += 	'</div>' 	  
+		        })
+		        $('#card').empty();
+		        $('#card').append(content);
+		    },
+		    error : function(e) {
+		       console.log(e);
+		    }
+	})
+	
+})
+		
+
 var success = "${success}";
 if(success == "true") {
 	alert("로그인 성공");
@@ -88,35 +129,8 @@ if(success == "false") {
 	location.href="login.jsp";
 }
 
-$(document).ready(function() { 
-    var page = 2; //처음 보여준 페이지 다음부터 시작
-    var list = 8; //한 페이지에 보여지는 게시글 수             
-    var max = $('#max').val(); // db에서 가져온 데이터 총 개수
-    var total_page = Math.ceil(max/list); 
-    var page_start = (page-1)* list; // db에서 몇번째 자료부터 보여줄지 정합니다
-
-$(window).scroll(function() {
-
- if ($('body').height() <= ($(window).height() + $(window).scrollTop())) { //스크롤바가 윈도우창 아래쪽에 닿았을때
-  if(page<=total_page){ //페이지가 페이지 총합보다 적으면
-     $.ajax({ // ajax 사용
-       url: "main", //ajax 데이터 보내서 처리 할 곳
-                       data: { // 보낼 데이터
-                              'list' : list, 
-                              'page_start' : page_start
-                       },
-       type:"post" //보낼 방식
-     }).done(function(data) { //데이터 전송에 성공하면 
-       page += 1; //페이지를 1 올립니다.
-       page_start = (page-1)* list; //db에서 보여줄 자료 순번을 갱신합니다
-       
-       $('#card').append(data); //원하는곳에 받은 데이터를 추가합니다
-     });
- }
-}
-});
-
-});
+var page = 1;
+ 
 </script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script

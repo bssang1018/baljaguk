@@ -45,8 +45,13 @@ public class BoardService {
 
 	public ArrayList<FootprintDTO> Mfeedlist() {
 		BoardDAO dao = new BoardDAO();
-		ArrayList<FootprintDTO> Mfeedlist = dao.Mfeedlist();
+		String page = req.getParameter("page");
+		if(page == null) {
+			page= "1";
+		}
+		ArrayList<FootprintDTO> Mfeedlist = dao.Mfeedlist(Integer.parseInt(page));
 		System.out.println(Mfeedlist.size()+"건의 피드");
+		
 		dao.resClose();
 		return Mfeedlist;
 	}
