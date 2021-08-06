@@ -46,7 +46,7 @@
   
    <tr>
       <th>사진</th>
-      <td><img src="/photo/${footprint.newFileName}" width="500px"></td>
+      <td><img src="/photo/${footprint.newFileName}" width="300px" height="auto"></td>
    </tr>
    
    <tr>
