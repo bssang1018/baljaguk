@@ -25,6 +25,7 @@ table, th, td {
 				<tr>
 					<td><input class='search' type="text" name='email'/></td>
 					<td><button class="btn">검색</button></td>
+					<td><input type='button' onclick='location.href="/Footprint/index1.jsp"' value="목록으로"/></td>
 				</tr>
 			</thead>
 		</table>
@@ -32,44 +33,45 @@ table, th, td {
 		<thead>
 			<tr>
 				<th>이메일</th>
-				<th>닉네임</th>
+				<th>이름</th>
 				<th>상세보기</th>
 				<th>정지하기</th>
 				<th>블랙리스트 등록하기</th>
 			</tr>
 		</thead>
-		<tbody id="listbody"></tbody>
+		<tbody></tbody>
 	</table>
-		<a href="index1.jsp">관리자창</a>
+	<!-- 페이지를 몇부터 몇까지 보여줄건지 (이전/다음)  -->
+	<div class="pageArea">
+	
+	</div>
 </body>
 <script>
-	listCall();
-	
-	function listCall() {
-		$.ajax({
-			type : 'get',
-			url : 'memberlist',
-			data : {},
-			dataType : 'JSON',
-			success : function(data) {
-				console.log(data);
-				drawList(data.list);
-			},
-			error : function(e) {
-				console.log(e);
-			}
-		});
-	}
+var page = 1;
+listCall(page);
+function listCall(page) {
+	var param = {};
+	param.page = page;
+	$.ajax({
+		type : 'get',
+		url : 'memberlist',
+		data : param,
+		dataType : 'JSON',
+		success : function(data) {
+			console.log(data);
+			drawList(data.list);
+			pageList(data);
+		},
+		error : function(e) {
+			console.log(e);
+		}
+	});
+}
 
 	//회원 리스트 출력 함수
 	function drawList(list) {
 		//console.log(list);
 		var content = "";
-		//1. 총게시글 개수 찾기
-		var lastcon = 0;
-		//2. 보여줄 게시글 수
-		var seecon = 10;
-		
 		list.forEach(function(item, idx) {
 			console.log(item, idx);
 			content += "<tr>";
@@ -77,20 +79,15 @@ table, th, td {
 			content += "<td>" + item.name + "</td>";
 			//content += "<td><button onclick='location.href="+"memberdetail?email="+item.email+"'>상세보기</button></td>";
 			content += "<td><a href='memberdetail?email="+item.email+"'>상세보기</a></td>";
-			content += "<td><a href='stopwriteform?email="+item.email+"'>등록하기</a></td>";
-			content += "<td><a href='blackwriteform?email="+item.email+"'>등록하기</a></td>";
+			content += "<td><a href='stopwriteform?email="+item.email+"'>정지하기</a></td>";
+			content += "<td><a href='blackwriteform?email="+item.email+"'>블랙리스트 등록하기</a></td>";
 			content += "</tr>";
-			lastcon += 1;
 		});
-		console.log(lastcon);
-		//3. 만들 수 잇는 페이지 수
-		var makepage = lastcon/seecon;
 		$("tbody").empty();
 		$("tbody").append(content);
 	}
 
 // 검색 함수
-
 console.log($('.btn'));
  $('.btn').click(function(){
 	 var param = {};
@@ -111,7 +108,7 @@ console.log($('.btn'));
 			}
 		});
  });
- 
+ // 검색 뿌리기 함수
  function searchList(list) {
 		console.log(list);
 		var content = "";
@@ -120,13 +117,29 @@ console.log($('.btn'));
 			content += "<tr>";
 			content += "<td>" + item.email + "</td>";
 			content += "<td>" + item.name + "</td>";
-			content += "<td><button onclick='location.href="+"detail?email="+item.email+"'>상세보기</button></td>";
-			content += "<td><a href='stopwriteform?email="+item.email+"'>등록하기</a></td>";
-			content += "<td><a href='blackwriteform?email="+item.email+"'>등록하기</a></td>";
+			content += "<td><a href='memberdetail?email="+item.email+"'>상세보기</a></td>";
+			content += "<td><a href='stopremove?email="+item.email+"'>정지해제</a></td>";
 			content += "</tr>";
 		});
 		$("tbody").empty();
 		$("tbody").append(content);
+		$("div").empty();
+	}
+//페이징 처리 함수
+	function pageList(list){
+		var content = "";
+		console.log("페이징처리 함수옴")
+			for(i = 1; i<= list.totalPage; i++){
+				content += "<span class='page'>";
+				if(i != list.currPage){
+					content += "<button onclick='listCall("+i+");'>"+i+"</button>";
+				}else{
+					content += "<b>"+i+"</b>";
+				}
+				content += "</span>";
+			};
+			$("div").empty();
+			$("div").append(content);
 	}
 </script>
 </html>

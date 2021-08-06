@@ -1,6 +1,7 @@
 package com.mvc.serviceCenter.service;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -21,9 +22,11 @@ public class ScService {
 	private HttpServletRequest req = null;
 	private HttpServletResponse resp = null;
 
-	public ScService(HttpServletRequest req, HttpServletResponse resp) {
+	public ScService(HttpServletRequest req, HttpServletResponse resp) throws UnsupportedEncodingException {
 		this.req = req;
 		this.resp = resp;
+		req.setCharacterEncoding("UTF-8");
+        resp.setContentType("text/html; charset=UTF-8");
 	}
 
 	public void contdetail() throws IOException {
@@ -122,14 +125,12 @@ public class ScService {
 		
 	}
 
-	public void blacklist() throws IOException {
+	public void blacklist(int page) throws IOException {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		ScDAO dao = new ScDAO();
-		ArrayList<MemberDTO> list = null;
 		
-		list = dao.blacklist();
+		map = dao.blacklist(page);
 		dao.resClose();
-		map.put("list", list);
 		resp.setContentType("text/html; charset=UTF-8");
 		resp.getWriter().println(new Gson().toJson(map));
 		
@@ -163,18 +164,16 @@ public class ScService {
 		
 	}
 
-	public void memberlist() throws IOException {
+	public void memberlist(int page) throws IOException {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		ScDAO dao = new ScDAO();
-		ArrayList<MemberDTO> list = null;
 		
-		list = dao.memberlist();
+		map = dao.memberlist(page);
 		dao.resClose();
-		map.put("list", list);
 		resp.setContentType("text/html; charset=UTF-8");
 		resp.getWriter().println(new Gson().toJson(map));
-		
 	}
+	
 	public void membersearch(String email) throws IOException {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		ScDAO dao = new ScDAO();
@@ -196,7 +195,6 @@ public class ScService {
 		dao.resClose();
 		resp.setContentType("text/html; charset=UTF-8");
 		resp.getWriter().println(new Gson().toJson(map));
-		
 	}
 
 	public void stopmembersearch(String email) throws IOException {
@@ -252,7 +250,7 @@ public class ScService {
 		System.out.println("이메일: "+email+"사유: "+reason);
 		success = dao.blackregister(email,reason);
 		dao.resClose();
-		
+		System.out.println("success: "+success);
 		return success;
 	}
 
@@ -285,7 +283,28 @@ public class ScService {
 		dao.resClose();
 		resp.setContentType("text/html; charset=UTF-8");
 		resp.getWriter().println(new Gson().toJson(map));
-		System.out.println("map:" + map);
+	}
+
+	public void blacksearch(String email) throws IOException {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		ScDAO dao = new ScDAO();
+		ArrayList<MemberDTO> list = null;
+		
+		list = dao.blacksearch(email);
+		dao.resClose();
+		map.put("list", list);
+		resp.setContentType("text/html; charset=UTF-8");
+		resp.getWriter().println(new Gson().toJson(map));
+		
+	}
+
+	public int blackremove(String email) {
+		int success = 0;
+		ScDAO dao = new ScDAO();
+		success = dao.blackremove(email);
+		dao.resClose();
+		
+		return success;
 	}
 		
 }

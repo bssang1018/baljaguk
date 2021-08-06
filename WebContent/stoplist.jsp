@@ -25,6 +25,7 @@ table, th, td {
 				<tr>
 					<td><input class='search' type="text" name='email'/></td>
 					<td><button class="btn">검색</button></td>
+					<td><input type='button' onclick='location.href="/Footprint/index1.jsp"' value="목록으로"/></td>
 				</tr>
 			</thead>
 		</table>
@@ -32,7 +33,7 @@ table, th, td {
 		<thead>
 			<tr>
 				<th>이메일</th>
-				<th>닉네임</th>
+				<th>이름</th>
 				<th>상세보기</th>
 				<th>정지해제하기</th>
 			</tr>
@@ -41,8 +42,8 @@ table, th, td {
 	</table>
 	<!-- 페이지를 몇부터 몇까지 보여줄건지 (이전/다음)  -->
 	<div class="pageArea">
+	
 	</div>
-	<a href="index1.jsp">관리자창</a>
 </body>
 <script>
 var page = 1;
@@ -52,7 +53,7 @@ function listCall(page) {
 	param.page = page;
 	$.ajax({
 		type : 'get',
-		url : 'withdrawlist',
+		url : 'stoplist',
 		data : param,
 		dataType : 'JSON',
 		success : function(data) {
@@ -92,7 +93,7 @@ console.log($('.btn'));
 	 console.log(param);
 	 $.ajax({
 			type:'POST',
-			url:'membersearch',
+			url:'stopmembersearch',
 			data:param,
 			dataType:'JSON',
 			success:function(data){
@@ -105,22 +106,7 @@ console.log($('.btn'));
 			}
 		});
  });
-//페이징 처리 함수
-	function pageList(list){
-		var content = "";
-		console.log("페이징처리 함수옴")
-			for(i = 1; i<= list.totalPage; i++){
-				content += "<span class='page'>";
-				if(i != list.currPage){
-					content += "<button onclick='listCall("+i+");'>"+i+"</button>";
-				}else{
-					content += "<b>"+i+"</b>";
-				}
-				content += "</span>";
-			};
-			$("div.pageArea").empty();
-			$("div.pageArea").append(content);
-	}
+ // 검색 뿌리기 함수
  function searchList(list) {
 		console.log(list);
 		var content = "";
@@ -135,6 +121,23 @@ console.log($('.btn'));
 		});
 		$("tbody").empty();
 		$("tbody").append(content);
+		$("div").empty();
+	}
+//페이징 처리 함수
+	function pageList(list){
+		var content = "";
+		console.log("페이징처리 함수옴")
+			for(i = 1; i<= list.totalPage; i++){
+				content += "<span class='page'>";
+				if(i != list.currPage){
+					content += "<button onclick='listCall("+i+");'>"+i+"</button>";
+				}else{
+					content += "<b>"+i+"</b>";
+				}
+				content += "</span>";
+			};
+			$("div").empty();
+			$("div").append(content);
 	}
 </script>
 </html>

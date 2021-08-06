@@ -25,6 +25,7 @@ table, th, td {
 				<tr>
 					<td><input class='search' type="text" name='email'/></td>
 					<td><button class="btn">검색</button></td>
+					<td><input type='button' onclick='location.href="/Footprint/index1.jsp"' value="목록으로"/></td>
 				</tr>
 			</thead>
 		</table>

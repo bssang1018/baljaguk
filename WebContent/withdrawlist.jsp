@@ -35,6 +35,7 @@ div.pageArea{
 				<tr>
 					<td><input class='search' type="text" name='email'/></td>
 					<td><button class="btn">검색</button></td>
+					<td><input type='button' onclick='location.href="/Footprint/index1.jsp"' value="목록으로"/></td>
 				</tr>
 			</thead>
 		</table>
@@ -43,6 +44,7 @@ div.pageArea{
 			<tr>
 				<th>이메일</th>
 				<th>닉네임</th>
+				<th>상세보기</th>
 			</tr>
 		</thead>
 		<tbody></tbody>
@@ -51,31 +53,28 @@ div.pageArea{
 	<div class="pageArea">
 	
 	</div>
-		<a href="index1.jsp">관리자창</a>
 </body>
 <script>
-	var page = 1;
-	var n = 1;
-	var localList;
-	listCall(page);
-	function listCall(page) {
-		var param = {};
-		param.page = page;
-		$.ajax({
-			type : 'get',
-			url : 'withdrawlist',
-			data : param,
-			dataType : 'JSON',
-			success : function(data) {
-				console.log(data);
-				drawList(data.list);
-				pageList(data,n);
-			},
-			error : function(e) {
-				console.log(e);
-			}
-		});
-	}
+var page = 1;
+listCall(page);
+function listCall(page) {
+	var param = {};
+	param.page = page;
+	$.ajax({
+		type : 'get',
+		url : 'withdrawlist',
+		data : param,
+		dataType : 'JSON',
+		success : function(data) {
+			console.log(data);
+			drawList(data.list);
+			pageList(data);
+		},
+		error : function(e) {
+			console.log(e);
+		}
+	});
+}
 
 	//회원 리스트 출력 함수
 	function drawList(list) {
@@ -86,70 +85,15 @@ div.pageArea{
 			content += "<tr>";
 			content += "<td>" + item.email + "</td>";
 			content += "<td>" + item.name + "</td>";
+			//content += "<td><button onclick='location.href="+"memberdetail?email="+item.email+"'>상세보기</button></td>";
+			content += "<td><a href='memberdetail?email="+item.email+"'>상세보기</a></td>";
 			content += "</tr>";
 		});
 		$("tbody").empty();
 		$("tbody").append(content);
 	}
 
-	//초기 페이징 처리 함수
-	function pageList(list,n){
-		var content = "";
-		console.log("페이징처리 함수옴")
-			for(i = n; i<= list.totalPage; i++){
-				content += "<span class='page'>";
-				if(i != list.currPage){
-					console.log("처음 localList.currPage: "+list.currPage);
-					content += "<button onclick='listCall("+i+");'>"+i+"</button>";
-				}else{
-					content += "<b>"+i+"</b>";
-				}
-				content += "</span>";
-				if(i%5==0){
-					localList = list;
-					content += "<span class='page'>";
-					content += "<button onclick='nextList("+i+");'>다음</button>";
-					content += "</span>";
-					break;
-				}
-			};
-			$("div.pageArea").empty();
-			$("div.pageArea").append(content);
-	}
-	
-	//다음 페이징 처리함수
-	function nextList(a){
-		var content = "";
-		console.log("다음페이징처리 함수옴")
-			for(i = a+1; i<= localList.totalPage; i++){
-				console.log("for문 시작i: "+i);
-				content += "<span class='page'>";
-				if(i != localList.currPage){
-					console.log("next localList.currPage: "+localList.currPage);
-					content += "<button onclick='listCall("+i+");'>"+i+"</button>";
-					console.log("현재페이지 i: "+i);
-				}else{
-					content += "<b>"+i+"</b>";
-				}
-				content += "</span>";
-				if(i%5==0){
-					content += "<span class='page'>";
-					content += "<button onclick='nextList("+i+");'>다음</button>";
-					content += "</span>";
-					break;
-				}
-			};
-			$("div.pageArea").empty();
-			$("div.pageArea").append(content);
-	}
-	
-	//이전 페이징 처리함수
-	function prevList(){
-		
-	}
-	
-	
-// 검색 함수 호출 함수
+// 검색 함수
 console.log($('.btn'));
  $('.btn').click(function(){
 	 var param = {};
@@ -157,7 +101,7 @@ console.log($('.btn'));
 	 console.log(param);
 	 $.ajax({
 			type:'POST',
-			url:'membersearch',
+			url:'withdrawsearch',
 			data:param,
 			dataType:'JSON',
 			success:function(data){
@@ -170,7 +114,7 @@ console.log($('.btn'));
 			}
 		});
  });
-//검색 함수
+ // 검색 뿌리기 함수
  function searchList(list) {
 		console.log(list);
 		var content = "";
@@ -179,11 +123,29 @@ console.log($('.btn'));
 			content += "<tr>";
 			content += "<td>" + item.email + "</td>";
 			content += "<td>" + item.name + "</td>";
+			content += "<td><a href='memberdetail?email="+item.email+"'>상세보기</a></td>";
+			content += "<td><a href='stopremove?email="+item.email+"'>정지해제</a></td>";
 			content += "</tr>";
 		});
 		$("tbody").empty();
 		$("tbody").append(content);
 		$("div").empty();
+	}
+//페이징 처리 함수
+	function pageList(list){
+		var content = "";
+		console.log("페이징처리 함수옴")
+			for(i = 1; i<= list.totalPage; i++){
+				content += "<span class='page'>";
+				if(i != list.currPage){
+					content += "<button onclick='listCall("+i+");'>"+i+"</button>";
+				}else{
+					content += "<b>"+i+"</b>";
+				}
+				content += "</span>";
+			};
+			$("div").empty();
+			$("div").append(content);
 	}
 </script>
 </html>
