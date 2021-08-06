@@ -16,9 +16,9 @@
 </style>
 </head>
 <body>
-	<!-- 상단 메뉴바 -->
-<c:import url="./view/topmenu.jsp"/>
-	<!-- 내용시작 -->
+
+<h2>공지공지공지</h2>
+
 <table>
 		<tr>
 			<th></th>
@@ -34,7 +34,7 @@
 			</tr>
 		</c:if>
 		
-		<c:forEach items="${searchlist}" var="qnas">
+		<c:forEach items="${map.searchlist}" var="qnas">
 			<tr>
 				<td><input type="checkbox" value='${qnas.qnano}'/></td>
 				

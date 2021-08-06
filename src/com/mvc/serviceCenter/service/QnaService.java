@@ -7,7 +7,7 @@ import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 
-
+import com.mvc.serviceCenter.dao.FaqDAO;
 import com.mvc.serviceCenter.dao.QnaDAO;
 import com.mvc.serviceCenter.dto.QnaDTO;
 
@@ -62,20 +62,22 @@ public class QnaService {
 
 
 
-	public ArrayList<QnaDTO> searchlist(String searchKey) {
+	public HashMap<String, Object> searchlist(String searchKey) {
+String page = req.getParameter("page");
+		
 		QnaDAO dao = new QnaDAO();
-		ArrayList<QnaDTO> searchlist = dao.searchlist(searchKey);
-		System.out.println("검색 결과 수  :" +searchlist.size());
+		if(page==null) {
+			page= "1";
+		}
+		System.out.println("현재 page: " + page);
+		
+		HashMap<String, Object> map = dao.searchlist(Integer.parseInt(page), searchKey);
 		dao.resClose();
-		System.out.println("자원 반납");
-		return searchlist;
+		System.out.println("자원반납 했음!");
+		return map;
 	}
 
 	public Object detail() {
-		String title = req.getParameter("title");
-		String email = req.getParameter("email");
-		String content = req.getParameter("content");
-		System.out.println(title+"/"+email+"/"+content);
 		
 		QnaDTO dto = null;
 		String qnano = req.getParameter("qnano");
@@ -102,6 +104,51 @@ public class QnaService {
 			}
 		
 		return dto;
+	}
+
+	public int del() {
+		int success = 0;
+		String qnano = req.getParameter("qnano");
+		System.out.println("qnano : " + qnano);
+		
+		QnaDAO dao = new QnaDAO();
+		success = dao.del(qnano);
+		System.out.println("del success : " +success);
+		
+		dao.resClose();		
+		return success;
+	}
+
+	public Object qnaupdateForm() {
+		String qnano = req.getParameter("qnano");
+		System.out.println("qnano : " +qnano);
+		QnaDAO dao = new QnaDAO();
+		QnaDTO dto = dao.qnadetail(qnano);
+		System.out.println("dto : " +dto);
+		dao.resClose();
+		return dto;
+
+	}
+
+	public int qnaupdate(String qnano) {
+		int success = 0;
+		String title = req.getParameter("title");
+		String content = req.getParameter("content");
+		String email = req.getParameter("email");
+		System.out.println(title+"/"+content+"/"+email);
+		
+		if(title.equals("")||email.equals("")||content.equals("")) {
+			System.out.println("경고 빈 칸이 있습니다.");
+			success = 0;
+			
+		}else {
+			QnaDAO dao = new QnaDAO();
+			success = dao.qnaupdate(qnano,title,content,email);
+			System.out.println("update success : " + success);
+			dao.resClose();
+			System.out.println("완료");
+		}
+			return success;		
 	}
 
 
