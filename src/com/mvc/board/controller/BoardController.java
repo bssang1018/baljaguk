@@ -78,6 +78,12 @@ public class BoardController extends HttpServlet {
 		
 		case "/fpwriteOk":
 			System.out.println("발자국 글쓰기 요청");
+			/*
+			 * String hashtag = req.getParameter("hashtag"); String text =
+			 * req.getParameter("footprintText")
+			 * System.out.println("컨트롤러 겟 파라미터 hashtag: "+hashtag);
+			 * System.out.println("컨트롤러 겟 파라미터 footprintText"+text);
+			 */
 			email = (String) req.getSession().getAttribute("loginemail");
 		    int num = service.fpwriteOk(email);
 		   page = num > 0 ? "./fpdetail?footPrintNO="+num:"feedlist.jsp";

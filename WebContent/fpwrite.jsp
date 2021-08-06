@@ -77,7 +77,7 @@ a:hover {
        &nbsp;&nbsp;
       <input type="radio" name="ok" value="0" checked/>발자국 비공개
       <br/>
-      <button>저장</button>
+      <input type='submit' value='저장'/>
       <input type="button" onclick="location.href='fplist.jsp" value="발자국 리스트"/>
      </td>
    </tr>

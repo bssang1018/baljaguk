@@ -121,7 +121,7 @@ public class BoardDAO {
 	}
 	
 	//공개 글쓰기
-		public int fpwriteOk(FootprintDTO dto, String email, String hashtag ) {
+		public int fpwriteOk(FootprintDTO dto, String email) {
 			//발자국 글 등록 sql//찜마커가 지금 없으므로 뺴고 진행
 			String sql1 = "INSERT INTO footprint(footPrintNO, email,release, footprintText)"
 					+ " VALUES(footprint_seq.NEXTVAL,?,?,?)";
@@ -152,9 +152,8 @@ public class BoardDAO {
 					//여기에 복사
 						ps = conn.prepareStatement(sql2);
 						System.out.println("pk: "+rs.getInt(1));
-						System.out.println("hashtag : "+ hashtag);
 						ps.setInt(1, pk);
-						ps.setString(2, hashtag);
+						ps.setString(2, dto.getHashTag());
 						int a = ps.executeUpdate();
 						System.out.println("성공해썽?"+a);
 				}
