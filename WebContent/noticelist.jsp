@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,6 +10,8 @@
 <link rel="stylesheet" href="css/common.css" type="text/css">
 </head>
 <body>
+<!-- 상단 메뉴바 -->
+<c:import url="./view/topmenu.jsp"/>
 <ul class="noticecenter">
  
         <li>
@@ -71,7 +74,14 @@
 			</a></li>
 		</c:if>
 	</ul>
-
+<br />
+	<br />
+	<form class="d-inline-flex justify-content-end" style="height: 21px;"
+		action="noticesearch" method="post">
+	 <input class="form-control me-1" type="search"
+			placeholder="검색어를 입력해주세요" aria-label="Search" name="searchKey" />
+		<button class="btn btn-outline-secondary" type="submit">search</button>
+	</form>
 
 
 

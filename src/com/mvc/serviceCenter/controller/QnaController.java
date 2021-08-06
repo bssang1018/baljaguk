@@ -112,7 +112,8 @@ public class QnaController extends HttpServlet {
 			System.out.println("qna 검색 요청");
 			String searchKey = req.getParameter("searchKey");//검색어
 			System.out.println("검색어 : " + searchKey);
-			req.setAttribute("searchlist", service.searchlist(searchKey));
+			req.setAttribute("srmap", service.searchlist(searchKey));
+			req.setAttribute("searchlist", searchKey);
 			dis= req.getRequestDispatcher("qnasearch.jsp");
 			dis.forward(req, resp);
 			

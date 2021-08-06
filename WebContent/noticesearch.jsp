@@ -18,10 +18,7 @@ table, tr, th, td {
 </style>
 </head>
 <body>
-	<!-- 상단 메뉴바 -->
-<c:import url="./view/topmenu.jsp"/>
-	<!-- 내용시작 -->
-<h2>faq 검색 결과</h2>
+
 <h3>"${searchlist}"</h3>
 
 	<table>
@@ -32,18 +29,18 @@ table, tr, th, td {
 			<th>작성일</th>
 		</tr>
 
-		<c:if test="${empty map}">
+		<c:if test="${map eq null || map eq ''}">
 			<tr>
 				<td colspan="5">검색 결과가 없어요ㅠ</td>
 			</tr>
 		</c:if>
 
-		<c:forEach items="${map.searchlist}" var="faq">
+		<c:forEach items="${map.searchlist}" var="notice">
 			<tr>
-				<td>${faq.idx}</td>
-				<td><a href="faqdetail?idx=${faq.idx}">${faq.title}</a></td>
-				<td>${faq.email}</td>
-				<td>${faq.reg_date}</td>
+				<td>${notice.idx}</td>
+				<td><a href="noticedetail?idx=${notice.idx}">${notice.title}</a></td>
+				<td>${notice.email}</td>
+				<td>${notice.reg_date}</td>
 
 			</tr>
 		</c:forEach>
@@ -52,20 +49,20 @@ table, tr, th, td {
 	<br />
 			<ul class="pagination">
 				<c:if test="${map.startPage ne 1}">
-				<li class="page-item"><a class="page-link" href="./faqsearch?page=${map.startPage-1}&searchKey=${searchlist}"
+				<li class="page-item"><a class="page-link" href="./noticesearch?page=${map.startPage-1}&searchKey=${searchlist}"
 					aria-label="Previous"> <span aria-hidden="true">&laquo;</span>		
 				</a></li>
 				</c:if>
 				<c:forEach var="i" begin="${map.startPage}" end="${map.endPage}">
 				<c:if test="${i ne map.currPage}">
-				<li class="page-item"><a class="page-link" href="./faqsearch?page=${i}&searchKey=${searchlist}">${i}</a></li>
+				<li class="page-item"><a class="page-link" href="./noticesearch?page=${i}&searchKey=${searchlist}">${i}</a></li>
 				</c:if>
 				<c:if test="${i eq map.currPage}">
-				<li class="page-item active"><a class="page-link" href="./faqsearch?page=${i}&searchKey=${searchlist}">${i}</a></li>
+				<li class="page-item active"><a class="page-link" href="./noticesearch?page=${i}&searchKey=${searchlist}">${i}</a></li>
 				</c:if>
 				</c:forEach>
 				<c:if test="${map.totalPage ne map.endPage}">
-				<li class="page-item"><a class="page-link" href="./faqsearch?page=${map.endPage+1}&searchKey=${searchlist}"
+				<li class="page-item"><a class="page-link" href="./noticesearch?page=${map.endPage+1}&	=${searchlist}"
 					aria-label="Next"> <span aria-hidden="true">&raquo;</span>
 				</a></li>
 				</c:if>

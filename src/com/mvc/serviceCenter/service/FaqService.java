@@ -147,7 +147,7 @@ public class FaqService {
 	}
 
 	public HashMap<String, Object> searchlist(String searchKey) {
-String page = req.getParameter("page");
+		String page = req.getParameter("page");
 		
 		FaqDAO dao = new FaqDAO();
 		if(page==null) {

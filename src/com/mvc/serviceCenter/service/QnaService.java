@@ -2,12 +2,9 @@ package com.mvc.serviceCenter.service;
 
 import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
-
-import com.mvc.serviceCenter.dao.FaqDAO;
 import com.mvc.serviceCenter.dao.QnaDAO;
 import com.mvc.serviceCenter.dto.QnaDTO;
 
@@ -62,20 +59,6 @@ public class QnaService {
 
 
 
-	public HashMap<String, Object> searchlist(String searchKey) {
-String page = req.getParameter("page");
-		
-		QnaDAO dao = new QnaDAO();
-		if(page==null) {
-			page= "1";
-		}
-		System.out.println("현재 page: " + page);
-		
-		HashMap<String, Object> map = dao.searchlist(Integer.parseInt(page), searchKey);
-		dao.resClose();
-		System.out.println("자원반납 했음!");
-		return map;
-	}
 
 	public Object detail() {
 		
@@ -152,6 +135,20 @@ String page = req.getParameter("page");
 	}
 
 
+	public HashMap<String, Object> searchlist(String searchKey) {
+		String page = req.getParameter("page");
+		
+		QnaDAO dao = new QnaDAO();
+		if(page==null) {
+			page= "1";
+		}
+		System.out.println("현재 page: " + page);
+		
+		HashMap<String, Object> map = dao.searchlist(Integer.parseInt(page), searchKey);
+		dao.resClose();
+		System.out.println("자원반납 했음!");
+		return map;
+	}
 
 
 }

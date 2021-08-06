@@ -6,6 +6,7 @@ import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.mvc.serviceCenter.dao.FaqDAO;
 import com.mvc.serviceCenter.dao.NotcieDAO;
 import com.mvc.serviceCenter.dto.NoticeDTO;
 
@@ -161,6 +162,22 @@ public class NoticeService {
 		
 		return success;
 		
+	}
+
+
+	public HashMap<String, Object> searchlist(String searchKey) {
+		String page = req.getParameter("page");
+
+		NotcieDAO dao = new NotcieDAO();
+		if (page == null) {
+			page = "1";
+		}
+		System.out.println("현재 page: " + page);
+
+		HashMap<String, Object> map = dao.searchlist(Integer.parseInt(page), searchKey);
+		dao.resClose();
+		System.out.println("자원반납 했음!");
+		return map;
 	}
 	
 	

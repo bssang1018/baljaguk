@@ -66,7 +66,7 @@ body, head {
 		
 		<c:if test="${map.startPage ne 1}">
 			<li class="page-item"><a class="page-link"
-				href="./qnalist?page=${map.startPage-1}" aria-label="Previous"> <span
+				href="./qnalist	?page=${map.startPage-1}" aria-label="Previous"> <span
 					aria-hidden="true">&laquo;</span>
 			</a></li>
 		</c:if>

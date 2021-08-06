@@ -246,7 +246,7 @@ public class FaqDAO {
 
 	public HashMap<String, Object> searchlist(int page, String searchKey) {
 		String sql="SELECT idx,email,categoryno,title,content,reg_date FROM (SELECT ROW_NUMBER() OVER(ORDER BY idx DESC) AS rnum,\r\n" + 
-				"idx,email,categoryno,title,content,reg_date FROM noticefaq WHERE (title LIKE ? OR email LIKE ?) AND categoryno=90) WHERE rnum BETWEEN ? AND ?";
+				"idx,email,categoryno,title,content,reg_date FROM noticefaq WHERE email LIKE ? AND categoryno=89	) WHERE rnum BETWEEN ? AND ?";
 		ArrayList<FaqDTO> searchlist = null;
 		HashMap<String, Object> srmap = new HashMap<String, Object>();
 		FaqDTO dto = null;
@@ -271,9 +271,8 @@ public class FaqDAO {
 		try {
 			ps= conn.prepareStatement(sql);
 			ps.setString(1, "%"+searchKey+'%');
-			ps.setString(2, "%"+searchKey+'%');
-			ps.setInt(3, start);
-			ps.setInt(4, end);
+			ps.setInt(2, start);
+			ps.setInt(3, end);
 			rs= ps.executeQuery();
 			searchlist = new ArrayList<FaqDTO>();
 			while(rs.next()) {
@@ -286,7 +285,7 @@ public class FaqDAO {
 				searchlist.add(dto);
 			}
 			
-			int total = totalCount(searchKey);
+			int total = totalCount2(searchKey);
 			// 총 게시글 수에 나올 페이지수 나눠서 짝수면 나눠주고 홀수면 +1
 			int totalPages = total % pagePerCnt == 0 ? total / pagePerCnt : (total / pagePerCnt) + 1;
 			if (totalPages == 0) {
@@ -315,7 +314,22 @@ public class FaqDAO {
 	}
 
 
+	private int totalCount2(String searchKey) throws SQLException {
+		String sql = "SELECT COUNT(idx) FROM (SELECT idx,email,categoryno,title,content,reg_date FROM (SELECT ROW_NUMBER() OVER(ORDER BY idx DESC) AS rnum\r\n" + 
+				",idx,email,categoryno,title,content,reg_date FROM noticefaq WHERE (title LIKE ? OR email LIKE ?) AND categoryno=90) WHERE rnum BETWEEN 1 AND 10000)";
+		ps = conn.prepareStatement(sql);
+		ps.setString(1, "%"+searchKey+'%');
+		ps.setString(2, "%"+searchKey+'%');
 
+
+		rs = ps.executeQuery();
+		int total = 0;
+		if (rs.next()) {
+			total = rs.getInt(1);
+		}
+
+		return total;
+	}
 
 
 	
