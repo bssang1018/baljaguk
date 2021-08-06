@@ -18,8 +18,8 @@ import com.mvc.serviceCenter.service.ScService;
 
 @WebServlet({"/rcontload","/rcommload","/rmessload",
 	"/contentload","/commentload","/messageload",
-	"/blackdetail","/blackdeatilView","/blacklist","/blackwriteform","/blackregister",
 	"/memberlist","/membersearch","/memberdetail",
+	"/blacklist","/blacksearch","/blackwriteform","/blackregister","/blackremove",
 	"/stoplist","/stopmembersearch","/stopwriteform","/stopregister","/stopremove",
 	"/withdrawlist"
 })
@@ -86,19 +86,13 @@ public class ScController extends HttpServlet {
 		//블랙리스트 불러오기
 		case "/blacklist":
 			System.out.println("블랙리스트 불러오기");
-			service.blacklist();
+			service.blacklist(Integer.parseInt(page));
 			break;
-		//블랙리스트 상세보기
-		case "/blackdetail":
-			System.out.println("블랙리스트 상세보기");
+		// 블랙리스트 검색
+		case "/blacksearch":
+			System.out.println("블랙리스트 검색");
 			String email = req.getParameter("email");
-			req.getSession().setAttribute("email", email);
-			resp.sendRedirect("detail.jsp");
-			break;
-		//블랙리스트 상세정보 요청
-		case "/blackdeatilView":
-			System.out.println("상세 정보 요청");
-			service.blackdetail();
+			service.blacksearch(email);
 			break;
 		//회원블랙리스트 폼 이동
 		case "/blackwriteform":
@@ -117,12 +111,22 @@ public class ScController extends HttpServlet {
 				dis.forward(req, resp);
 			};
 			break;
+		//회원블랙리스트 해제 함수
+		case "/blackremove":
+			System.out.println("블랙리스트 해제");
+			email = req.getParameter("email");
+			if(service.blackremove(email)>0) {
+				System.out.println("블랙리스트 해제 성공");
+				dis = req.getRequestDispatcher("blacklist.jsp");
+				dis.forward(req, resp);
+			};
+			break;
 			
 		//회원리스트 출력 및 검색 함수
 		//회원리스트 불러오기
 		case "/memberlist":
 			System.out.println("회원리스트 가져오기");
-			service.memberlist();
+			service.memberlist(Integer.parseInt(page));
 			break;
 		//회원리스트 검색
 		case "/membersearch":
@@ -149,12 +153,14 @@ public class ScController extends HttpServlet {
 			System.out.println("정지회원 검색");
 			email = req.getParameter("email");
 			service.stopmembersearch(email);
+			break;
 		//회원정지 폼 이동
 		case "/stopwriteform":
 			System.out.println("정지 이유 글쓰기로 이동");
 			req.setAttribute("member", service.memberdetail());
 			dis = req.getRequestDispatcher("stopwriteform.jsp");
 			dis.forward(req, resp);
+			break;
 		//회원정지 함수
 		case "/stopregister":
 			System.out.println("정지 등록");
@@ -173,7 +179,7 @@ public class ScController extends HttpServlet {
 				dis = req.getRequestDispatcher("stoplist.jsp");
 				dis.forward(req, resp);
 			};
-			
+			break;
 		// 회원탈퇴 관련 함수
 		// 탈퇴회원 리스트 불러오기
 		case "/withdrawlist":

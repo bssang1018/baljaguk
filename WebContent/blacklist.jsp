@@ -25,40 +25,47 @@ table, th, td {
 				<tr>
 					<td><input class='search' type="text" name='email'/></td>
 					<td><button class="btn">검색</button></td>
+					<td><input type='button' onclick='location.href="/Footprint/index1.jsp"' value="목록으로"/></td>
 				</tr>
 			</thead>
 		</table>
-	<form method="GET" action="memberdetail.jsp">
 	<table>
 		<thead>
 			<tr>
 				<th>이메일</th>
 				<th>닉네임</th>
 				<th>상세보기</th>
+				<th>해제하기</th>
 			</tr>
 		</thead>
 		<tbody></tbody>
 	</table>
-	</form>
-		<a href="index1.jsp">관리자창</a>
+	<!-- 페이지를 몇부터 몇까지 보여줄건지 (이전/다음)  -->
+	<div class="pageArea">
+	
+	</div>
 </body>
 <script>
-	listCall();
-	function listCall() {
-		$.ajax({
-			type : 'get',
-			url : 'memberlist',
-			data : {},
-			dataType : 'JSON',
-			success : function(data) {
-				console.log(data);
-				drawList(data.list);
-			},
-			error : function(e) {
-				console.log(e);
-			}
-		});
-	}
+var page = 1;
+listCall(page);
+function listCall(page) {
+	var param = {};
+	param.page = page;
+	$.ajax({
+		type : 'get',
+		url : 'blacklist',
+		data : param,
+		dataType : 'JSON',
+		success : function(data) {
+			console.log(data);
+			drawList(data.list);
+			pageList(data);
+		},
+		error : function(e) {
+			console.log(e);
+		}
+	});
+}
 
 	//회원 리스트 출력 함수
 	function drawList(list) {
@@ -71,6 +78,7 @@ table, th, td {
 			content += "<td>" + item.name + "</td>";
 			//content += "<td><button onclick='location.href="+"memberdetail?email="+item.email+"'>상세보기</button></td>";
 			content += "<td><a href='memberdetail?email="+item.email+"'>상세보기</a></td>";
+			content += "<td><a href='blackremove?email="+item.email+"'>블랙해제</a></td>";
 			content += "</tr>";
 		});
 		$("tbody").empty();
@@ -78,7 +86,6 @@ table, th, td {
 	}
 
 // 검색 함수
-
 console.log($('.btn'));
  $('.btn').click(function(){
 	 var param = {};
@@ -86,7 +93,7 @@ console.log($('.btn'));
 	 console.log(param);
 	 $.ajax({
 			type:'POST',
-			url:'membersearch',
+			url:'blacksearch',
 			data:param,
 			dataType:'JSON',
 			success:function(data){
@@ -99,7 +106,7 @@ console.log($('.btn'));
 			}
 		});
  });
- 
+ // 검색 뿌리기 함수
  function searchList(list) {
 		console.log(list);
 		var content = "";
@@ -108,11 +115,29 @@ console.log($('.btn'));
 			content += "<tr>";
 			content += "<td>" + item.email + "</td>";
 			content += "<td>" + item.name + "</td>";
-			content += "<td><button onclick='location.href="+"detail?email="+item.email+"'>상세보기</button></td>";
+			content += "<td><a href='memberdetail?email="+item.email+"'>상세보기</a></td>";
+			content += "<td><a href='stopremove?email="+item.email+"'>정지해제</a></td>";
 			content += "</tr>";
 		});
 		$("tbody").empty();
 		$("tbody").append(content);
+		$("div").empty();
+	}
+//페이징 처리 함수
+	function pageList(list){
+		var content = "";
+		console.log("페이징처리 함수옴")
+			for(i = 1; i<= list.totalPage; i++){
+				content += "<span class='page'>";
+				if(i != list.currPage){
+					content += "<button onclick='listCall("+i+");'>"+i+"</button>";
+				}else{
+					content += "<b>"+i+"</b>";
+				}
+				content += "</span>";
+			};
+			$("div").empty();
+			$("div").append(content);
 	}
 </script>
 </html>

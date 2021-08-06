@@ -17,7 +17,7 @@
 	<table>
 		<tr>
 			<th>이메일</th>
-			<td><input name="email" type="text" value=${member.email} ></td>
+			<td><input type='hidden' name="email" value='${member.email}' />${member.email}</td>
 		</tr>
 		<tr>
 			<th>이름</th>
@@ -30,7 +30,7 @@
 		<tr>
 			<td colspan="2">
 			<button>수정</button>
-			<button onclick="location.href='memberlist.jsp'">뒤로가기</button>
+			<a href='/Footprint/memberlist.jsp'>뒤로가기</a>
 			</td>
 		</tr>
 	</table>
