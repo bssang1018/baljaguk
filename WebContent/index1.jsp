@@ -36,7 +36,7 @@ $(".btn1").click(function(){
 $(".btn2").click(function(){
 	 $.ajax({
 			type:'POST',
-			url:'reportlist',
+			url:'rcontload',
 			data: {},
 			dataType: 'JSON',
 			success:function(data){

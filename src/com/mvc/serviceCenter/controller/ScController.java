@@ -57,15 +57,15 @@ public class ScController extends HttpServlet {
 		//신고 리스트 부르기
 		case "/rcontload":
 			System.out.println("신고글 리스트 부르기");
-			service.rcontlist();
+			service.rcontload(Integer.parseInt(page));
 			break;
 		case "/rcommload":
 			System.out.println("신고댓글 리스트 부르기");
-			service.rcommlist();
+			service.rcommload(Integer.parseInt(page));
 			break;
 		case "/rmessload":
 			System.out.println("신고메세지 리스트 부르기");
-			service.rmesslist();
+			service.rmessload(Integer.parseInt(page));
 			break;
 		
 		//신고 원본 불러오기
