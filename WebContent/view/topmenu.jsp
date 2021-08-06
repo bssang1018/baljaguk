@@ -45,7 +45,7 @@ body, head {
           <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
             <li><a class="dropdown-item" href="memberInfo">개인정보</a></li>
             <c:if test="${sessionScope.admin eq '1'.charAt(0)}">
-            <li><a class="dropdown-item" href="/Footprint/index1.jsp">관리자</a></li>
+            <li><a class="dropdown-item" href="/tree/index1.jsp">관리자</a></li>
             </c:if>
              <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="logout">로그아웃</a></li>
