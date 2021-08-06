@@ -51,19 +51,21 @@ public class BoardService {
 		return Mfeedlist;
 	}
 	//공개
-	public int fpwriteOk(String email) {
-		
-		int pk =0;
-		UploadService  upload = new UploadService(req);
-		FootprintDTO dto = upload.photoUpload();//사진 업로드
-		
-		//글 쓰기
-		BoardDAO dao = new BoardDAO();
-		pk = dao.fpwriteOk(dto, email);
-		System.out.println("footPrintNO : "+pk);
-		dao.resClose();
-		return pk;
-	}
+		public int fpwriteOk(String email) {
+			System.out.println("로그인한 이메일: "+ email);
+			int pk =0;
+			UploadService  upload = new UploadService(req);
+			FootprintDTO dto = upload.photoUpload();//사진 업로드
+			String hashtag = req.getParameter("hashtag");
+			System.out.println("저장할 해시태그: " + hashtag);
+			//글 쓰기
+			BoardDAO dao = new BoardDAO();
+			pk = dao.fpwriteOk(dto, email, hashtag);
+			System.out.println("footPrintNO : "+pk);
+			dao.resClose();
+			return pk;
+		}
+
 
 	/*
 	 * //비공개 public int fpwriteNo() {

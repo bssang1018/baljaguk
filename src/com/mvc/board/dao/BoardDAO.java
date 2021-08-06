@@ -121,37 +121,48 @@ public class BoardDAO {
 	}
 	
 	//공개 글쓰기
-	public int fpwriteOk(FootprintDTO dto, String email) {
-		String sql ="INSERT INTO footprint(footPrintNO, footprintText,release, email) "
-				         +"VALUES(footprint_seq.NEXTVAL,?,?,?)";
-		int pk =0;
-		try {
-			ps = conn.prepareStatement(sql, new String[] {"footPrintNO"});
-			ps.setString(1, dto.getFootprintText());
-			ps.setString(2, String.valueOf(dto.getRelease()));// 공개가 1!!!
-			ps.setString(3, email);
-			ps.executeUpdate();
-			rs = ps.getGeneratedKeys();
-			if(rs.next()) {
-				//pk = Integer.parseInt(rs.getString("footPrintNO"));
-				sql ="INSERT INTO PostPic(footPrintNO, oriFileName, newFileName)"
-						 +" VALUES(?,?,?)";
-				ps = conn.prepareStatement(sql);
-				pk = rs.getInt(1);
-				ps.setInt(1, pk);
-				ps.setString(2, dto.getOriFileName());
-				ps.setString(3, dto.getNewFileName());
-				System.out.println(dto.getOriFileName()+"/"+dto.getNewFileName());
-				
+		public int fpwriteOk(FootprintDTO dto, String email, String hashtag ) {
+			//발자국 글 등록 sql//찜마커가 지금 없으므로 뺴고 진행
+			String sql1 = "INSERT INTO footprint(footPrintNO, email,release, footprintText)"
+					+ " VALUES(footprint_seq.NEXTVAL,?,?,?)";
+			//해시태그 등록 sql
+			String sql2 ="INSERT INTO Post_Tag(footPrintNO, hashTag) VALUES(?,?)";
+			//사진업로드 sql
+			String sql3 ="INSERT INTO PostPic(footPrintNO, oriFileName, newFileName)"
+					 +" VALUES(?,?,?)";
+			int pk =0;
+			try {
+				ps = conn.prepareStatement(sql1, new String[] {"footPrintNO"});
+				ps.setString(1, email);
+				ps.setString(2, String.valueOf(dto.getRelease()));// 공개가 1!!!
+				ps.setString(3, dto.getFootprintText());
+			    //ps.setInt(4, dto.getFootPrintNO());	
+			    //ps.setString(5, dto.getHashTag());
 				ps.executeUpdate();
+				rs = ps.getGeneratedKeys();
+				if(rs.next()) {
+					//pk = Integer.parseInt(rs.getString("footPrintNO"));	
+					ps = conn.prepareStatement(sql3);
+					pk = rs.getInt(1);
+					ps.setInt(1, pk);
+					ps.setString(2, dto.getOriFileName());
+					ps.setString(3, dto.getNewFileName());
+					System.out.println(dto.getOriFileName()+"/"+dto.getNewFileName());
+					ps.executeUpdate();
+					//여기에 복사
+						ps = conn.prepareStatement(sql2);
+						System.out.println("pk: "+rs.getInt(1));
+						System.out.println("hashtag : "+ hashtag);
+						ps.setInt(1, pk);
+						ps.setString(2, hashtag);
+						int a = ps.executeUpdate();
+						System.out.println("성공해썽?"+a);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
+			return pk;
 		}
-		return pk;
-	}
-
-	
 
 	public FootprintDTO fpdetail(String footPrintNO) {
 		FootprintDTO dto = null;
