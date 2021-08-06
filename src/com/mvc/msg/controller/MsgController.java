@@ -43,14 +43,14 @@ public class MsgController extends HttpServlet {
 		switch (addr) {
 		
 		//msgMain 으로 요청으로 보내면 메세지 리스트 갱신
-		case ("/msgMain"):
+		case "/msgMain":
 			System.out.println("메세지 메인 요청");
 			dis = req.getRequestDispatcher("/msgList");
 			dis.forward(req, resp);
 			break;
 			
 		//메세지 보내기 기능	
-		case ("/msgWrite"): 
+		case "/msgWrite": 
 			System.out.println("메세지 쓰기 요청");
 			if(service.write() > 0) {
 				//메세지 메인으로
@@ -67,7 +67,7 @@ public class MsgController extends HttpServlet {
 			break;
 		
 		//나한테 온 메세지만 보기
-		case ("/msgList"): //로그인한 회원이, 자기한테 온 메세지를 모아보는 기능임!
+		case "/msgList": //로그인한 회원이, 자기한테 온 메세지를 모아보는 기능임!
 			System.out.println("메세지 리스트 요청");
 			String loginemail = (String)req.getSession().getAttribute("loginemail");
 			System.out.println("현재 loginemail: "+loginemail);
@@ -88,14 +88,14 @@ public class MsgController extends HttpServlet {
 			break;		
 			
 		//메세지 내용 상세보기	
-		case ("/msgDetail"):
+		case "/msgDetail":
 			System.out.println("메세지 상세보기 요청");
 			req.setAttribute("msgDetail", service.msgDetail());
 			dis = req.getRequestDispatcher("msgDetail.jsp");
 			dis.forward(req, resp);
 			break;	
 			
-		case ("/msgMyMsgDetail"):
+		case "/msgMyMsgDetail":
 			System.out.println("메세지 상세보기 요청");
 			req.setAttribute("msgDetail", service.msgDetail());
 			dis = req.getRequestDispatcher("msgMyMsgDetail.jsp");
@@ -103,7 +103,7 @@ public class MsgController extends HttpServlet {
 			break;	
 			
 		//메세지 삭제	
-		case ("/msgDel"):
+		case "/msgDel":
 			System.out.println("메세지 삭제 요청");
 			if(service.msgDel() > 0) {
 				//메세지 리스트를 갱신하면서 메세지 메인으로
@@ -128,7 +128,7 @@ public class MsgController extends HttpServlet {
 			break;	
 			
 		//메세지 답장보내기
-		case ("/msgAns"):
+		case "/msgAns":
 			System.out.println("답장 보내기 요청");
 			req.setAttribute("sender_email", req.getParameter("sender_email"));
 			loginemail = (String)req.getSession().getAttribute("loginemail");
@@ -137,14 +137,14 @@ public class MsgController extends HttpServlet {
 			dis.forward(req, resp);
 			break;
 		
-		case ("/msgReportWrite"):
+		case "/msgReportWrite":
 			System.out.println("메세지 신고폼 요청...");
 			req.setAttribute("msgDetail", service.msgDetail());
 			dis = req.getRequestDispatcher("msgReportWrite.jsp");
 			dis.forward(req, resp);
 			break;
 			
-		case ("/msgReport"): 
+		case "/msgReport": 
 			System.out.println("메세지 신고 등록 요청");
 			int success = 0;
 			//신고넘버, 메세지넘버, 등록일, 신고내용, 피신고자 이메일
@@ -162,7 +162,7 @@ public class MsgController extends HttpServlet {
 			break;
 			
 		//나한테 편지보낸사람 검색
-		case ("/msgSearch"):
+		case "/msgSearch":
 			System.out.println("메세지 검색 요청...");
 			loginemail = (String)req.getSession().getAttribute("loginemail");
 			System.out.println("로그인 이메일:" + loginemail);

@@ -5,7 +5,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+
 
 import com.mvc.board.dao.BoardDAO;
 import com.mvc.board.dto.FootprintDTO;
@@ -189,6 +189,15 @@ public ArrayList<FootprintDTO> hashtaglist(String hashtag){
 		return hashtaglist;
 		
 	}
+
+   public int fdReport() {
+	   //신고넘버, 글넘버, 등록일, 신고내용, 신고자 이메일
+	   int success =0;
+	   String footPrintNO = req.getParameter("footPrintNO");
+	   String email = req.getParameter("email");
+	   
+	    return 0;
+}
 
 
 	

@@ -85,41 +85,32 @@ public class ScService {
 
 	}
 
-	public void rcontlist() throws IOException {
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		
-		ScDAO dao = new ScDAO();
-		ArrayList<ReportDTO> list = null;
-		
-		list = dao.rcontlist();
-		dao.resClose();
-		map.put("list", list);
-		resp.setContentType("text/html; charset=UTF-8");
-		resp.getWriter().println(new Gson().toJson(map));
-		
-		
-	}
-
-	public void rcommlist() throws IOException {
+	public void rcontload(int page) throws IOException{
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		ScDAO dao = new ScDAO();
-		ArrayList<ReportDTO> list = null;
 		
-		list = dao.rcommlist();
+		map = dao.rcontload(page);
 		dao.resClose();
-		map.put("list", list);
 		resp.setContentType("text/html; charset=UTF-8");
 		resp.getWriter().println(new Gson().toJson(map));
 	}
 
-	public void rmesslist() throws IOException {
+	public void rcommload(int page) throws IOException {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		ScDAO dao = new ScDAO();
-		ArrayList<ReportDTO> list = null;
 		
-		list = dao.rmesslist();
+		map = dao.rcommload(page);
 		dao.resClose();
-		map.put("list", list);
+		resp.setContentType("text/html; charset=UTF-8");
+		resp.getWriter().println(new Gson().toJson(map));
+	}
+
+	public void rmessload(int page) throws IOException {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		ScDAO dao = new ScDAO();
+		
+		map = dao.rmessload(page);
+		dao.resClose();
 		resp.setContentType("text/html; charset=UTF-8");
 		resp.getWriter().println(new Gson().toJson(map));
 		
@@ -144,7 +135,6 @@ public class ScService {
 		dao.resClose();
 		resp.setContentType("text/html; charset=UTF-8");
 		resp.getWriter().println(new Gson().toJson(map));
-		
 	}
 
 	public void blackdetail() throws IOException {

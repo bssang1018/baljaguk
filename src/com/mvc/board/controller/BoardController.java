@@ -18,7 +18,8 @@ import com.oreilly.servlet.MultipartRequest;
 
 
 
-@WebServlet({"/fpsearch","/fplist","/fpwriteOk","/fpwriteNo","/fpdetail","/fpdel","/fpupdateForm","/fpupdate","/fpserach","/feedlist"})
+@WebServlet({"/fpsearch","/fplist","/fpwriteOk","/fpwriteNo","/fpdetail","/fpdel","/fpupdateForm","/fpupdate","/fpserach","/feedlist","/fdReport","/fdReportWrite"})
+
 
 
 public class BoardController extends HttpServlet {
@@ -150,6 +151,32 @@ public class BoardController extends HttpServlet {
 	        dis.forward(req, resp);
 	        
              
+			break;
+			
+			
+		case "/fdReportWrite":
+			System.out.println("피드 신고폼 요청");
+			req.setAttribute("fpdetail", service.fpdetail());
+			dis = req.getRequestDispatcher("fdReportWrite.jsp");
+			dis.forward(req, resp);
+			break;
+			
+		case "/fdReport":
+			System.out.println("피드 신고 요청");
+			int success =0;
+			//신고 넘버, 발자국 넘버, 등록일, 신고내용, 신고자 이메일
+			success = service.fdReport();
+			if(success >0) {
+				System.out.println("신고 완료");
+				msg="피드를 신고했습니다!!";
+			}else {
+				System.out.println("피드 신고 실패...");
+				msg ="피드 신고를 실패했습니다! 재시도 해주세요(이미 신고된 피드)";
+						
+			}
+			req.setAttribute("msg", msg);
+			dis = req.getRequestDispatcher("/feedlist");
+			dis.forward(req, resp);
 			break;
 		}		
 		
