@@ -27,7 +27,7 @@
           <a href="./noticewriteForm.jsp">글 쓰기</a>
         </li>
 </ul>
-      
+      <h2> 공지사항 목록</h2>
 <h2> 공지사항 목록</h2>
 	<table>
 		<tr>
