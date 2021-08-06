@@ -60,8 +60,9 @@ a:hover {
 <body>
 <!-- 상단 메뉴바 -->
 <c:import url="./view/topmenu.jsp"/>
+<form class="d-inline-flex justify-content-end"  action="fpsearch" method="post">
 	<!-- 내용시작 -->
-	<form class="d-inline-flex justify-content-end"  action="fpsearch" method="post">
+	
    <table>
       <tr>
        <th>발자국 번호</th>

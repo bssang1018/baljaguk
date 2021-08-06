@@ -9,6 +9,7 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet" href="css/common.css" type="text/css">
 <style>
+
 .controller {
 	padding: 25px 0;
 	margin: auto;
@@ -56,13 +57,15 @@ a:hover {
 <c:import url="./view/topmenu.jsp"/>
 <form class="d-inline-flex justify-content-end"  action="fpsearch" method="post">
 	<!-- 내용시작 -->
+
   <table>
+
       <tr>
        <th>피드 번호</th>
       <th>마커 번호</th>
        <th>작성자</th>
       <th>작성일</th>
-      <th>발자국 내용</th>
+      <th>피드 내용</th>
       </tr>
       <c:if test="${feedlist eq null || feedlist eq ''}">
        <tr><td colspan="5">해당 데이터가 존재하지 않습니다.</td></tr>
