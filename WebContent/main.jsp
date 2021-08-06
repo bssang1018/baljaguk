@@ -47,7 +47,7 @@ height :400px;
 				내용 들어감
 			</div>
 		</div>
-		<div class="row row-cols-1 row-cols-md-4 g-4 mt-4">
+		<div class="row row-cols-1 row-cols-md-4 g-4 mt-4" id="card">
 		 <c:if test="${M eq null || M eq ''}">
      <h1>해당 데이터가 존재하지 않습니다.</h1>
    	 </c:if>	
@@ -87,6 +87,36 @@ if(success == "false") {
 	alert("이메일 및 비밀번호를 확인해주세요");
 	location.href="login.jsp";
 }
+
+$(document).ready(function() { 
+    var page = 2; //처음 보여준 페이지 다음부터 시작
+    var list = 8; //한 페이지에 보여지는 게시글 수             
+    var max = $('#max').val(); // db에서 가져온 데이터 총 개수
+    var total_page = Math.ceil(max/list); 
+    var page_start = (page-1)* list; // db에서 몇번째 자료부터 보여줄지 정합니다
+
+$(window).scroll(function() {
+
+ if ($('body').height() <= ($(window).height() + $(window).scrollTop())) { //스크롤바가 윈도우창 아래쪽에 닿았을때
+  if(page<=total_page){ //페이지가 페이지 총합보다 적으면
+     $.ajax({ // ajax 사용
+       url: "main", //ajax 데이터 보내서 처리 할 곳
+                       data: { // 보낼 데이터
+                              'list' : list, 
+                              'page_start' : page_start
+                       },
+       type:"post" //보낼 방식
+     }).done(function(data) { //데이터 전송에 성공하면 
+       page += 1; //페이지를 1 올립니다.
+       page_start = (page-1)* list; //db에서 보여줄 자료 순번을 갱신합니다
+       
+       $('#card').append(data); //원하는곳에 받은 데이터를 추가합니다
+     });
+ }
+}
+});
+
+});
 </script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script
