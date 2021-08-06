@@ -58,8 +58,8 @@ a:hover {
 
 <table>
       <tr>
-       <th>발자국 번호</th>
-      <th>발자국 내용</th>
+       <th> 번호</th>
+      <th> 내용</th>
       <th>해시태그</th>
       </tr>
       <c:if test="${hashtaglist eq null || hashtaglist eq ''}">

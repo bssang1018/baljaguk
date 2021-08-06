@@ -5,8 +5,6 @@ import java.sql.SQLException;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
-
-import com.mvc.serviceCenter.dao.FaqDAO;
 import com.mvc.serviceCenter.dao.NotcieDAO;
 import com.mvc.serviceCenter.dto.NoticeDTO;
 
@@ -26,7 +24,7 @@ public class NoticeService {
 	}
 	
 	
-	public HashMap<String, Object> list() {
+	public HashMap<String, Object> list(String loginemail) {
 		
 		String page = req.getParameter("page");
 		System.out.println("현재 page : " + page);
@@ -51,7 +49,7 @@ public class NoticeService {
 		System.out.println(title+"/"+email+"/"+content+"/"+categoryno);
 		NotcieDAO dao = new NotcieDAO();
 		
-		if(title.equals("")||email.equals("")||content.equals("")) {
+		if(title.equals("")||content.equals("")||categoryno==null) {
 			System.out.println("경고 빈 칸이 있습니다.");
 			success = 0;
 			

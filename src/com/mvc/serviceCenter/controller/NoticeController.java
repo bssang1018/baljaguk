@@ -41,7 +41,10 @@ public class NoticeController extends HttpServlet {
 		switch (addr) {
 		case "/noticelist":
 			System.out.println("공지 리스트 요청");
-			req.setAttribute("map", service.list());
+			String loginemail = (String)req.getSession().getAttribute("loginemail");
+			System.out.println("현재 loginemail: "+loginemail);
+			req.setAttribute("map", service.list(loginemail));
+			req.setAttribute("loginemail", loginemail);
 			dis = req.getRequestDispatcher("noticelist.jsp");
 			dis.forward(req, resp);
 			break;

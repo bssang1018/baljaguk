@@ -11,7 +11,6 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
-import com.mvc.serviceCenter.dto.FaqDTO;
 import com.mvc.serviceCenter.dto.QnaDTO;
 
 public class QnaDAO {
