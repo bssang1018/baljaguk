@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.mvc.board.service.BoardService;
-import com.mvc.board.service.SerachService;
+
 import com.oreilly.servlet.MultipartRequest;
 
 
@@ -55,7 +55,7 @@ public class BoardController extends HttpServlet {
 		BoardService service = new BoardService(req);
 		String page ="";
 		String msg = "";
-	    SerachService services = new SerachService();
+	    
 		
 		switch(addr) {
 		
