@@ -54,6 +54,7 @@ a:hover {
 <body>
 	<!-- 상단 메뉴바 -->
 <c:import url="./view/topmenu.jsp"/>
+<form class="d-inline-flex justify-content-end"  action="fpsearch" method="post">
 	<!-- 내용시작 -->
   <table>
       <tr>
@@ -79,8 +80,11 @@ a:hover {
    </c:forEach>
    </table>
    
-   <button onclick="location.href='fpwrite.jsp'">발자국 글 쓰기</button>
-   
-   
+ <div class="form-group">
+   <input type="button" onclick="location.href='fpwrite.jsp'" value="발자국 남기기"/>
+   <input class="form-control me-1" type="search" placeholder="검색어를 입력해주세요" aria-label="Search" name="hashtag"/>
+			<button class="btn btn-outline-secondary" type="submit">search</button>
+   </div>
+   </form>
 </body>
 </html>
