@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -346,5 +347,29 @@ public class MemberDAO {
 			resClose();
 		}
 		return suc;
+	}
+
+	public MemberDTO findE(String name, String birth) {
+		sql = "select email from member where name = ? and birth = ?";
+		MemberDTO dt = null;
+		SimpleDateFormat fm = new SimpleDateFormat("yyyyMMdd");
+		//Date date = (Date) fm.parse(birth);
+		 java.util.Date utilDate = new java.util.Date();
+		 try {
+			java.sql.Date date = new java.sql.Date(fm.parse(birth).getTime());
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, name);
+			ps.setString(2, birth);
+			rs = ps.executeQuery();
+			if(rs.next()) {
+				dt = new MemberDTO();
+				dt.setEmail(rs.getString("email"));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			resClose();
+		}
+		return dt;
 	}
 }

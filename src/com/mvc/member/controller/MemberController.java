@@ -17,7 +17,7 @@ import com.mvc.board.service.BoardService;
 import com.mvc.member.dto.MemberDTO;
 import com.mvc.member.service.MemberService;
 
-@WebServlet({"/plusMain","/","/main","/login", "/join","/logout","/overlay", "/memberInfo","/memberUpdate","/memberUpdateForm","/uploadphoto","/cancel","/chk"})
+@WebServlet({"/findE","/plusMain","/","/main","/login", "/join","/logout","/overlay", "/memberInfo","/memberUpdate","/memberUpdateForm","/uploadphoto","/cancel","/chk"})
 public class MemberController extends HttpServlet {
 
 	@Override
@@ -76,6 +76,24 @@ public class MemberController extends HttpServlet {
 			  dis =  req.getRequestDispatcher("joinForm.jsp"); 
 			  dis.forward(req, resp);
 			 
+			break;
+			
+		case "/findE" :
+			System.out.println("계정 찾기");
+			name = req.getParameter("name");
+			birth = req.getParameter("birth");
+			boolean suc = false;
+			MemberDTO dt = service.findE(name, birth);
+			if(dt !=null) {
+				suc = true;
+				req.setAttribute("info", dt);
+				req.setAttribute("suc", suc);
+				dis = req.getRequestDispatcher("findE.jsp");
+				dis.forward(req, resp);
+			}
+			req.setAttribute("suc", suc);
+			dis = req.getRequestDispatcher("findE.jsp");
+			dis.forward(req, resp);
 			break;
 			
 		case "/login":
@@ -185,7 +203,7 @@ public class MemberController extends HttpServlet {
 		case"/uploadphoto":
 			System.out.println("프로필 사진 업로드 요청");
 			email = (String) req.getSession().getAttribute("loginemail");
-			boolean suc = service.upload(email);
+			 suc = service.upload(email);
 			System.out.println("업로드 성공?"+ suc);
 			//req.setAttribute("photo", service.photo(email));
 			dis = req.getRequestDispatcher("memberInfo");
