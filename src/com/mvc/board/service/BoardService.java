@@ -70,16 +70,6 @@ public class BoardService {
 		}
 
 
-	/*
-	 * //비공개 public int fpwriteNo() {
-	 * 
-	 * int pk =0; UploadService upload = new UploadService(req); FootprintDTO dto =
-	 * upload.photoUpload();//사진 업로드
-	 * 
-	 * //글 쓰기 BoardDAO dao = new BoardDAO(); pk = dao.fpwriteNo(dto);
-	 * System.out.println("footPrintNO : "+pk); dao.resClose(); return pk; }
-	 */
-
 	public FootprintDTO fpdetail() {
 		
 		FootprintDTO dto = null;
@@ -193,9 +183,13 @@ public ArrayList<FootprintDTO> hashtaglist(String hashtag){
    public int fdReport() {
 	   //신고넘버, 글넘버, 등록일, 신고내용, 신고자 이메일
 	   int success =0;
-	   String footPrintNO = req.getParameter("footPrintNO");
+	   String contentNO = req.getParameter("contentNO");
 	   String email = req.getParameter("email");
-	   
+	   String reportContent = req.getParameter("reportContent");
+	   BoardDAO dao = new BoardDAO();
+	   success = dao.fdReport(contentNO,email,reportContent);
+	   dao.resClose();
+	   System.out.println("자원 반납 완료~!!");
 	    return 0;
 }
 

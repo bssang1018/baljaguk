@@ -56,7 +56,7 @@ public class BoardController extends HttpServlet {
 		BoardService service = new BoardService(req);
 		String page ="";
 		String msg = "";
-	    
+	    String fdmsg ="";
 		
 		switch(addr) {
 		
@@ -168,13 +168,13 @@ public class BoardController extends HttpServlet {
 			success = service.fdReport();
 			if(success >0) {
 				System.out.println("신고 완료");
-				msg="피드를 신고했습니다!!";
+				fdmsg="피드를 신고했습니다!!";
 			}else {
 				System.out.println("피드 신고 실패...");
-				msg ="피드 신고를 실패했습니다! 재시도 해주세요(이미 신고된 피드)";
+				fdmsg ="피드 신고를 실패했습니다! 재시도 해주세요(이미 신고된 피드)";
 						
 			}
-			req.setAttribute("msg", msg);
+			req.setAttribute("fdmsg", fdmsg);
 			dis = req.getRequestDispatcher("/feedlist");
 			dis.forward(req, resp);
 			break;
