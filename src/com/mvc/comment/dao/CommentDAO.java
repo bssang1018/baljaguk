@@ -25,12 +25,12 @@ public class CommentDAO {
 		}
 	}
 
-	public int commentWrite(int footprintNo, String loginemail, String commentText) {
+	public int commentWrite(String footprintNo, String loginemail, String commentText) {
 		int success = 0;
 		String sql = "INSERT INTO comment1(commentno, footprintno, email, commenttext) VALUES(comment1_seq.NEXTVAL,?,?,?)";
 		try {
 			ps = conn.prepareStatement(sql);
-			ps.setInt(1, footprintNo);
+			ps.setInt(1, Integer.parseInt(footprintNo));
 			ps.setString(2, loginemail);
 			ps.setString(3, commentText);
 			success = ps.executeUpdate();

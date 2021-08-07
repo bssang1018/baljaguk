@@ -3,6 +3,7 @@ package com.mvc.comment.service;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.mvc.board.dto.FootprintDTO;
 import com.mvc.comment.dao.CommentDAO;
 
 public class CommentService {
@@ -16,10 +17,10 @@ public class CommentService {
 	}
 
 	public int commentWrite(String loginemail) {
-		System.out.println("로그인한 이메일: "+loginemail);
-		int footprintNo = (int) req.getAttribute("footprintNo");
+		System.out.println("loginemail: "+loginemail);
+		System.out.println("footprintNo: " + footprintNo);
 		int success = 0;
-		//받는사람, 보내는사람, 메세지내용, (메세지번호, 작성시간)
+
 		String commentText = req.getParameter("commentText");
 		System.out.println("댓글 내용: "+commentText);
 		CommentDAO dao = new CommentDAO();
