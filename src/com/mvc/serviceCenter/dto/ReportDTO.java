@@ -10,7 +10,7 @@ public class ReportDTO {
 	private String email;
 	private Date reportDate;
 	private char state;
-	private String rportText;
+	private String reportText;
 	private char blind;
 	
 	public int getReportNo() {
@@ -55,11 +55,11 @@ public class ReportDTO {
 	public void setState(char state) {
 		this.state = state;
 	}
-	public String getRportText() {
-		return rportText;
+	public String getReportText() {
+		return reportText;
 	}
-	public void setRportText(String rportText) {
-		this.rportText = rportText;
+	public void setReportText(String reportText) {
+		this.reportText = reportText;
 	}
 	public char getBlind() {
 		return blind;

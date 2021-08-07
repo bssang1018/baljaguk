@@ -37,12 +37,14 @@ public class CommentController extends HttpServlet {
 		
 		String msgMsg = "";
 		String loginemail = (String) req.getSession().getAttribute("loginemail");
-		
-		
+
 		switch (addr) {
 		
 		case "/commentWrite" :
 			System.out.println("댓글 작성 요청...");
+			System.out.println("뭐가 문제니...");
+			//String footPrintNO = req.getParameter("footPrintNO");
+			//System.out.println("댓글을 등록할 발자국 넘버: "+ footPrintNO);
 			if(service.commentWrite(loginemail) > 0) {
 				//메세지 메인으로
 				msgMsg = "댓글 작성 성공";

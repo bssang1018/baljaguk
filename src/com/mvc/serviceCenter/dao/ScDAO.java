@@ -72,6 +72,20 @@ public class ScDAO {
 		return total;
 	}
 	
+	public int toatalCountR(String condition) throws SQLException {
+		System.out.println("일루와");
+		String sql = "SELECT COUNT(email) FROM report1 WHERE "+condition+" is not null";
+		System.out.println(sql);
+		ps = conn.prepareStatement(sql);
+		System.out.println("일루와");
+		rs = ps.executeQuery();
+		int total = 0;
+		if(rs.next()) {
+			total = rs.getInt(1);
+		}
+		return total;
+	}
+	
 	//신고 글 상세보기
 	public ArrayList<FootprintDTO> contdetail() {
 		sql = "SELECT * FROM footprint A INNER JOIN report1 B ON A.footprintno = B.contentno";
@@ -134,69 +148,124 @@ public class ScDAO {
 	}
 
 	//신고 글 리스트 불러오기
-	public ArrayList<ReportDTO> rcontlist() {
-		sql = "SELECT reportNo,rportText,email,reportDate,state FROM" + 
-				"report1 WHERE contentno is not null;";
+	public HashMap<String, Object> rcontload(int page) {
+		int pagePerCnt = 5;
+		int end = page*pagePerCnt;
+		int start = (end-pagePerCnt)+1;
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		//sql = "SELECT email, name FROM member";
+		sql = "SELECT email, reporttext FROM"+
+		 "(SELECT ROW_NUMBER() OVER(ORDER BY email DESC) AS rnum," + 
+		 "email, reporttext FROM report1 WHERE contentno is not null) WHERE rnum BETWEEN ? AND ?";
 		ArrayList<ReportDTO> list = null;
 		ReportDTO dto = null;
-		
 		try {
-			ps=conn.prepareStatement(sql);
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, start);
+			ps.setInt(2, end);
 			rs = ps.executeQuery();
 			list = new ArrayList<ReportDTO>();
 			while(rs.next()) {
 				dto = new ReportDTO();
+				//dto.setNickname(rs.getString("nickname"));
+				dto.setEmail(rs.getString("email"));
+				dto.setReportText(rs.getString("reporttext"));
 				list.add(dto);
 			}
+			System.out.println("list: "+list);
+			int total = toatalCountR("contentno"); // 총 게시글 수
+			int pages = (total%pagePerCnt == 0) ? total/pagePerCnt : total/pagePerCnt+1;
+			System.out.println("총 게시글 수 : "+total+"/ 페이지 수 : "+pages);
+			
+			map.put("list", list);
+			map.put("totalPage", pages);
+			map.put("currPage", page);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
-		return list;
+		return map;
 	}
+	
 
 	//신고 댓글 리스트 보기
-	public ArrayList<ReportDTO> rcommlist() {
-		sql = "SELECT reportNo,rportText,email,reportDate,state FROM" + 
-				"report1 WHERE commentno is not null;";
+	public HashMap<String, Object> rcommload(int page) {
+		int pagePerCnt = 5;
+		int end = page*pagePerCnt;
+		int start = (end-pagePerCnt)+1;
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		//sql = "SELECT email, name FROM member";
+		sql = "SELECT email, reporttext FROM"+
+		 "(SELECT ROW_NUMBER() OVER(ORDER BY email DESC) AS rnum," + 
+		 "email, reporttext FROM report1 WHERE commentno is not null) WHERE rnum BETWEEN ? AND ?";
 		ArrayList<ReportDTO> list = null;
 		ReportDTO dto = null;
-		
 		try {
-			ps=conn.prepareStatement(sql);
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, start);
+			ps.setInt(2, end);
 			rs = ps.executeQuery();
 			list = new ArrayList<ReportDTO>();
 			while(rs.next()) {
 				dto = new ReportDTO();
+				//dto.setNickname(rs.getString("nickname"));
+				dto.setEmail(rs.getString("email"));
+				dto.setReportText(rs.getString("reporttext"));
 				list.add(dto);
 			}
+			System.out.println("list: "+list);
+			int total = toatalCountR("commentno"); // 총 게시글 수
+			int pages = (total%pagePerCnt == 0) ? total/pagePerCnt : total/pagePerCnt+1;
+			System.out.println("총 게시글 수 : "+total+"/ 페이지 수 : "+pages);
+			
+			map.put("list", list);
+			map.put("totalPage", pages);
+			map.put("currPage", page);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
-		return list;
+		return map;
 	}
 
 	//신고 메세지 리스트 보기
-	public ArrayList<ReportDTO> rmesslist() {
-		sql = "SELECT reportNo,rportText,email,reportDate,state FROM" + 
-				"report1 WHERE msgno is not null;";
+	public HashMap<String, Object> rmessload(int page) {
+		int pagePerCnt = 5;
+		int end = page*pagePerCnt;
+		int start = (end-pagePerCnt)+1;
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		//sql = "SELECT email, name FROM member";
+		sql = "SELECT email, reporttext FROM"+
+		 "(SELECT ROW_NUMBER() OVER(ORDER BY email DESC) AS rnum," + 
+		 "email, reporttext FROM report1 WHERE msgno is not null) WHERE rnum BETWEEN ? AND ?";
 		ArrayList<ReportDTO> list = null;
 		ReportDTO dto = null;
-		
 		try {
-			ps=conn.prepareStatement(sql);
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, start);
+			ps.setInt(2, end);
 			rs = ps.executeQuery();
 			list = new ArrayList<ReportDTO>();
 			while(rs.next()) {
 				dto = new ReportDTO();
+				//dto.setNickname(rs.getString("nickname"));
+				dto.setEmail(rs.getString("email"));
+				dto.setReportText(rs.getString("reporttext"));
 				list.add(dto);
 			}
+			System.out.println("list: "+list);
+			int total = toatalCountR("msgno"); // 총 게시글 수
+			int pages = (total%pagePerCnt == 0) ? total/pagePerCnt : total/pagePerCnt+1;
+			System.out.println("총 게시글 수 : "+total+"/ 페이지 수 : "+pages);
+			
+			map.put("list", list);
+			map.put("totalPage", pages);
+			map.put("currPage", page);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
-		return list;
+		return map;
 	}
 
 	public HashMap<String, Object> blacklist(int page) {

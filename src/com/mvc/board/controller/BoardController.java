@@ -60,7 +60,6 @@ public class BoardController extends HttpServlet {
 		
 		switch(addr) {
 		
-		
 		  case "/fplist": 
 			  System.out.println("발자국 불러오기"); 
 			  String email = (String) req.getSession().getAttribute("loginemail");
@@ -102,7 +101,6 @@ public class BoardController extends HttpServlet {
 		
 		case "/fpdetail":
 		System.out.println("발자국 상세보기 요청");
-		
 		req.setAttribute("footprint", service.fpdetail());
 		dis = req.getRequestDispatcher("fpdetail.jsp");
 		dis.forward(req, resp);

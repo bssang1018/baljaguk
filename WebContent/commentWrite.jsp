@@ -39,5 +39,8 @@
 		alert(msgMsg);
 	}
 	
+	var footprintNo = $('#footprintNo');
+	console.log(footprintNo);
+	
 </script>
 </html>

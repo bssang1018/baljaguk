@@ -128,4 +128,11 @@ public class MemberService {
 		MemberDAO dao = new MemberDAO();
 		return dao.cancel(email);
 	}
+	public MemberDTO findE(String name, String birth) {
+		MemberDAO dao = new MemberDAO();
+		MemberDTO dt = null;
+		System.out.println("입력된 이름 :"+name+" / 생년월일 : "+birth);
+		dt = dao.findE(name, birth);
+		return dt;
+	}
 }

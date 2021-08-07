@@ -7,52 +7,81 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<style>
-table, th, td {
-	border: 1px solid;
-	border-collapse: collapse;
-	margin: 10px;
-}
-</style>
 </head>
 <body>
 	<!-- 상단 메뉴바 -->
-<c:import url="./view/topmenu.jsp"/>
+	<c:import url="./view/topmenu.jsp" />
 	<!-- 내용시작 -->
-<h2>신고 리스트</h2>
-		<table>
-			<thead>
-				<tr>
-					<td><input class='search' type="text" name='email'/></td>
-					<td><button class="btn">검색</button></td>
-					<td><input type='button' onclick='location.href="/Footprint/index1.jsp"' value="목록으로"/></td>
-				</tr>
-			</thead>
-		</table>
-	<form method="GET" action="memberdetail.jsp">
+	<h2>신고 페이지</h2>
+	<input class='btn1' type="button" value="신고글보기" />
+	<input class='btn2' type="button" value="신고댓글보기" />
+	<input class='btn3' type="button" value="신고메세지보기" />
+	<br>
 	<table>
 		<thead>
 			<tr>
-				<th>이메일</th>
-				<th>닉네임</th>
-				<th>상세보기</th>
+				<th>전체 선택상자</th>
+				<th>신고 번호</th>
+				<th>신고 카테고리</th>
+				<th>신고 내용</th>
+				<th>원문 보기</th>
+				<th>작성이메일</th>
+				<th>작성일</th>
+				<th>답변하기</th>
+				<th>답변여부</th>
 			</tr>
 		</thead>
 		<tbody></tbody>
 	</table>
-	</form>
+
+<!-- 검색부분 -->
+	<table>
+		<thead>
+			<tr>
+				<td><input class='search' type="text" name='email' /></td>
+				<td><button class="btn">검색</button></td>
+				<td><input type='button'
+					onclick='location.href="/tree/index1.jsp"' value="목록으로" /></td>
+			</tr>
+		</thead>
+	</table>
+	<!-- 페이지를 몇부터 몇까지 보여줄건지 (이전/다음)  -->
+	<div class="pageArea"></div>
 </body>
 <script>
-	listCall();
-	function listCall() {
+var page = 1;
+var stx = 'rcontload';
+listCall(page,stx);
+	$(".btn1").click(function() {
+		var page = 1;
+		stx = 'rcontload';
+		listCall(page,stx);
+	});
+	$(".btn2").click(function() {
+		page = 1;
+		stx = 'rcommload';
+		listCall(page,stx);
+	});
+	
+	$(".btn3").click(function() {
+			page = 1;
+			stx = 'rmessload';
+			listCall(page,stx);
+	});
+	
+	function listCall(page,stx) {
+		console.log("리스트콜: "+stx);
+		var param = {};
+		param.page = page;
 		$.ajax({
 			type : 'get',
-			url : 'memberlist',
-			data : {},
+			url : stx,
+			data : param,
 			dataType : 'JSON',
 			success : function(data) {
 				console.log(data);
 				drawList(data.list);
+				pageList(data);
 			},
 			error : function(e) {
 				console.log(e);
@@ -60,59 +89,84 @@ table, th, td {
 		});
 	}
 
-	//회원 리스트 출력 함수
-	function drawList(list) {
-		//console.log(list);
-		var content = "";
-		list.forEach(function(item, idx) {
-			console.log(item, idx);
-			content += "<tr>";
-			content += "<td>" + item.email + "</td>";
-			content += "<td>" + item.name + "</td>";
-			//content += "<td><button onclick='location.href="+"memberdetail?email="+item.email+"'>상세보기</button></td>";
-			content += "<td><a href='memberdetail?email="+item.email+"'>상세보기</a></td>";
-			content += "</tr>";
-		});
-		$("tbody").empty();
-		$("tbody").append(content);
-	}
+		//회원 리스트 출력 함수
+		function drawList(list) {
+			//console.log(list);
+			var content = "";
+			list.forEach(function(item, idx) {
+				console.log(item, idx);
+				content += "<tr>";
+				content += "<td>" + item.email + "</td>";
+				content += "<td>" + item.email + "</td>";
+				content += "<td>" + item.email + "</td>";
+				content += "<td>" + item.reportText + "</td>";
+				content += "<td>" + item.email + "</td>";
+				content += "<td>" + item.email + "</td>";
+				content += "<td>" + item.email + "</td>";
+				content += "<td>" + item.email + "</td>";
+				content += "<td>" + item.email + "</td>";
+				content += "</tr>";
+				console.log(list);
+			});
 
-// 검색 함수
 
-console.log($('.btn'));
- $('.btn').click(function(){
-	 var param = {};
-	 param.email = $("input[class='search']").val();
-	 console.log(param);
-	 $.ajax({
-			type:'POST',
-			url:'membersearch',
-			data:param,
-			dataType:'JSON',
-			success:function(data){
-				console.log(data);
+			$("tbody").empty();
+			$("tbody").append(content);
+		}
+
+	// 검색 함수
+	console.log($('.btn'));
+	 $('.btn').click(function(){
+		 var param = {};
+		 param.email = $("input[class='search']").val();
+		 console.log(param);
+		 $.ajax({
+				type:'POST',
+				url:'blacksearch',
+				data:param,
+				dataType:'JSON',
+				success:function(data){
 					console.log(data);
-					searchList(data.list);
-			},
-			error:function(e){
-				console.log(e);
-			}
-		});
- });
- 
- function searchList(list) {
-		console.log(list);
-		var content = "";
-		list.forEach(function(item, idx) {
-			console.log(item, idx);
-			content += "<tr>";
-			content += "<td>" + item.email + "</td>";
-			content += "<td>" + item.name + "</td>";
-			content += "<td><button onclick='location.href="+"detail?email="+item.email+"'>상세보기</button></td>";
-			content += "</tr>";
-		});
-		$("tbody").empty();
-		$("tbody").append(content);
-	}
+						console.log(data);
+						searchList(data.list);
+				},
+				error:function(e){
+					console.log(e);
+				}
+			});
+	 });
+	 // 검색 뿌리기 함수
+	 function searchList(list) {
+			console.log(list);
+			var content = "";
+			list.forEach(function(item, idx) {
+				console.log(item, idx);
+				content += "<tr>";
+				content += "<td>" + item.email + "</td>";
+				content += "<td>" + item.name + "</td>";
+				content += "</tr>";
+			});
+			$("tbody").empty();
+			$("tbody").append(content);
+			$("div").empty();
+		}
+	//페이징 처리 함수
+		function pageList(list){
+			var content = "";
+			console.log("페이징처리 함수옴")
+				for(i = 1; i<= list.totalPage; i++){
+					content += "<span class='page'>";
+					if(i != list.currPage){
+						console.log(i+stx);
+						content += "<button onclick='listCall("+i+",stx);'>"+i+"</button>";
+						console.log("리스트콜");
+					}else{
+						content += "<b>"+i+"</b>";
+					}
+					content += "</span>";
+				};
+				$("div").empty();
+				$("div").append(content);
+		}
 </script>
 </html>
