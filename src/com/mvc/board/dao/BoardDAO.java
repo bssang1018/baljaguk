@@ -209,7 +209,7 @@ public class BoardDAO {
 
 	public int fpdel(String footPrintNO) {
 		int success = 0;
-		String sql ="UPDATE footprint SET postblind = 1 WHERE footPrintNO = ?";
+		String sql ="UPDATE footprint SET postblind = 1 , release =1 WHERE footPrintNO = ?";
 		try {
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, footPrintNO);
@@ -221,6 +221,8 @@ public class BoardDAO {
 	}
 
 
+
+
 	public int fpupdate(FootprintDTO dto) {
 		int success = 0;
 		String sql = "UPDATE footprint SET footprintText =?, release = ? WHERE footPrintNO=?";
@@ -228,9 +230,11 @@ public class BoardDAO {
 		try {
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, dto.getFootprintText());
-			ps.setString(2, toString().valueOf(dto.getRelease()));
+			toString();
+			ps.setString(2, String.valueOf(dto.getRelease()));
 			ps.setInt(3, dto.getFootPrintNO());
 			success = ps.executeUpdate();
+			System.out.println("피드 신고 완료됨??"+success);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -339,6 +343,35 @@ public class BoardDAO {
 		}
 			return hashtaglist;
 		}
+
+	public int fdReport(String contentNO, String email, String reportContent) {
+		int success =0;
+		String sql1 ="SELECT reportNo FROM report1 WHERE contentNO =? AND state =1";
+		String sql2 ="INSERT INTO report1(reportNo, contentNO, email, reportText, state)"
+				          +"VALUES(reportNo_seq.NEXTVAL,?,?,?,1)";
+
+		try {
+			ps = conn.prepareStatement(sql1);
+			ps.setString(1, contentNO);
+			rs = ps.executeQuery();
+			if(!rs.next()) {
+				try {
+				ps = conn.prepareStatement(sql2);
+				ps.setString(1, contentNO);
+				ps.setString(2, email);
+				ps.setString(3, reportContent);
+				success = ps.executeUpdate();
+				}catch(SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+		
+		return success;
+	}
 
 	
 
