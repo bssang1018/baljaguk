@@ -310,8 +310,9 @@ public class MsgDAO {
 	public int msgReport(String msgNo, String sender_email, String reportContent) {
 		int success = 0;
 		String sql1 = "SELECT reportNo FROM report1 WHERE msgNo = ? AND state = 1";
-		String sql2 = "INSERT INTO report1(reportNo, msgNo, email, reportText, state) "+
-							"VALUES(reportNo_seq.NEXTVAL,?,?,?,1)";
+		String sql2 = "INSERT INTO report1(reportNo, msgNo, email, reportText, state, categoryno) "+
+							"VALUES(reportNo_seq.NEXTVAL,?,?,?,1,12)";
+		// 메세지 신고 카테고리는 12 입니다! ㅋ
 		try {
 			ps = conn.prepareStatement(sql1);
 			ps.setString(1, msgNo);

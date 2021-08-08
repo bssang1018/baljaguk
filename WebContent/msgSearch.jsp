@@ -21,6 +21,8 @@
    }
 </style>
 </head>
+	<!-- 상단 메뉴바 -->
+<c:import url="./view/topmenu.jsp"/>
 
 <input type="button" onclick="location.href='./msgMain'" value="메세지 메인" />
 

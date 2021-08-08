@@ -22,6 +22,8 @@
 </style>
 </head>
 <body>
+	<!-- 상단 메뉴바 -->
+<c:import url="./view/topmenu.jsp"/>
 	<h3>내가 보낸 메세지 입니다</h3>
 		<!-- <input type="button" onclick="location.href='msgWrite.jsp'" value="메세지 쓰기" /> -->
 		<input type="button" onclick="location.href='./msgMain'" value="메세지 메인" />
