@@ -71,6 +71,11 @@
    		<th>등록일</th>
    		<th>삭제</th>
    	</tr>
+   	<c:if test="${empty map.commentList}">
+			<tr>
+				<td colspan="4"> 등록된 댓글이 없네요! 첫 댓글을 달아보세요! </td>
+			</tr>
+		</c:if>
 	<c:forEach items="${map.commentList}" var="comment">
 			<tr>
 				<td>${comment.email}</td>
