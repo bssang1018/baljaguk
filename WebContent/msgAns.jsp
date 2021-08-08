@@ -18,11 +18,12 @@
 	<!-- 상단 메뉴바 -->
 <c:import url="./view/topmenu.jsp"/>
 	<!-- 내용시작 -->
-<h3> 답장 보내기 폼 </h3>
+<h3> 답장 보내기 </h3>
+
 	<form action="msgWrite" method="post">
-		<table>
+		<table class="table table-striped">
 				<tr>
-					<th>보내는 사람</th>
+					<th class="col-2">보내는 사람</th>
 					<td>
 					${loginemail}
 					<input type="hidden" name="sender" value='${loginemail}'/>
@@ -39,13 +40,8 @@
 					<th>메세지 내용</th>
 					<td><textarea name="content"></textarea></td>
 				</tr>
-				<tr>
-					<td colspan="2">
-					<button>답장 전송하기</button>
-					&nbsp;&nbsp;&nbsp;&nbsp;
-					<input type="button" onclick="location.href='./msgMain'" value="메세지 메인" />
-				<tr>	
 		</table>
+		<button class="btn btn-primary">답장 전송</button>
 	</form>
 </body>
 <script>

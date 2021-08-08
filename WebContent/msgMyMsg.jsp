@@ -6,39 +6,28 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<style>
-	table,tr,th,td{
-		border: 1px solid;
-		border-collapse: collapse;
-		padding : 10px;
-	}
-	
-	li{
-   		list-style:none;
-   		float: left;
-   		margin-left: 10px;
-   }
-
-</style>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
 </head>
 <body>
 	<!-- 상단 메뉴바 -->
 <c:import url="./view/topmenu.jsp"/>
-<br/>
-	<h3>내가 보낸 메세지 입니다</h3>
-	<br/>
-		<!-- <input type="button" onclick="location.href='msgWrite.jsp'" value="메세지 쓰기" /> -->
-		<input type="button" onclick="location.href='./msgMain'" value="메세지 메인" />
-		<button onclick="del()">메세지 삭제</button>
-		<br/>
-		<br/>
-	<table>
+
+
+	<h3>내가 보낸 메세지</h3>
+		<input class="btn btn-primary" type="button" onclick="location.href='./msgMain'" value="메세지 메인" />
+		<button class="btn btn-primary" onclick="del()">메세지 삭제</button>
+
+<div class="d-inline p-2">
+ <table class="table">
+  <thead class="table-dark">
 		<tr>
 			<th></th>
 			<th>받는 사람</th>
 			<th>메세지 내용</th>
 			<th>받은날짜</th>
 		</tr>
+</thead>
+<tbody>
 		<c:if test="${empty map.msgList}">
 		<tr><td colspan="4">온 메세지가 없어요!</td></tr>
 		</c:if>
@@ -50,11 +39,10 @@
 				<td>${msges.reg_date}</td>
 			</tr>
 		</c:forEach>
-	</table>
-	<br/>
+  </tbody>
+</table>
 	
-	<nav>
-			<ul class="pagination">
+			<ul class="pagination justify-content-center">
 				<c:if test="${map.startPage ne 1}">
 				<li class="page-item"><a class="page-link" href="./msgMyMsg?page=${map.startPage-1}"
 					aria-label="Previous"> <span aria-hidden="true">&laquo;</span>		
@@ -74,19 +62,8 @@
 				</a></li>
 				</c:if>
 			</ul>
-		</nav>
 	
-	<script src="https://code.jquery.com/jquery-3.6.0.js"
-		integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
-		crossorigin="anonymous">
-		
-	</script>
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-		crossorigin="anonymous">
-		
-	</script>
+</div>
 </body>
 <script>
 	var msgMsg = "${msgMsg}";

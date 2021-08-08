@@ -6,27 +6,24 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
 <style>
-	table,tr,th,td{
-		border: 1px solid;
-		border-collapse: collapse;
-		padding : 10px;
-	}
 </style>
 </head>
 <body>
 	<!-- 상단 메뉴바 -->
 <c:import url="./view/topmenu.jsp"/>
-	<!-- 내용시작 -->
+
+<h3> 메세지 보내기 </h3>
+	
 	<form action="msgWrite" method="post">
-		<table>
+		<table class="table table-striped">
 				<tr>
-					<th>보내는 사람</th>
+					<th class="col-2">보내는 사람</th>
 					<td>
 					${loginemail}
 					<input type="hidden" name="sender" value="${loginemail}"/>
-					</td>
-					
+					</td>			
 				</tr>
 				<tr>
 					<th>받는 사람</th>
@@ -36,13 +33,8 @@
 					<th>메세지 내용</th>
 					<td><textarea name="content"></textarea></td>
 				</tr>
-				<tr>
-					<td colspan="2">
-					<button>메세지 전송</button>
-					&nbsp;&nbsp;&nbsp;&nbsp;
-					<input type="button" onclick="location.href='./msgMain'" value="메세지 메인" />
-				<tr>	
 		</table>
+		<button class="btn btn-primary">메세지 전송</button>
 	</form>
 </body>
 <script>
