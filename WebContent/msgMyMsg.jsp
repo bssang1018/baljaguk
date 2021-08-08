@@ -14,9 +14,9 @@
 
 
 	<h3>내가 보낸 메세지</h3>
-		<input class="btn btn-primary" type="button" onclick="location.href='./msgMain'" value="메세지 메인" />
 		<button class="btn btn-primary" onclick="del()">메세지 삭제</button>
-
+		<input class="btn btn-primary" type="button" onclick="location.href='./msgMain'" value="이전으로" />
+		
 <div class="d-inline p-2">
  <table class="table">
   <thead class="table-dark">

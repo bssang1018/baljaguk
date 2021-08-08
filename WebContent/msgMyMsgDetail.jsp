@@ -22,6 +22,7 @@
 	
 					<button class="btn btn-primary" onclick="location.href='./msgDel?msgNo=${msgDetail.msgNo}'">메세지 삭제</button>
 					<button class="btn btn-primary" onclick="location.href='./msgReportWrite?msgNo=${msgDetail.msgNo}'">메세지 신고하기</button>
+					<input class="btn btn-primary" type="button" onclick="location.href='./msgMain'" value="이전으로" />
 
 		<table class="table table-striped">
 			<tr>

@@ -154,7 +154,7 @@ public class MsgController extends HttpServlet {
 				msgMsg = "메세지를 신고했습니다!";
 			} else {
 				System.out.println("신고 실패...");
-				msgMsg = "메세지 신고를 실패했습니다! 재시도 해주세요!(이미 신고된 메세지)";
+				msgMsg = "이미 신고 접수가 완료된 메세지 입니다! (처리중...)";
 			}
 			req.setAttribute("msgMsg",msgMsg);
 			dis = req.getRequestDispatcher("/msgList");

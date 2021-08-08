@@ -35,6 +35,7 @@
 				</tr>
 		</table>
 		<button class="btn btn-primary">메세지 전송</button>
+		<input class="btn btn-primary" type="button" onclick="location.href='./msgMain'" value="이전으로" />
 	</form>
 </body>
 <script>

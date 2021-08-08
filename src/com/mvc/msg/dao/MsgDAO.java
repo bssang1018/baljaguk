@@ -29,9 +29,22 @@ public class MsgDAO {
 		}
 	}
 
-	//페이징처리용 토탈카운트 
+	//페이징처리용 토탈카운트 (보낸메세지용)
 	private int totalCount(String loginemail) throws SQLException {
-		String sql = "SELECT COUNT(msgNo) FROM message WHERE sender_email = ? ";
+		String sql = "SELECT COUNT(msgNo) FROM message WHERE sender_email = ? AND del = 0 ";
+		ps = conn.prepareStatement(sql);
+		ps.setString(1, loginemail);
+		rs = ps.executeQuery();
+		int total = 0;
+		if(rs.next()) {
+			total = rs.getInt(1);
+		}	
+		return total;
+	}
+	
+	//페이징처리용 토탈카운트 (받은메세지용)
+	private int totalCount2(String loginemail) throws SQLException {
+		String sql = "SELECT COUNT(msgNo) FROM message WHERE receiver_email = ? AND del = 0 ";
 		ps = conn.prepareStatement(sql);
 		ps.setString(1, loginemail);
 		rs = ps.executeQuery();
@@ -65,9 +78,10 @@ public class MsgDAO {
 	
 	//나한테 보낸사람 이메일, 내용, 받은날짜
 	//리시버 이메일은 현재 로그인을 한 사람의 이메일 이여야 함!
+	//받은메세지 리스트
 	public HashMap<String, Object> msgList(int page, String loginemail) {
 		String sql = "SELECT msgNo, sender_email, msgContent, msgOpen, reg_date FROM "
-							+ "(SELECT ROW_NUMBER() OVER(ORDER BY msgNo DESC)AS rnum, msgNo, sender_email, msgContent, msgOpen, reg_date FROM message WHERE receiver_email=?) "
+							+ "(SELECT ROW_NUMBER() OVER(ORDER BY msgNo DESC)AS rnum, msgNo, sender_email, msgContent, msgOpen, reg_date FROM message WHERE receiver_email=? AND del = 0) "
 							+ "WHERE rnum BETWEEN ? AND ? ";
 		
 		ArrayList<MsgDTO> msgList = null;
@@ -108,7 +122,7 @@ public class MsgDAO {
 			
 			System.out.println("msgList 값이 있나욘? : " +msgList);
 			
-			int total = totalCount(loginemail);
+			int total = totalCount2(loginemail);
 			// 총 게시글 수에 나올 페이지수 나눠서 짝수면 나눠주고 홀수면 +1
 			int totalPages = total % pagePerCnt == 0 ? total / pagePerCnt : (total / pagePerCnt) + 1;
 			if (totalPages == 0) {
@@ -161,13 +175,13 @@ public class MsgDAO {
 
 	public int msgDel(int msgNo) {
 		int success = 0;
-		String sql = "DELETE FROM message WHERE msgNo=?";
+		String sql = "UPDATE message SET del = 1 WHERE msgNo = ?";
 		try {
 			ps = conn.prepareStatement(sql);
 			ps.setInt(1, msgNo);
 			success = ps.executeUpdate();
 			if (success > 0 ) {
-				System.out.println("메시지 DB 삭제 성공! 삭제개수: "+success);
+				System.out.println("메세지 del 업데이트: "+success);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -177,7 +191,7 @@ public class MsgDAO {
 
 	public int msgArrDel(String[] delList) {
 		
-		String sql = "DELETE FROM message WHERE msgNo = ?";
+		String sql = "UPDATE message SET del = 1 WHERE msgNo = ?";
 		int cnt = 0;
 		for(String msgNo : delList) {
 			try {
@@ -218,10 +232,10 @@ public class MsgDAO {
 	}
 	*/
 	
-	
+	//보낸 메세지 리스트
 	public HashMap<String, Object> msgMyMsg(int page, String loginemail) {
 		String sql = "SELECT msgNo, sender_email, receiver_email, msgContent, msgOpen, reg_date FROM "
-							+ "(SELECT ROW_NUMBER() OVER(ORDER BY msgNo DESC)AS rnum, msgNo, sender_email, receiver_email, msgContent, msgOpen, reg_date FROM message WHERE sender_email=?) "
+							+ "(SELECT ROW_NUMBER() OVER(ORDER BY msgNo DESC)AS rnum, msgNo, sender_email, receiver_email, msgContent, msgOpen, reg_date FROM message WHERE sender_email=? AND del = 0) "
 							+ "WHERE rnum BETWEEN ? AND ? ";
 		
 		ArrayList<MsgDTO> msgList = null;
@@ -411,7 +425,7 @@ public class MsgDAO {
 		*/
 		
 		String sql = "SELECT msgNo,sender_email,receiver_email,msgContent,reg_date,msgOpen FROM "
-		+"(SELECT ROW_NUMBER() OVER(ORDER BY msgNo DESC)AS rnum, msgNo, sender_email, receiver_email, msgContent, msgOpen, reg_date FROM message WHERE receiver_email= ? AND sender_email LIKE ?) "
+		+"(SELECT ROW_NUMBER() OVER(ORDER BY msgNo DESC)AS rnum, msgNo, sender_email, receiver_email, msgContent, msgOpen, reg_date FROM message WHERE (receiver_email= ? AND del = 0) AND sender_email LIKE ?) "
 		+"WHERE rnum BETWEEN ? AND ?";
 		
 		ArrayList<MsgDTO> emailList = null;
