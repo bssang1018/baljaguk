@@ -83,11 +83,7 @@
 				</c:if>
 			</ul>
 </nav>
- 		<br/>
-		<br/>
-		<form action="./friendsBlockList">
- 			<button>차단 리스트 보기</button>
- 		</form>
+
  		<!-- 
  		<form action="./friendsBlock">
  			<input type="text" name="friends_email" />
@@ -127,6 +123,12 @@
  			</c:forEach>
  		</table>
  		
+ 		<br/>
+ 		<br/>
+ 		
+ 		<form action="./friendsBlockList">
+ 			<button>차단 리스트 보기</button>
+ 		</form>
  		
 </body>
 <script>

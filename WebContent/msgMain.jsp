@@ -19,17 +19,21 @@
    		float: left;
    		margin-left: 10px;
    }
+   
 </style>
 </head>
 	<!-- 상단 메뉴바 -->
 <c:import url="./view/topmenu.jsp"/>
 
 <body>
+<br/>
 	<h3>${loginemail} 님이 받은 메세지 입니다</h3>
+	<br/>
 		<input type="button" onclick="location.href='msgWrite.jsp'" value="메세지 쓰기" />
 		<button onclick="location.href='./msgMyMsg'">내가 보낸 메세지</button>
 		<button onclick="del()">메세지 삭제</button>
-		<button onclick="location.href='./friendsList'">친구 관리</button>
+	<br/>
+	<br/>
 	<table>
 		<tr>
 			<th></th>

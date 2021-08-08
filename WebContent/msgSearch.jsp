@@ -23,13 +23,10 @@
 </head>
 	<!-- 상단 메뉴바 -->
 <c:import url="./view/topmenu.jsp"/>
-
-<input type="button" onclick="location.href='./msgMain'" value="메세지 메인" />
-
+<br/>
 <body>
-	<h3>로그인한 회원: ${loginemail}</h3>
 	<h3>"${searchKey}" 로 검색한 결과...</h3>
-		
+		<br/>
 <table>
 		<tr>
 			<th></th>
