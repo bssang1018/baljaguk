@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.mvc.comment.service.CommentService;
 
-@WebServlet({"/commentWrite","/commentWriteForm","/commentList"})
+@WebServlet({"/commentWrite","/commentWriteForm","/commentList","/commentDel"})
 public class CommentController extends HttpServlet {
 
 	@Override
@@ -35,7 +35,7 @@ public class CommentController extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		CommentService service = new CommentService(req, resp);
 		
-		String msgMsg = "";
+		String commentMsg = "";
 		String loginemail = (String) req.getSession().getAttribute("loginemail");
 
 		switch (addr) {
@@ -61,7 +61,7 @@ public class CommentController extends HttpServlet {
 			break;
 			
 		case "/commentList":
-			System.out.println("댓글 리스트 요청");
+			System.out.println("댓글 리스트 요청...");
 			footPrintNO = req.getParameter("footPrintNO");
 			System.out.println(footPrintNO);
 			req.setAttribute("map", service.commentList(footPrintNO));
@@ -70,6 +70,23 @@ public class CommentController extends HttpServlet {
 			dis.forward(req, resp);
 			break;
 				
+		case "/commentDel":
+			System.out.println("댓글 삭제 요청...");
+			footPrintNO = req.getParameter("footPrintNO");
+			String commentNO = req.getParameter("commentNO");
+			int success = service.commentDel(loginemail, footPrintNO, commentNO);
+			if (success > 0) {
+				commentMsg = "댓글을 삭제했습니다!";
+				req.setAttribute("commentMsg", commentMsg);
+				dis = req.getRequestDispatcher("/fpdetail");
+				dis.forward(req, resp);
+			}else {
+				commentMsg = "댓글 삭제를 실패했습니다!";
+				req.setAttribute("commentMsg", commentMsg);
+				dis = req.getRequestDispatcher("/fpdetail");
+				dis.forward(req, resp);
+			}
+			break;
 		}
 		
 		

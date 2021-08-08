@@ -46,6 +46,18 @@ public class CommentService {
 		return map;
 		
 	}
+
+	public int commentDel(String loginemail, String footPrintNO, String commentNO) {
+		System.out.println("loginemail: "+loginemail);
+		System.out.println("footPrintNo: " + footPrintNO);
+		System.out.println("commentno: "+commentNO);
+		CommentDAO dao = new CommentDAO();
+		int success = 0;
+		success = dao.commentDel(loginemail, footPrintNO, commentNO);
+		dao.resClose();
+		System.out.println("자원반납 했음!");
+		return success;
+	}
 		
 	
 	

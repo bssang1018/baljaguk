@@ -51,26 +51,15 @@
    <tr>
 		<td colspan="2">
       <c:if test='${sessionScope.loginemail eq footprint.email}'>
-<<<<<<< HEAD
       <button onclick="location.href='./fplist'">발자국</button>
       <button onclick="location.href='./fpupdateForm?footPrintNO=${footprint.footPrintNO}'" >발자국 수정</button>
       <button onclick="location.href='./fpdel?footPrintNO=${footprint.footPrintNO}'">발자국 삭제</button>
       <button onclick="location.href='/fpdel?footPrintNO=${footprint.footPrintNO}'" value ="1" >피드 삭제</button>
       <button onclick="location.href='./fdReportWrite?contentNO=${fpdetail.contentNO}'">피드 신고하기</button>
-
-</c:if>
-  </td>
-=======
-	      <button onclick="location.href='./fplist'">발자국</button>
-	      <button onclick="location.href='./fpupdateForm?footPrintNO=${footprint.footPrintNO}'">발자국 수정</button>
-	      <button onclick="location.href='./fpdel?footPrintNO=${footprint.footPrintNO}'">발자국 삭제</button>
-	      <button onclick="location.href='./fpdel?footPrintNO=${footprint.footPrintNO}'">피드 삭제</button>
-	      <button onclick="location.href='./feedReportWrite?contentNo=${fpdetail.contentNo}'">피드 신고하기</button>
-	  </c:if>
- 		</td>
->>>>>>> 01d721c2d0dab57fc39296d56cb7cbe9d90e854a
-   </tr>
-   </table>
+		</c:if>
+  		</td>
+   	</tr>
+</table>
    
    
    <h3>댓글 창</h3>
@@ -87,7 +76,12 @@
 				<td>${comment.email}</td>
 				<td>${comment.commentText}</td>
 				<td>${comment.regDate}</td>
-				<td><input type="button" value="삭제"/></td>				
+				<c:if test="${comment.email eq loginemail}">
+					<td><input type="button" onclick="location.href='./commentDel?footPrintNO=${comment.footPrintNO}&commentNO=${comment.commentNo}'" value="삭제"/></td>
+				</c:if>
+				<c:if test="${comment.email ne loginemail}">
+					<td></td>
+				</c:if>			
 			</tr>
 		</c:forEach>
 
@@ -111,6 +105,11 @@
 </body>
 <script>
 	var footPrintNO = "${comment.footPrintNO}";
+	var loginemail = "${session.getAttribute('loginemail')}"
 	
+	var commentMsg = "${commentMsg}";
+	if(commentMsg != ""){
+		alert(commentMsg);
+	}
 </script>
 </html>

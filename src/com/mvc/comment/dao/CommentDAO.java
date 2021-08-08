@@ -97,7 +97,7 @@ public class CommentDAO {
 					commentList = new ArrayList<CommentDTO>();
 					while (rs.next()) {
 						dto = new CommentDTO();
-						dto.setFooprintNo(rs.getInt("footprintno"));
+						dto.setFootPrintNO(rs.getInt("footprintno"));
 						dto.setCommentNo(rs.getInt("commentno"));
 						dto.setCommentText(rs.getString("commenttext"));
 						dto.setEmail(rs.getString("email"));
@@ -149,6 +149,24 @@ public class CommentDAO {
 			total = rs.getInt(1);
 		}	
 		return total;
+	}
+
+	public int commentDel(String loginemail, String footPrintNO, String commentNO) {
+		String sql = "DELETE FROM comment1 WHERE (footprintno = ? AND commentno = ?) AND email = ?";
+		int success = 0;
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(3, loginemail);
+			ps.setString(1, footPrintNO);
+			ps.setString(2, commentNO);
+			success = ps.executeUpdate();
+			if (success > 0 ) {
+				System.out.println("댓글 DB 삭제 성공! 삭제개수: "+success);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return success;
 	}
 	
 	
