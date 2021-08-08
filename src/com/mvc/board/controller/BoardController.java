@@ -102,7 +102,7 @@ public class BoardController extends HttpServlet {
 		case "/fpdetail":
 		System.out.println("발자국 상세보기 요청");
 		req.setAttribute("footprint", service.fpdetail());
-		dis = req.getRequestDispatcher("fpdetail.jsp");
+		dis = req.getRequestDispatcher("commentList");
 		dis.forward(req, resp);
 		break;
 		

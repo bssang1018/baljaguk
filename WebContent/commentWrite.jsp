@@ -24,7 +24,7 @@
 				<tr>
 					<th>댓글 작성</th>
 					<td><textarea name="commentText"></textarea></td>
-					<td><input type="hidden" name="footprintNo" value="${footprintNo}"/></td>
+					<td><input type="hidden" name="footPrintNO" value="${footPrintNO}"/></td>
 				</tr>
 				<tr>
 					<td colspan="3">
@@ -38,9 +38,6 @@
 	if(msgMsg != ""){
 		alert(msgMsg);
 	}
-	
-	var footprintNo = $('#footprintNo');
-	console.log(footprintNo);
 	
 </script>
 </html>

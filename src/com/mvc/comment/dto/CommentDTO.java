@@ -5,7 +5,7 @@ import java.sql.Date;
 public class CommentDTO {
 	private int commentNo;
 	private int fooprintNo;
-	private Date regDate;
+	private String regDate;
 	private String commentText;
 	private String commentBlind;
 	private String email;
@@ -21,10 +21,10 @@ public class CommentDTO {
 	public void setFooprintNo(int fooprintNo) {
 		this.fooprintNo = fooprintNo;
 	}
-	public Date getRegDate() {
+	public String getRegDate() {
 		return regDate;
 	}
-	public void setRegDate(Date regDate) {
+	public void setRegDate(String regDate) {
 		this.regDate = regDate;
 	}
 	public String getCommentText() {

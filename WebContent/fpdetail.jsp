@@ -14,14 +14,13 @@
 </style>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<link rel="stylesheet" href="css/common.css" type="text/css">
 </head>
 <body>
 <!-- 상단 메뉴바 -->
 <c:import url="./view/topmenu.jsp"/>
 	<!-- 내용시작 -->
    <h2>상세보기</h2>
-   
+
    <table>
    <tr>
       <th>발자국 번호</th>
@@ -51,8 +50,6 @@
    
    <tr>
 		<td colspan="2">
-      
-      <button onclick="location.href='./commentWrite?footPrintNO=${footprint.footPrintNO}'">댓글 쓰기</button>
       <c:if test='${sessionScope.loginemail eq footprint.email}'>
 	      <button onclick="location.href='./fplist'">발자국</button>
 	      <button onclick="location.href='./fpupdateForm?footPrintNO=${footprint.footPrintNO}'">발자국 수정</button>
@@ -63,6 +60,46 @@
  		</td>
    </tr>
    </table>
-</body>
+   
+   
+   <h3>댓글 창</h3>
+   
+   <table>
+   	<tr>
+   		<th>이메일</th>
+   		<th>댓글내용</th>
+   		<th>등록일</th>
+   		<th>삭제</th>
+   	</tr>
+	<c:forEach items="${map.commentList}" var="comment">
+			<tr>
+				<td>${comment.email}</td>
+				<td>${comment.commentText}</td>
+				<td>${comment.regDate}</td>
+				<td><input type="button" value="삭제"/></td>				
+			</tr>
+		</c:forEach>
 
+   </table>
+   <form action="commentWriteForm" method="post">
+   		<table>
+   			<tr>
+   				<td>댓글입력</td>
+   				<td>
+   					<input type="text" name="commentText"/><button>등록</button>
+					<input type="hidden" name="footPrintNO" value="${footPrintNO}"/>   				
+   				</td>
+   			</tr>
+   		</table>
+   </form>
+   
+   
+   
+   
+ 
+</body>
+<script>
+	var footPrintNO = "${comment.footPrintNO}";
+	
+</script>
 </html>
