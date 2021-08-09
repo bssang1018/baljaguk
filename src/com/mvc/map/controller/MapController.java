@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.mvc.map.service.MapService;
 
-@WebServlet({ "/favorite", "/favList", "/favDel" })
+@WebServlet( {"/favorite", "/favList", "/favDel","/map" })
 public class MapController extends HttpServlet {
 
 	@Override
@@ -37,8 +37,8 @@ public class MapController extends HttpServlet {
 		// req.setCharacterEncoding("UTF-8");
 
 		switch (addr) {
-		case "/":
-			System.out.println("처음");
+		case "/map":
+			System.out.println("지도");
 			/*
 			 * File dataFile = new File("../WebContent/page11.json"); try { InputStream
 			 * stream = new FileInputStream(dataFile); JsonParser parser =
@@ -46,6 +46,7 @@ public class MapController extends HttpServlet {
 			 * System.out.println(e); }catch(IOException e) { System.out.println(e); }
 			 * resp.sendRedirect("index.jsp");
 			 */
+			resp.sendRedirect("map.jsp");
 			break;
 
 		case "/favorite"://ajax
