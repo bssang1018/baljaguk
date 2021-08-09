@@ -16,12 +16,36 @@
 			<td>${member.email}</td>
 		</tr>
 		<tr>
+			<th>닉네임</th>
+			<td>${member.nickname}</td>
+		</tr>
+		<tr>
 			<th>이름</th>
 			<td>${member.name}</td>
 		</tr>
 		<tr>
-			<th>사유</th>
-			<td></td>
+			<th>성별</th>
+			<td>${member.gender}</td>
+		</tr>
+		<tr>
+			<th>생년월일</th>
+			<td>${member.birth}</td>
+		</tr>
+		<tr>
+			<th>연락처</th>
+			<td>${member.phone}</td>
+		</tr>
+		<tr>
+			<th>블랙리스트</th>
+			<td>${member.blackList}</td>
+		</tr>
+		<tr>
+			<th>회원정지여부</th>
+			<td>${member.accountBan}</td>
+		</tr>
+		<tr>
+			<th>회원탈퇴여부</th>
+			<td>${member.cancelMember}</td>
 		</tr>
 		<tr>
 			<td colspan="2">
@@ -31,6 +55,5 @@
 	</table>
 </body>
 <script>
-
 </script>
 </html>

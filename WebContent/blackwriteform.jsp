@@ -30,7 +30,7 @@
 		<tr>
 			<td colspan="2">
 			<button>수정</button>
-			<a href='/Footprint/memberlist.jsp'>뒤로가기</a>
+			<a href='/tree/memberlist.jsp'>뒤로가기</a>
 			</td>
 		</tr>
 	</table>

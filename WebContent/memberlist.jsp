@@ -70,14 +70,12 @@ function listCall(page) {
 
 	//회원 리스트 출력 함수
 	function drawList(list) {
-		//console.log(list);
 		var content = "";
 		list.forEach(function(item, idx) {
 			console.log(item, idx);
 			content += "<tr>";
 			content += "<td>" + item.email + "</td>";
 			content += "<td>" + item.name + "</td>";
-			//content += "<td><button onclick='location.href="+"memberdetail?email="+item.email+"'>상세보기</button></td>";
 			content += "<td><a href='memberdetail?email="+item.email+"'>상세보기</a></td>";
 			content += "<td><a href='stopwriteform?email="+item.email+"'>정지하기</a></td>";
 			content += "<td><a href='blackwriteform?email="+item.email+"'>블랙리스트 등록하기</a></td>";
@@ -118,7 +116,8 @@ console.log($('.btn'));
 			content += "<td>" + item.email + "</td>";
 			content += "<td>" + item.name + "</td>";
 			content += "<td><a href='memberdetail?email="+item.email+"'>상세보기</a></td>";
-			content += "<td><a href='stopremove?email="+item.email+"'>정지해제</a></td>";
+			content += "<td><a href='stopwriteform?email="+item.email+"'>정지하기</a></td>";
+			content += "<td><a href='blackwriteform?email="+item.email+"'>블랙리스트 등록하기</a></td>";
 			content += "</tr>";
 		});
 		$("tbody").empty();

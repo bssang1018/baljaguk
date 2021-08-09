@@ -215,8 +215,8 @@ public class ScService {
 		MemberDTO dto = null;
 		ScDAO dao = new ScDAO();
 		String email = req.getParameter("email");
-		System.out.println("email: "+email);
 		dto = dao.memberdetail(email);
+		System.out.println("DTO: "+dto);
 		dao.resClose();
 		return dto;
 		
