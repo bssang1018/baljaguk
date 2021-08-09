@@ -25,7 +25,7 @@
 	<table>
 		<thead>
 			<tr>
-				<th>전체 선택상자</th>
+				<th></th>
 				<th>신고 번호</th>
 				<th>신고 카테고리</th>
 				<th>신고 내용</th>
@@ -96,7 +96,7 @@ listCall(page,stx);
 			list.forEach(function(item, idx) {
 				console.log(item, idx);
 				content += "<tr>";
-				content += "<td>" + item.email + "</td>";
+				content += "<td><input type='checkbox' name='select' value='select' onclick='select()'/></td>";
 				content += "<td>" + item.reportNo + "</td>";
 				content += "<td>" + item.categoryNo + "</td>";
 				content += "<td>" + item.reportText + "</td>";
@@ -108,8 +108,6 @@ listCall(page,stx);
 				content += "</tr>";
 				console.log(list);
 			});
-
-
 			$("tbody").empty();
 			$("tbody").append(content);
 		}
@@ -143,7 +141,14 @@ listCall(page,stx);
 				console.log(item, idx);
 				content += "<tr>";
 				content += "<td>" + item.email + "</td>";
-				content += "<td>" + item.name + "</td>";
+				content += "<td>" + item.reportNo + "</td>";
+				content += "<td>" + item.categoryNo + "</td>";
+				content += "<td>" + item.reportText + "</td>";
+				content += "<td><a href='detail?stx="+stx+"&reportno="+item.reportNo+"'>상세보기</a></td>";
+				content += "<td>" + item.email + "</td>";
+				content += "<td>" + item.reportDate + "</td>";
+				content += "<td><a href='reportAnswer.jsp?email="+item.email+"&reportno="+item.reportNo+"'>답변하기</a></td>";
+				content += "<td>" + item.state + "</td>";
 				content += "</tr>";
 			});
 			$("tbody").empty();
