@@ -99,16 +99,6 @@ public class ScService {
 		resp.getWriter().println(new Gson().toJson(map));
 	}
 
-	public void rcommload(int page) throws IOException {
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		ScDAO dao = new ScDAO();
-		
-		map = dao.rcommload(page);
-		dao.resClose();
-		resp.setContentType("text/html; charset=UTF-8");
-		resp.getWriter().println(new Gson().toJson(map));
-	}
-
 	public void rmessload(int page) throws IOException {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		ScDAO dao = new ScDAO();
@@ -229,8 +219,8 @@ public class ScService {
 		MemberDTO dto = null;
 		ScDAO dao = new ScDAO();
 		String email = req.getParameter("email");
-		System.out.println("email: "+email);
 		dto = dao.memberdetail(email);
+		System.out.println("DTO: "+dto);
 		dao.resClose();
 		return dto;
 		
