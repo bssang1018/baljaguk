@@ -6,7 +6,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet" href="css/common.css" type="text/css">
 <style type="text/css">
 body, head {
@@ -50,15 +49,22 @@ max-width: 100%;
 					<div class="card-body">
 						<p class="card-title">작성자 : ${footprint.email} </p>
 						<hr/>
+						<a href="fpdetail?footPrintNO=${footprint.footPrintNO}">${footprint.footprintText}</a>
 					</div>
 				<div class="card-footer text-center">
-						<td><a href="fpdetail?footPrintNO=${footprint.footPrintNO}">${footprint.footprintText}</a></td>
+			<div class="btn-group">
+  <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+    더보기
+  </button>
+  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+    <li><a class="dropdown-item" href="#">피드 신고</a></li>
+    <li><a class="dropdown-item" href="#">피드 삭제</a></li>
+  </ul>
+</div>
 			</div>
 			</div>
    </c:forEach>
 </div>
-		
-	
 	
    </form>
    
@@ -71,7 +77,6 @@ max-width: 100%;
    <button id="plusBtn" class="btn btn-primary" style="margin-bottom:100px">더보기</button>
    </div>
 </body>
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 
 $('.gogo').animate({
@@ -105,7 +110,6 @@ $(document).on('click','#plusBtn',function(){
 		    	   content += 		'</div>'
 		    	   content += 	'</div>' 	  
 		        })
-		        $('#card').empty();
 		        $('#card').append(content);
 		    },
 		    error : function(e) {
@@ -115,12 +119,10 @@ $(document).on('click','#plusBtn',function(){
 	
 })
 		
-
- 
 </script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-	<script
+<!-- 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-		crossorigin="anonymous"></script>
+		crossorigin="anonymous"></script> -->
 </html>

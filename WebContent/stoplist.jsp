@@ -136,8 +136,8 @@ console.log($('.btn'));
 				}
 				content += "</span>";
 			};
-			$("div").empty();
-			$("div").append(content);
+			$("div.pageArea").empty();
+			$("div.pageArea").append(content);
 	}
 </script>
 </html>
