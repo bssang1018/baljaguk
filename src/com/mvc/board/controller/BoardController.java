@@ -14,11 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 import com.mvc.board.service.BoardService;
 
 import com.oreilly.servlet.MultipartRequest;
-
-
-
-
-
 @WebServlet({"/like","/fpsearch","/fplist","/fpwriteOk","/fpwriteNo","/fpdetail","/fpdel","/fpupdateForm","/fpupdate","/fpserach","/feedlist","/fdReport","/fdReportWrite"})
 
 
@@ -180,7 +175,6 @@ public class BoardController extends HttpServlet {
 			dis = req.getRequestDispatcher("/feedlist");
 			dis.forward(req, resp);
 			break;
-			
 		
 		  case "/like": 
 			  boolean suc;
@@ -192,18 +186,6 @@ public class BoardController extends HttpServlet {
 			  dis = req.getRequestDispatcher("/feedlist");
 			  dis.forward(req, resp);
 		  break;
-		 
-		}		
-
-		
-	
-			
-			
-		
-		}		
-	     
-		
-		
+		}
 	}
-
-	
+}

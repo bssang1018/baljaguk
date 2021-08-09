@@ -59,7 +59,7 @@ max-width: 100%;
    <div class="gogo col text-center" id="frame" style="opacity:0;">
 					<p style="display : none;">${footprint.footPrintNO}</p>
 					<div id="size">
-					<img src="/photo/${footprint.newFileName}" />
+					<img src="/photo/${footprint.newFileName}" 	onerror="this.src='view/test.jpg'"/>
 					</div>
 					<div class="card-body">
 						<p class="card-title">작성자 : ${footprint.email} </p>

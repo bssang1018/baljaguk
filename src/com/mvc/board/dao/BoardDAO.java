@@ -447,12 +447,11 @@ public class BoardDAO {
 		
 		return success;
 	}
-
 	public void like(String fpn, String email) {
 		String sql1 = "select likecnt from likes where contentno=? AND email=?";
 		String sql2 = "INSERT  INTO likes(contentno, likecnt, email) VALUES(?,1,?)";
-		String sql3 = "UPDATE footprint SET likecnt  = (select count(email) from likes where contentno=?) where footprintno = ?";
-		String sql4 = "UPDATE likes SET likeCnt = ? WHERE contentno =?";
+		String sql3 = "UPDATE footprint SET likecnt  = (select count(email) from likes where contentno=? AND likecnt =1) where footprintno = ?";
+		String sql4 = "UPDATE likes SET likecnt = ? WHERE contentno =?";
 		try {
 			
 			ps = conn.prepareStatement(sql1);
@@ -465,31 +464,37 @@ public class BoardDAO {
 				ps = conn.prepareStatement(sql2);
 				ps.setString(1, fpn);
 				ps.setString(2, email);
-				System.out.println("sql2 번 실행" +  ps.executeUpdate());
+				ps.executeUpdate();
+				System.out.println("false - sql2 번 실행" );
 
 				ps = conn.prepareStatement(sql3);
 				ps.setString(1, fpn);
 				ps.setString(2, fpn);
 				ps.executeUpdate();
-				System.out.println("sql3 번 실행" + ps.executeUpdate());
+				System.out.println("false - sql3 번 실행" );
 			
 			}else {
 				ps = conn.prepareStatement(sql1);
 				ps.setString(1, fpn);
 				ps.setString(2, email);
 				rs = ps.executeQuery();
-				
 				int i = 1;
-				if(Integer.parseInt(rs.getString("likecnt"))==1) {
+				System.out.println(rs.next());
+				System.out.println("rs 저장 값 int : "+rs.getInt(1));
+				if(rs.getInt(1)==1) {
 					i = 0;
-				}else {
-					i = 1;
+					System.out.println("rs 값은:"+i);
 				}
-				ps = conn.prepareStatement(sql4);
-				ps.setInt(1, i);
-				ps.setString(2, email);
-				ps.execute();
+					ps = conn.prepareStatement(sql4);
+					ps.setInt(1, i);
+					ps.setString(2, fpn);
+					ps.execute();
 				
+				ps = conn.prepareStatement(sql3);
+				ps.setString(1, fpn);
+				ps.setString(2, fpn);
+				ps.executeUpdate();
+				System.out.println("sql3 번 실행");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -497,24 +502,5 @@ public class BoardDAO {
 			resClose();
 		}
 	}
-
-	
-
-
-	
-	
-	
 }
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -34,8 +34,8 @@ max-width: 100%;
 <form class="d-inline-flex justify-content-end"  action="fpsearch" method="post">
 
    <!-- 내용시작 -->
+  
 <div class="row row-cols-1 row-cols-md-4 g-4 mt-4" id="card">
-   
        <c:if test="${feedlist eq null || feedlist eq ''}">
      <h1>해당 데이터가 존재하지 않습니다.</h1>
        </c:if>   
@@ -44,7 +44,7 @@ max-width: 100%;
          <div class="gogo col text-center" id="frame" style="opacity:0;">
                <p style="display : none;">${footprint.footPrintNO}</p>
                <div id="size">
-               <img src="/photo/${footprint.newFileName}" />
+               <img src="/photo/${footprint.newFileName}" 	onerror="this.src='view/test.jpg'"/>
                </div>
                <div class="card-body">
                   <p class="card-title">작성자 : ${footprint.email} </p>
