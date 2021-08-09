@@ -10,16 +10,7 @@ import java.util.HashMap;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
-<<<<<<< HEAD
-
-
-
-
 import com.mvc.comment.dto.CommentDTO;
-
-=======
-import com.mvc.comment.dto.CommentDTO;
->>>>>>> d603815aa012e97e41b965613844909bc3cf0c79
 import com.mvc.board.dto.FootprintDTO;
 import com.mvc.comment.dto.CommentDTO;
 import com.mvc.member.dto.MemberDTO;
