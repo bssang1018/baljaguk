@@ -115,16 +115,26 @@ public class ScService {
 		resp.getWriter().println(new Gson().toJson(map));
 		
 	}
-	public void contentload() {
-	
+	public String contentload(int reportno) {
+		String footPrintNO = null;
+		ScDAO dao = new ScDAO();
+		footPrintNO = dao.contentload(reportno);
+		dao.resClose();
+		return footPrintNO;
 	}
 
-	public void commentload() {
-		
+	public int commentload(int reportno) {
+		ScDAO dao = new ScDAO();
+		dao.commentload(reportno);
+		return 0;
 	}
 
-	public void messageload() {
-		
+	public int messageload(int reportno) {
+		int msgNo = 0;
+		ScDAO dao = new ScDAO();
+		msgNo = dao.messageload(reportno);
+		dao.resClose();
+		return msgNo;
 	}
 	
 	public void blacklist(int page) throws IOException {

@@ -83,6 +83,31 @@ public class MsgService {
 		}
 		return msgDetail;
 	}
+	// 신고 메세지 원본을 불러오기 위해 만듦 준성
+	public MsgDTO msgDetail(int msgNo) {
+		MsgDAO dao = new MsgDAO();
+		MsgDTO msgDetail  = new MsgDTO();
+		
+		try {
+			dao.conn.setAutoCommit(false);
+			if (dao.msgOpen(msgNo) >0) {
+				msgDetail = dao.msgDetail(msgNo);
+			}
+			System.out.println("상세보기 데이터 불러오기(msgDetail): "+msgDetail);
+			
+			if(msgDetail == null) {
+				dao.conn.rollback();
+			}else {
+				dao.conn.commit();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			dao.resClose();
+			System.out.println("자원반납 했음!");
+		}
+		return msgDetail;
+	}
 
 	public int msgDel() {
 		int msgNo = Integer.parseInt(req.getParameter("msgNo"));

@@ -153,11 +153,10 @@ public class ScDAO {
 		int end = page*pagePerCnt;
 		int start = (end-pagePerCnt)+1;
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		
-		//sql = "SELECT email, name FROM member";
-		sql = "SELECT email, reporttext FROM"+
+		sql = "SELECT * FROM"+
 		 "(SELECT ROW_NUMBER() OVER(ORDER BY email DESC) AS rnum," + 
-		 "email, reporttext FROM report1 WHERE contentno is not null) WHERE rnum BETWEEN ? AND ?";
+		 "reportno, categoryno, email, reporttext, reportdate, state " +
+		 "FROM report1 WHERE contentno is not null) WHERE rnum BETWEEN ? AND ?";
 		ArrayList<ReportDTO> list = null;
 		ReportDTO dto = null;
 		try {
@@ -168,16 +167,18 @@ public class ScDAO {
 			list = new ArrayList<ReportDTO>();
 			while(rs.next()) {
 				dto = new ReportDTO();
-				//dto.setNickname(rs.getString("nickname"));
-				dto.setEmail(rs.getString("email"));
+				dto.setReportNo(rs.getInt("reportno"));
+				dto.setCategoryNo(rs.getInt("categoryno"));
 				dto.setReportText(rs.getString("reporttext"));
+				dto.setEmail(rs.getString("email"));
+				dto.setReportDate(rs.getDate("reportdate"));
+				dto.setState(rs.getString("state"));
 				list.add(dto);
 			}
 			System.out.println("list: "+list);
 			int total = toatalCountR("contentno"); // 총 게시글 수
 			int pages = (total%pagePerCnt == 0) ? total/pagePerCnt : total/pagePerCnt+1;
 			System.out.println("총 게시글 수 : "+total+"/ 페이지 수 : "+pages);
-			
 			map.put("list", list);
 			map.put("totalPage", pages);
 			map.put("currPage", page);
@@ -195,7 +196,6 @@ public class ScDAO {
 		int start = (end-pagePerCnt)+1;
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
-		//sql = "SELECT email, name FROM member";
 		sql = "SELECT email, reporttext FROM"+
 		 "(SELECT ROW_NUMBER() OVER(ORDER BY email DESC) AS rnum," + 
 		 "email, reporttext FROM report1 WHERE commentno is not null) WHERE rnum BETWEEN ? AND ?";
@@ -209,7 +209,6 @@ public class ScDAO {
 			list = new ArrayList<ReportDTO>();
 			while(rs.next()) {
 				dto = new ReportDTO();
-				//dto.setNickname(rs.getString("nickname"));
 				dto.setEmail(rs.getString("email"));
 				dto.setReportText(rs.getString("reporttext"));
 				list.add(dto);
@@ -235,10 +234,10 @@ public class ScDAO {
 		int start = (end-pagePerCnt)+1;
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
-		//sql = "SELECT email, name FROM member";
-		sql = "SELECT email, reporttext FROM"+
-		 "(SELECT ROW_NUMBER() OVER(ORDER BY email DESC) AS rnum," + 
-		 "email, reporttext FROM report1 WHERE msgno is not null) WHERE rnum BETWEEN ? AND ?";
+		sql = "SELECT * FROM"+
+				 "(SELECT ROW_NUMBER() OVER(ORDER BY email DESC) AS rnum," + 
+				 "reportno, categoryno, email, reporttext, reportdate, state " +
+				 "FROM report1 WHERE msgno is not null) WHERE rnum BETWEEN ? AND ?";
 		ArrayList<ReportDTO> list = null;
 		ReportDTO dto = null;
 		try {
@@ -249,9 +248,12 @@ public class ScDAO {
 			list = new ArrayList<ReportDTO>();
 			while(rs.next()) {
 				dto = new ReportDTO();
-				//dto.setNickname(rs.getString("nickname"));
-				dto.setEmail(rs.getString("email"));
+				dto.setReportNo(rs.getInt("reportno"));
+				dto.setCategoryNo(rs.getInt("categoryno"));
 				dto.setReportText(rs.getString("reporttext"));
+				dto.setEmail(rs.getString("email"));
+				dto.setReportDate(rs.getDate("reportdate"));
+				dto.setState(rs.getString("state"));
 				list.add(dto);
 			}
 			System.out.println("list: "+list);
@@ -274,7 +276,6 @@ public class ScDAO {
 				int end = page*pagePerCnt;
 				int start = (end-pagePerCnt)+1;
 				HashMap<String, Object> map = new HashMap<String, Object>();
-				
 				//sql = "SELECT email, name FROM member";
 				sql = "SELECT email, name FROM"+
 				 "(SELECT ROW_NUMBER() OVER(ORDER BY email DESC) AS rnum," + 
@@ -328,13 +329,11 @@ public class ScDAO {
 	}
 
 	public HashMap<String, Object> memberlist(int page) {
-		//sql = "SELECT email, nickname FROM member WHERE accountBan = 1";
 				int pagePerCnt = 5;
 				int end = page*pagePerCnt;
 				int start = (end-pagePerCnt)+1;
 				HashMap<String, Object> map = new HashMap<String, Object>();
 				
-				//sql = "SELECT email, name FROM member";
 				sql = "SELECT email, name FROM"+
 				 "(SELECT ROW_NUMBER() OVER(ORDER BY email DESC) AS rnum," + 
 				 "email, name FROM member) WHERE rnum BETWEEN ? AND ?";
@@ -626,6 +625,50 @@ public class ScDAO {
 			e.printStackTrace();
 		}
 		return success;
+	}
+
+	// 원본 불러오기 함수
+	public String contentload(int reportno) {
+		System.out.println("다오도착");
+		String footPrintNO = null;
+		sql = "SELECT a.footprintno FROM footprint a JOIN report1 b ON a.footprintno = b.contentno WHERE b.reportno = ?";
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, reportno);
+			rs = ps.executeQuery();
+			if(rs.next()) {
+				System.out.println("여기옴?");
+				footPrintNO = rs.getString("footprintno");
+				System.out.println("footprintno: "+rs.getInt("footprintno"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return footPrintNO;
+	}
+
+	public void commentload(int reportno) {
+		sql = "SELECT * FROM comment a JOIN report1 b ON a.commentno = b.commentno WHERE b.reportno = 1";
+	}
+
+	public int messageload(int reportno) {
+		int msgNo = 0;
+		sql = "SELECT a.msgno FROM message a JOIN report1 b ON a.msgno = b.msgno WHERE b.reportno = ?";
+		System.out.println("다오도착");
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, reportno);
+			rs = ps.executeQuery();
+			if(rs.next()) {
+				System.out.println("다오msgno: "+rs.getInt("msgno"));
+				msgNo = rs.getInt("msgno");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return msgNo;
 	}
 
 }

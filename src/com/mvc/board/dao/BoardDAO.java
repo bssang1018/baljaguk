@@ -181,10 +181,9 @@ public class BoardDAO {
 			}
 			return pk;
 		}
-
+	//신고글 원본을 보기위한 함수생성 준성
 	public FootprintDTO fpdetail(String footPrintNO) {
 		FootprintDTO dto = null;
-		
 		String sql = "SELECT f.footPrintNO ,f.markerNO, f.email, f.footprintText, f.reg_date, P.oriFileName, P.newFileName, f.release FROM footprint f LEFT OUTER JOIN PostPic P ON f.footPrintNO = P.footPrintNO WHERE f.footPrintNO = ?";
 		try {
 			ps = conn.prepareStatement(sql);

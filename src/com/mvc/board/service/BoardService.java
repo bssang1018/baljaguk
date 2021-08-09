@@ -84,6 +84,15 @@ public class BoardService {
 		
 		FootprintDTO dto = null;
 		String footPrintNO = req.getParameter("footPrintNO");
+        BoardDAO dao = new BoardDAO();
+		dto = dao.fpdetail(footPrintNO);
+		//System.out.println("dto : "+dto);
+		dao.resClose();
+		return dto;
+	}
+	public FootprintDTO fpdetail(String footPrintNO) {
+		
+		FootprintDTO dto = null;
 		System.out.println("footPrintNO : "+footPrintNO);
         BoardDAO dao = new BoardDAO();
 		dto = dao.fpdetail(footPrintNO);
