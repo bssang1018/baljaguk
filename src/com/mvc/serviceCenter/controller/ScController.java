@@ -18,7 +18,7 @@ import com.mvc.serviceCenter.service.ScService;
 
 
 
-@WebServlet({"/rcontload","/rmessload","/detail",
+@WebServlet({"/rcontload","/rmessload","reportsearch","/detail",
 	"/contentload","/messageload",
 	"/memberlist","/membersearch","/memberdetail",
 	"/blacklist","/blacksearch","/blackwriteform","/blackregister","/blackremove",
@@ -65,7 +65,9 @@ public class ScController extends HttpServlet {
 			System.out.println("신고메세지 리스트 부르기");
 			service.rmessload(Integer.parseInt(page));
 			break;
-		
+		case "/reportsearch":
+			
+			break;
 		// 신고 원본 페이지 이동함수
 		case "/detail":
 			System.out.println("신고 원본 페이지 정하기");
