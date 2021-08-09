@@ -10,6 +10,14 @@ public class NoticeDTO {
 	private String title;
 	private String content;
 	private char blind;
+	private String writer;
+	public String getWriter() {
+		return writer;
+	}
+
+	public void setWriter(String writer) {
+		this.writer = writer;
+	}
 
 	public int getIdx() {
 		return idx;

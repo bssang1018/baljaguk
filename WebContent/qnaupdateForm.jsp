@@ -26,7 +26,7 @@
 		</tr>
 		<tr>
 			<th>작성자</th>
-			<td><input type="text" name="email" value="${qna.email}"/></td>
+			<td><input type="hidden" name="email" value="${qna.email}"/>${qna.email}</td>
 		</tr>
 		<tr>
 			<th>내용</th>

@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.mvc.serviceCenter.service.FaqService;
 
-@WebServlet({ "/faqlist", "/faqwrite", "/faqdetail", "/faqdel", "/faqupdateForm", "/faqupdate" , "/faqsearch"})
+@WebServlet({ "/faqlist", "/faqwrite", "/faqdetail", "/faqdel", "/faqupdateForm", "/faqupdate", "/faqsearch" })
 public class FaqContorller extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
@@ -43,8 +43,8 @@ public class FaqContorller extends HttpServlet {
 
 		case "/faqlist":
 			System.out.println("faq 리스트 요청");
-			String loginemail = (String)req.getSession().getAttribute("loginemail");
-			System.out.println("현재 loginemail: "+loginemail);
+			String loginemail = (String) req.getSession().getAttribute("loginemail");
+			System.out.println("현재 loginemail: " + loginemail);
 			req.setAttribute("map", service.list(loginemail));
 			req.setAttribute("loginemail", loginemail);
 			dis = req.getRequestDispatcher("faqlist.jsp");
@@ -54,13 +54,15 @@ public class FaqContorller extends HttpServlet {
 
 		case "/faqwrite":
 			System.out.println("공지 글쓰기 요청");
+			String writer = (String) req.getSession().getAttribute("loginemail");
+			System.out.println("writer :" +writer);
 			msg = "글 작성 실패";
 			page = "faqwriteForm.jsp";
 			if (service.write() == 1) {
 				msg = "글 작성 성공";
-				page = "faqlist";
+				page = "faqdetail.jsp";
 			}
-			
+
 			req.setAttribute("msg", msg);
 			dis = req.getRequestDispatcher(page);
 			dis.forward(req, resp);
@@ -79,9 +81,9 @@ public class FaqContorller extends HttpServlet {
 
 			msg = "삭제 성공";
 			page = "faqlist";
-			if(service.del()>0) {
-				msg="글 작성 성공";
-				page="faqlist";
+			if (service.del() > 0) {
+				msg = "글 작성 성공";
+				page = "faqlist";
 			}
 			req.setAttribute("msg", msg);
 			resp.sendRedirect(page);
@@ -91,7 +93,9 @@ public class FaqContorller extends HttpServlet {
 		case "/faqupdateForm":
 			System.out.println("faq 수정 요청");
 			req.setAttribute("noticefaq", service.faqupdateForm());
+			req.setAttribute("email", req.getParameter("email"));
 			dis = req.getRequestDispatcher("faqupdateForm.jsp");
+
 			dis.forward(req, resp);
 			break;
 
@@ -109,19 +113,18 @@ public class FaqContorller extends HttpServlet {
 			dis = req.getRequestDispatcher(page);
 			dis.forward(req, resp);
 			break;
-			
-		case "/faqsearch" :
+
+		case "/faqsearch":
 			System.out.println("faq 검색 요청");
-			String searchKey = req.getParameter("searchKey");//검색어
+			String searchKey = req.getParameter("searchKey");// 검색어
 			System.out.println("검색어 : " + searchKey);
 			req.setAttribute("map", service.searchlist(searchKey));
 			req.setAttribute("searchlist", searchKey);
-			dis= req.getRequestDispatcher("faqsearch.jsp");
+			dis = req.getRequestDispatcher("faqsearch.jsp");
 			dis.forward(req, resp);
-			
+
 			break;
-			
-			
+
 		}
 
 	}
