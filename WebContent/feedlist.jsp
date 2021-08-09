@@ -38,23 +38,6 @@ max-width: 100%;
    
        <c:if test="${feedlist eq null || feedlist eq ''}">
      <h1>해당 데이터가 존재하지 않습니다.</h1>
-<<<<<<< HEAD
-   	 </c:if>	
-   	 
-   	 <c:forEach items="${feedlist}" var="footprint" >
-			<div class="gogo col text-center" id="frame" style="opacity:0;">
-					<p style="display : none;">${footprint.footPrintNO}</p>
-					<div id="size">
-					<img src="/photo/${footprint.newFileName}" />
-					</div>
-					<div class="card-body">
-						<p class="card-title">작성자 : ${footprint.email} </p>
-						<hr/>
-						<a href="fpdetail?footPrintNO=${footprint.footPrintNO}">${footprint.footprintText}</a>
-					</div>
-				<div class="card-footer text-center">
-			<div class="btn-group">
-=======
        </c:if>   
        
        <c:forEach items="${feedlist}" var="footprint" >
@@ -70,22 +53,10 @@ max-width: 100%;
                </div>
             <div class="card-footer text-center">
          <div class="btn-group">
->>>>>>> 4dd865090c708955ddb0ae009e51eaa98a9db317
   <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
     더보기
   </button>
   <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-<<<<<<< HEAD
-    <li><a class="dropdown-item" href="#">피드 신고</a></li>
-    <li><a class="dropdown-item" href="#">피드 삭제</a></li>
-  </ul>
-</div>
-			</div>
-			</div>
-   </c:forEach>
-</div>
-	
-=======
     <li><a class="dropdown-item" href='fdReportWrite.jsp?contentNO=${fpdetail.contentNO}'>피드 신고</a></li>
     <li><a class="dropdown-item" href='./fpdel?footPrintNO=${footprint.footPrintNO}'>피드 삭제</a></li>
   </ul>
@@ -95,7 +66,6 @@ max-width: 100%;
    </c:forEach>
 </div>
    
->>>>>>> 4dd865090c708955ddb0ae009e51eaa98a9db317
    </form>
    
  <div class="form-group">
@@ -115,49 +85,6 @@ $('.gogo').animate({
 
 var page = 1;
 $(document).on('click','#plusBtn',function(){
-<<<<<<< HEAD
-	page++;
-	$.ajax({
-		 type : 'GET',
-		    url : 'plusMain',
-		    data : { 'page' : page },
-		    dataType : 'JSON',
-		    success : function(data) {
-		       console.log(data);		
-		        content='';
-		        $.each(data.list,function(i,item){
-		       content += 	'<div class="col text-center " id="frame" >'
-		       content += 	'<p style="display : none;">'+item.footPrintNO+'</p>'
-		       content += 		'<div id="size">'
-		       content += 		'<img src="/photo/'+item.newFileName+'" />'
-		    	   content += 		'</div>'
-		    	   content += 		'<div class="card-body">'
-		    	   content += 			'<p class="card-title">작성자 : '+item.email+' </p>'
-		    	   content += 			'<hr/>'
-		    	   content += 			'<p class="card-text" id="text">'+item.footprintText+'</p>'
-		    	   content += 		'</div>'
-		    	   content += 		'<div class="card-footer text-center">'
-		    	   content += 			'<a class="btn btn-primary" href="fpdetail?footPrintNO='+item.footPrintNO+'">자세히 보기</a>'
-		    	   content += 		'</div>'
-		    	   content += 	'</div>' 	  
-		        })
-		        $('#card').append(content);
-		    },
-		    error : function(e) {
-		       console.log(e);
-		    }
-	})
-	
-})
-		
-</script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<!-- 	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-		crossorigin="anonymous"></script> -->
-</html>
-=======
    page++;
    $.ajax({
        type : 'GET',
@@ -199,4 +126,3 @@ $(document).on('click','#plusBtn',function(){
       integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
       crossorigin="anonymous"></script> -->
 </html>
->>>>>>> 4dd865090c708955ddb0ae009e51eaa98a9db317
