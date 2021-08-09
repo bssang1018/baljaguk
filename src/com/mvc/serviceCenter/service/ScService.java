@@ -15,7 +15,11 @@ import com.mvc.member.dto.MemberDTO;
 import com.mvc.msg.dto.MsgDTO;
 import com.mvc.serviceCenter.dao.ScDAO;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import com.mvc.serviceCenter.dto.ReportDTO;
+=======
+
+>>>>>>> 438e5fe064b8572cda9e3bf687c7b5038fab8b1d
 =======
 import com.mvc.serviceCenter.dto.ScServiceDTO;
 >>>>>>> 83a33d9e87b1b3283018a353489893847d34d114

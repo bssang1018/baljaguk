@@ -84,6 +84,7 @@ public class NoticeController extends HttpServlet {
 		case "/noticeupdateForm":
 			System.out.println("공지 수정 요청");
 			req.setAttribute("noticefaq", service.noticeupdateForm());
+			req.setAttribute("email", req.getParameter("email"));
 			dis = req.getRequestDispatcher("noticeupdateForm.jsp");
 			dis.forward(req, resp);
 			break;
