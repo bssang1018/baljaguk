@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.mvc.comment.service.CommentService;
 
-@WebServlet({"/commentWrite"})
+@WebServlet({"/commentWrite","/commentWriteForm","/commentList","/commentDel"})
 public class CommentController extends HttpServlet {
 
 	@Override
@@ -35,31 +35,58 @@ public class CommentController extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		CommentService service = new CommentService(req, resp);
 		
-		String msgMsg = "";
+		String commentMsg = "";
 		String loginemail = (String) req.getSession().getAttribute("loginemail");
 
 		switch (addr) {
 		
+		case "/commentWriteForm":
+			System.out.println("댓글 작성 폼 요청, 피드번호 추출");
+			String footPrintNO = req.getParameter("footPrintNO");
+			System.out.println("피드 번호는?: " +footPrintNO);
+			req.setAttribute("footPrintNO", footPrintNO);
+			dis = req.getRequestDispatcher("commentWrite");
+			dis.forward(req, resp);
+			break;
+		
 		case "/commentWrite" :
 			System.out.println("댓글 작성 요청...");
-			System.out.println("뭐가 문제니...");
-			//String footPrintNO = req.getParameter("footPrintNO");
-			//System.out.println("댓글을 등록할 발자국 넘버: "+ footPrintNO);
-			if(service.commentWrite(loginemail) > 0) {
-				//메세지 메인으로
-				msgMsg = "댓글 작성 성공";
-				req.setAttribute("msgMsg", msgMsg);
-				dis = req.getRequestDispatcher("/#");
+			footPrintNO = req.getParameter("footPrintNO");
+			System.out.println(footPrintNO);
+			String commentText = req.getParameter("commentText");
+			service.commentWrite(loginemail, footPrintNO, commentText);
+			req.setAttribute("footPrintNO", footPrintNO);
+			dis = req.getRequestDispatcher("/fpdetail");
+			dis.forward(req, resp);
+			break;
+			
+		case "/commentList":
+			System.out.println("댓글 리스트 요청...");
+			footPrintNO = req.getParameter("footPrintNO");
+			System.out.println(footPrintNO);
+			req.setAttribute("map", service.commentList(footPrintNO));
+			req.setAttribute("footPrintNO", footPrintNO);
+			dis = req.getRequestDispatcher("fpdetail.jsp");
+			dis.forward(req, resp);
+			break;
+				
+		case "/commentDel":
+			System.out.println("댓글 삭제 요청...");
+			footPrintNO = req.getParameter("footPrintNO");
+			String commentNO = req.getParameter("commentNO");
+			int success = service.commentDel(loginemail, footPrintNO, commentNO);
+			if (success > 0) {
+				commentMsg = "댓글을 삭제했습니다!";
+				req.setAttribute("commentMsg", commentMsg);
+				dis = req.getRequestDispatcher("/fpdetail");
 				dis.forward(req, resp);
-			} else {
-				msgMsg = "댓글 작성을 실패했습니다...ㅠ";
-				req.setAttribute("msgMsg", msgMsg);
-				dis = req.getRequestDispatcher("#.jsp");
+			}else {
+				commentMsg = "댓글 삭제를 실패했습니다!";
+				req.setAttribute("commentMsg", commentMsg);
+				dis = req.getRequestDispatcher("/fpdetail");
 				dis.forward(req, resp);
 			}
 			break;
-		
-		
 		}
 		
 		
