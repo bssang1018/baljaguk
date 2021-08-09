@@ -135,4 +135,13 @@ public class MemberService {
 		dt = dao.findE(name, birth);
 		return dt;
 	}
+	public boolean mailchk(String email, String name, String phone) {
+		MemberDAO dao = new MemberDAO();
+		System.out.println("입력 이메일 : "+email+" / 입력된 이름 :"+name+" / 연락처 : "+phone);
+		return dao.mailchk(email,name, phone);
+	}
+	public boolean resetpw(String email, String pw1) {
+		MemberDAO dao = new MemberDAO();
+		return dao.resetpw(email, pw1);
+	}
 }

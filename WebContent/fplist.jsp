@@ -14,28 +14,20 @@ body, head {
 	bottom: 0;
 	margin: 0;
 	padding: 0;
-	
 }
 #size{
-  width: 800px;
-  height: 400px;
-   
+max-width: 100%;
+  height: 210px;
 }
 
  img{
-  width: 400px;
+  max-width: 100%;
   object-fit : cover;
-  
-  
 }
 #text{
-  display: inline-block; width: 500px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-  
+  display: inline-block; width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
-
 </style>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<link rel="stylesheet" href="css/common.css" type="text/css">
 
 </head>
 <body>
@@ -50,8 +42,7 @@ body, head {
    </div>
    
    
-       <button onclick="location.href='./fpupdateForm?footPrintNO=${footprint.footPrintNO}'" >발자국 수정</button>
-      <button onclick="location.href='./fpdel?footPrintNO=${footprint.footPrintNO}'">발자국 삭제</button>
+       
 	<!-- 내용시작 -->
 <div class="row row-cols-1 row-cols-md-4 g-4 mt-4" id="card">
   
@@ -59,8 +50,7 @@ body, head {
       <c:if test="${fplist eq null || fplist eq ''}">
        <tr><td colspan="5">해당 데이터가 존재하지 않습니다.</td></tr>
        
-       <button onclick="location.href='./fpupdateForm?footPrintNO=${footprint.footPrintNO}'" >발자국 수정</button>
-      <button onclick="location.href='./fpdel?footPrintNO=${footprint.footPrintNO}'">발자국 삭제</button>
+    
     </c:if>
    
    <c:forEach items="${fplist}" var="footprint" varStatus = "no">

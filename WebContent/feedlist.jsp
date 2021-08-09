@@ -34,11 +34,6 @@ max-width: 100%;
 <c:import url="./view/topmenu.jsp"/>
 <form class="d-inline-flex justify-content-end"  action="fpsearch" method="post">
 
- <div class="form-group">
-   <input type="button" onclick="location.href='fpwrite.jsp'" value="발자국 남기기"/>
-   <input class="form-control me-1" type="search" placeholder="검색어를 입력해주세요" aria-label="Search" name="hashtag"/>
-			<button class="btn btn-outline-secondary" type="submit">search</button>
-   </div>
 	<!-- 내용시작 -->
 <div class="row row-cols-1 row-cols-md-4 g-4 mt-4" id="card">
 	
@@ -56,16 +51,22 @@ max-width: 100%;
 						<p class="card-title">작성자 : ${footprint.email} </p>
 						<hr/>
 					</div>
-					<div class="card-footer text-center">
-						<button class="btn btn-primary" onclick="location.href='fpdetail?footPrintNO=${footprint.footPrintNO}'">자세히 보기</button>
-					</div>
+				<div class="card-footer text-center">
+						<td><a href="fpdetail?footPrintNO=${footprint.footPrintNO}">${footprint.footprintText}</a></td>
+			</div>
 			</div>
    </c:forEach>
-
-		</div>
+</div>
+		
 	
 	
    </form>
+   
+ <div class="form-group">
+   <input type="button" onclick="location.href='fpwrite.jsp'" value="발자국 남기기"/>
+   <input class="form-control me-1" type="search" placeholder="검색어를 입력해주세요" aria-label="Search" name="hashtag"/>
+			<button class="btn btn-outline-secondary" type="submit">search</button>
+   </div>
    <div class="text-center">
    <button id="plusBtn" class="btn btn-primary" style="margin-bottom:100px">더보기</button>
    </div>

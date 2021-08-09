@@ -52,7 +52,7 @@ public class BoardDAO {
 				" WHERE f.email= ? AND postblind IS NULL OR postblind=0)WHERE fnum BETWEEN 1 AND ?";
 	    
 		       // 한블럭당 페이지 갯수
-				int pageLength = 1;
+				int pageLength = 5;
 				// 블럭 인덱스
 				int currentBlock = page % pageLength == 0 ? page / pageLength : (page / pageLength) + 1;
 				// 시작페이지
@@ -60,7 +60,7 @@ public class BoardDAO {
 				// 끝페이지
 				int endPage = startPage + pageLength - 1;
 				// 노출할 데이터 갯수
-				int pagePerCnt = 1;
+				int pagePerCnt = 8;
 				int end = page * pagePerCnt;
 				int start = (end - pagePerCnt) + 1;
 		

@@ -56,41 +56,71 @@ body, head {
 </nav>
 <div class="container row ">
 <div class="col-4 text-center" style="margin:100 auto;">
-	<form action="login" method="post">
+	<form action="mailchk" method="post">
         <table id="login" class="table table-bordered text-center" style="margin-left: auto; margin-right: auto;" >
             <tr>
                 <td>이메일</td>
-                <td><input type="text" name="email"/></td>
-            </tr>
-             <tr>
-                <td>비밀번호</td>
-                <td><input type="password" name="pw"/></td>
+                <td><input type="text" name="email" id="email" required/></td>
             </tr>
             <tr>
+                <td>이름</td>
+                <td><input type="text" name="name" minlength="1" required/></td>
+            </tr>
+             <tr>
+				<td>연락처</td>
+				<td><input type="text" name="phone" minlength="11" maxlength="12" placeholder="-제외 입력해주세요" required/></td>
+			</tr>
+            <tr>
                 <td colspan="2">
-                <button class="btn btn-secondary">로그인</button><!-- onclick="opener.top.location='./main.jsp';self.close();" -->
+                <button class="btn btn-secondary">확인</button><!-- onclick="opener.top.location='./main.jsp';self.close();" -->
                 </td>
             </tr>
         </table>
         	</form>
-        	<c:if test="${success == false}">
-            <div id="redalert"
-               class=" alert alert-danger d-flex align-items-center"
+        	<c:if test="${suc == true}">
+            <div id="suc"
+               class="alert alert-success d-flex align-items-center"
                role="alert">
-               <div>없는 이메일이거나 비밀번호가 틀립니다</div>
+               
+               <form action="resetpw" method="post">
+  <div class="mb-3">
+  <input type="hidden" name="send" value="${email }"/>
+    <label for="newpw1" class="form-label">새로운 비밀번호</label>
+    <input type="password" class="form-control" name="newpw1" id="newpw1" minlength="6" required onchange="check_pw()">
+  </div>
+  <div class="mb-3">
+    <label for="newpw2" class="form-label">비밀번호 재입력</label>
+    <input type="password" class="form-control" name="newpw2" id="newpw2" minlength="6" placeholder="pw를 재입력해주세요" required onchange="check_pw()">&nbsp;<span id="check"></span>
+  </div>
+  <button class="btn btn-primary">초기화</button>
+</form>
             </div>
          </c:if>
-         <c:if test="${cancel eq 'ok'}">
-            <div id="redalert"
+         <c:if test="${suc == false}">
+            <div id="alert"
                class=" alert alert-danger d-flex align-items-center"
                role="alert">
-               <div>탈퇴한 계정입니다.</div>
+               <div>일치하는 데이터가 없습니다. 입력 값을 확인해주세요.</div>
             </div>
          </c:if>
 	<span class="text-center">
-        <a href="./findE.jsp">계정 찾기</a><span> | </span> <a href="./restpw.jsp">비밀번호 초기화</a><span> | </span><a href="./joinForm.jsp" >회원가입</a>
+        <a href="./login.jsp">로그인</a><span> | </span><a href="./joinForm.jsp" >회원가입</a>
 	</span>
 </div>
 </div>
 </body>
+<script>
+function check_pw(){
+if(document.getElementById('newpw1').value !='' && document.getElementById('newpw2').value!=''){
+    if(document.getElementById('newpw1').value==document.getElementById('newpw2').value){
+        document.getElementById('check').innerHTML='비밀번호가 일치합니다.'
+        document.getElementById('check').style.color='blue';
+    }
+    else{
+        document.getElementById('check').innerHTML='비밀번호가 일치하지 않습니다.';
+        document.getElementById('check').style.color='red';
+    }
+}}
+
+</script>
 </html>
