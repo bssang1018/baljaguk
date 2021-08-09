@@ -17,11 +17,12 @@
 <body>
 	<!-- 상단 메뉴바 -->
 <c:import url="./view/topmenu.jsp"/>
+
 	<!-- 내용시작 -->
 	<form action="msgReport" method="post">
-		<table>
+		<table class="table table-striped">
 				<tr>
-					<th>신고할 메세지 번호</th>
+					<th class="col-2">신고할 메세지 번호</th>
 					<td>
 					${msgDetail.msgNo}
 					<input type="hidden" name="msgNo" value="${msgDetail.msgNo}"/>
@@ -37,14 +38,10 @@
 				<tr>
 					<th>메세지 사유</th>
 					<td><textarea name="reportContent"></textarea></td>
-				</tr>
-				<tr>
-					<td colspan="2">
-					<button>메세지 신고</button>
-					&nbsp;&nbsp;&nbsp;&nbsp;
-					<input type="button" onclick="location.href='./msgMain'" value="메세지 메인" />
-				<tr>	
+				</tr>	
 		</table>
+			<button class="btn btn-primary">메세지 신고</button>
+			<input class="btn btn-primary" type="button" onclick="location.href='./msgMain'" value="이전으로" />
 	</form>
 </body>
 <script>

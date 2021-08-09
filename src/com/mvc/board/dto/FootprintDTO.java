@@ -16,6 +16,7 @@ public class FootprintDTO {
 	private String newFileName;
 	private int boardNO;
 	private String hashTag; 
+	private String contentNO;
 	
 	public String getHashTag() {
 		return hashTag;
@@ -88,6 +89,12 @@ public class FootprintDTO {
 	}
 	public void setNewFileName(String newFileName) {
 		this.newFileName = newFileName;
+	}
+	public String getContentNO() {
+		return contentNO;
+	}
+	public void setContentNO(String contentNO) {
+		this.contentNO = contentNO;
 	}
 	
 	

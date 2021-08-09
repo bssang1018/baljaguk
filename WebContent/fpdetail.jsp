@@ -14,14 +14,13 @@
 </style>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<link rel="stylesheet" href="css/common.css" type="text/css">
 </head>
 <body>
 <!-- 상단 메뉴바 -->
 <c:import url="./view/topmenu.jsp"/>
 	<!-- 내용시작 -->
    <h2>상세보기</h2>
-   
+
    <table>
    <tr>
       <th>발자국 번호</th>
@@ -51,18 +50,75 @@
    
    <tr>
 		<td colspan="2">
-      
-      <button onclick="location.href='./commentWrite?footPrintNO=${footprint.footPrintNO}'">댓글 쓰기</button>
       <c:if test='${sessionScope.loginemail eq footprint.email}'>
-	      <button onclick="location.href='./fplist'">발자국</button>
-	      <button onclick="location.href='./fpupdateForm?footPrintNO=${footprint.footPrintNO}'">발자국 수정</button>
-	      <button onclick="location.href='./fpdel?footPrintNO=${footprint.footPrintNO}'">발자국 삭제</button>
-	      <button onclick="location.href='./fpdel?footPrintNO=${footprint.footPrintNO}'">피드 삭제</button>
-	      <button onclick="location.href='./feedReportWrite?contentNo=${fpdetail.contentNo}'">피드 신고하기</button>
-	  </c:if>
- 		</td>
-   </tr>
-   </table>
-</body>
+<<<<<<< HEAD
 
+=======
+>>>>>>> cb725d98c6a24dbfe7ea6cc33a6533d8b43fd10a
+      <button onclick="location.href='./fplist'">발자국</button>
+      <button onclick="location.href='./fpupdateForm?footPrintNO=${footprint.footPrintNO}'" >발자국 수정</button>
+      <button onclick="location.href='./fpdel?footPrintNO=${footprint.footPrintNO}'">발자국 삭제</button>
+      <button onclick="location.href='/fpdel?footPrintNO=${footprint.footPrintNO}'" value ="1" >피드 삭제</button>
+      <button onclick="location.href='./fdReportWrite?contentNO=${fpdetail.contentNO}'">피드 신고하기</button>
+		</c:if>
+  		</td>
+   	</tr>
+</table>
+   
+   
+   <h3>댓글 창</h3>
+   
+   <table>
+   	<tr>
+   		<th>이메일</th>
+   		<th>댓글내용</th>
+   		<th>등록일</th>
+   		<th>삭제</th>
+   	</tr>
+   	<c:if test="${empty map.commentList}">
+			<tr>
+				<td colspan="4"> 등록된 댓글이 없네요! 첫 댓글을 달아보세요! </td>
+			</tr>
+		</c:if>
+	<c:forEach items="${map.commentList}" var="comment">
+			<tr>
+				<td>${comment.email}</td>
+				<td>${comment.commentText}</td>
+				<td>${comment.regDate}</td>
+				<c:if test="${comment.email eq loginemail}">
+					<td><input type="button" onclick="location.href='./commentDel?footPrintNO=${comment.footPrintNO}&commentNO=${comment.commentNo}'" value="삭제"/></td>
+				</c:if>
+				<c:if test="${comment.email ne loginemail}">
+					<td></td>
+				</c:if>			
+			</tr>
+		</c:forEach>
+
+   </table>
+   <form action="commentWriteForm" method="post">
+   		<table>
+   			<tr>
+   				<td>댓글입력</td>
+   				<td>
+   					<input type="text" name="commentText"/><button>등록</button>
+					<input type="hidden" name="footPrintNO" value="${footPrintNO}"/>   				
+   				</td>
+   			</tr>
+   		</table>
+   </form>
+   
+   
+   
+   
+ 
+</body>
+<script>
+	var footPrintNO = "${comment.footPrintNO}";
+	var loginemail = "${session.getAttribute('loginemail')}"
+	
+	var commentMsg = "${commentMsg}";
+	if(commentMsg != ""){
+		alert(commentMsg);
+	}
+</script>
 </html>

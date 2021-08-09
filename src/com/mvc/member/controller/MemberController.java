@@ -263,12 +263,11 @@ public class MemberController extends HttpServlet {
 			System.out.println(email);
 			if(pw1.equals(pw2)) {
 				suc = service.resetpw(email, pw1);
-				if(suc) {
+				//dis = req.getRequestDispatcher("login.jsp");
+				resp.sendRedirect("login.jsp");
 				System.out.println("비밀번호 변경");
-				req.setAttribute("pwsuc", suc);
-				dis = req.getRequestDispatcher("login.jsp");
-				dis.forward(req, resp);
-				}
+			}else {
+				resp.sendRedirect("resetpw.jsp");
 			}
 			break;
 		}
