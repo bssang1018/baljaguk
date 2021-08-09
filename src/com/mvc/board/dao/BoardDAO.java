@@ -439,6 +439,22 @@ public class BoardDAO {
 		return success;
 	}
 
+	public boolean like(String fpn, String email) {
+		String sql = "INSERT INTO likes(contentno, likecnt, email) VALUES(?,1,?)";
+		boolean suc = false;
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, fpn);
+			ps.setString(2, email);
+			suc = ps.execute();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			resClose();
+		}
+		return suc;
+	}
+
 	
 
 

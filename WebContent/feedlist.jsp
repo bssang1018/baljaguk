@@ -60,6 +60,12 @@ max-width: 100%;
     <li><a class="dropdown-item" href='./fdReportWrite?footPrintNO=${footprint.footPrintNO}'>피드 신고</a></li>
     <li><a class="dropdown-item" href='./fpdel?footPrintNO=${footprint.footPrintNO}'>피드 삭제</a></li>
   </ul>
+  <button type="button" class="btn btn-primary position-relative" onclick="location.href='./like?footPrintNO=${footprint.footPrintNO}'" >
+  ♥
+  <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+    ${footprint.likeCnt}
+  </span>
+</button>
 </div>
          </div>
          </div>

@@ -18,7 +18,7 @@ import com.oreilly.servlet.MultipartRequest;
 
 
 
-@WebServlet({"/fpsearch","/fplist","/fpwriteOk","/fpwriteNo","/fpdetail","/fpdel","/fpupdateForm","/fpupdate","/fpserach","/feedlist","/fdReport","/fdReportWrite"})
+@WebServlet({"/like","/fpsearch","/fplist","/fpwriteOk","/fpwriteNo","/fpdetail","/fpdel","/fpupdateForm","/fpupdate","/fpserach","/feedlist","/fdReport","/fdReportWrite"})
 
 
 
@@ -179,6 +179,20 @@ public class BoardController extends HttpServlet {
 			dis = req.getRequestDispatcher("/feedlist");
 			dis.forward(req, resp);
 			break;
+			
+		
+		  case "/like": 
+			  boolean suc;
+			  System.out.println("조아용"); 
+			  email = (String)  req.getSession().getAttribute("loginemail"); 
+			  String fpn = req.getParameter("footPrintNO");
+			  System.out.println(fpn+"/ "+email);
+			  suc =  service.like(fpn, email);
+			  System.out.println("성공 여부 :"+suc);
+			  resp.sendRedirect("/feedlist");
+			  
+		  break;
+		 
 		}		
 		
 		
