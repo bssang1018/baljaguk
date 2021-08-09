@@ -447,8 +447,6 @@ public class BoardDAO {
 		
 		return success;
 	}
-
-<<<<<<< HEAD
 	public int like(String contentNo, String email, String likeCnt, String footPrintNo) {
 		int success =0;
 		String sql1="INSERT INTO LIKES(contentNO, email , likeCnt)VALUES(?,?,1)";
@@ -471,7 +469,7 @@ public class BoardDAO {
 		}
 		
 		return success;
-=======
+	}
 	public void like(String fpn, String email) {
 		String sql1 = "select likecnt from likes where contentno=? AND email=?";
 		String sql2 = "INSERT  INTO likes(contentno, likecnt, email) VALUES(?,1,?)";
@@ -520,7 +518,6 @@ public class BoardDAO {
 		} finally {
 			resClose();
 		}
->>>>>>> 820f472e92302fc582061b1eac317951d2e0e48f
 	}
 
 	
