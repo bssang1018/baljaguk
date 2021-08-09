@@ -11,12 +11,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.mvc.board.service.BoardService;
+import com.mvc.msg.service.MsgService;
 import com.mvc.serviceCenter.service.ScService;
 
 
 
 
-@WebServlet({"/rcontload","/rcommload","/rmessload",
+@WebServlet({"/rcontload","/rcommload","/rmessload","/detail",
 	"/contentload","/commentload","/messageload",
 	"/memberlist","/membersearch","/memberdetail",
 	"/blacklist","/blacksearch","/blackwriteform","/blackregister","/blackremove",
@@ -68,19 +70,42 @@ public class ScController extends HttpServlet {
 			service.rmessload(Integer.parseInt(page));
 			break;
 		
+		// 신고 원본 페이지 이동함수
+		case "/detail":
+			System.out.println("신고 원본 페이지 정하기");
+			int reportno = Integer.parseInt(req.getParameter("reportno"));
+			String stx = req.getParameter("stx");
+			System.out.println("stx: "+stx);
+			System.out.println("reportno: "+reportno);
+			if(stx.equals("rcontload")) {
+				System.out.println("신고글 원본 가기");
+				String footPrintNO = service.contentload(reportno);
+				BoardService service1 = new BoardService(req);
+				req.setAttribute("footprint", service1.fpdetail(footPrintNO));
+				dis = req.getRequestDispatcher("fpdetail.jsp"); 
+				dis.forward(req,resp);
+			}else if(stx.equals("rcommload")) {
+				service.commentload(reportno);
+			}else if(stx.equals("rmessload")) {
+				System.out.println("신고 메세지 원본 가기");
+				int msgNo = service.messageload(reportno);
+				System.out.println("msgNO: "+msgNo);
+				MsgService service3 = new MsgService(req,resp);
+				req.setAttribute("msgDetail", service3.msgDetail(msgNo));
+				dis = req.getRequestDispatcher("msgDetail.jsp"); 
+				dis.forward(req,resp);
+			}else {
+				System.out.println(stx+"/"+"rcontload");
+			}
+			
+			break;
 		//신고 원본 불러오기
-		case "/contentload":
-			System.out.println("신고글 불러오기");
-			service.contentload();
-			break;
-		case "/commentload":
-			System.out.println("신고댓글 불러오기");
-			service.commentload();
-			break;
-		case "/messageload":
-			System.out.println("신고메세지 불러오기");
-			service.messageload();
-			break;
+		/*
+		 * case "/contentload": System.out.println("신고글 불러오기"); service.contentload();
+		 * break; case "/commentload": System.out.println("신고댓글 불러오기");
+		 * service.commentload(); break; case "/messageload":
+		 * System.out.println("신고메세지 불러오기"); service.messageload(); break;
+		 */
 			
 		//블랙리스트 관련 함수
 		//블랙리스트 불러오기
