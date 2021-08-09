@@ -6,7 +6,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet" href="css/common.css" type="text/css">
 <style type="text/css">
 body, head {
@@ -67,6 +66,7 @@ max-width: 100%;
 					<div class="card-footer text-center">
 						<td><a href="fpdetail?footPrintNO=${footprint.footPrintNO}">${footprint.footprintText}</a></td>
 					</div>
+					
 					</div>
 					
    </c:forEach>
@@ -77,7 +77,6 @@ max-width: 100%;
    </div>
 
 </body>
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 
 $('.gogo').animate({

@@ -209,7 +209,7 @@ public ArrayList<FootprintDTO> hashtaglist(String hashtag){
 	   success = dao.fdReport(contentNO,email,reportContent);
 	   dao.resClose();
 	   System.out.println("자원 반납 완료~!!");
-	    return 0;
+	    return success;
 }
 
 

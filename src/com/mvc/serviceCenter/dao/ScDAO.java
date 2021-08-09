@@ -11,11 +11,8 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
-<<<<<<< HEAD
 
-=======
 import com.mvc.comment.dto.CommentDTO;
->>>>>>> a09ee764dea76de9ba74b985e86ef99a7d02da65
 import com.mvc.board.dto.FootprintDTO;
 import com.mvc.comment.dto.CommentDTO;
 import com.mvc.member.dto.MemberDTO;
@@ -192,45 +189,6 @@ public class ScDAO {
 		}
 		return map;
 	}
-	
-
-	//신고 댓글 리스트 보기
-	public HashMap<String, Object> rcommload(int page) {
-		int pagePerCnt = 5;
-		int end = page*pagePerCnt;
-		int start = (end-pagePerCnt)+1;
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		
-		sql = "SELECT email, reporttext FROM"+
-		 "(SELECT ROW_NUMBER() OVER(ORDER BY email DESC) AS rnum," + 
-		 "email, reporttext FROM report1 WHERE commentno is not null) WHERE rnum BETWEEN ? AND ?";
-		ArrayList<ReportDTO> list = null;
-		ReportDTO dto = null;
-		try {
-			ps = conn.prepareStatement(sql);
-			ps.setInt(1, start);
-			ps.setInt(2, end);
-			rs = ps.executeQuery();
-			list = new ArrayList<ReportDTO>();
-			while(rs.next()) {
-				dto = new ReportDTO();
-				dto.setEmail(rs.getString("email"));
-				dto.setReportText(rs.getString("reporttext"));
-				list.add(dto);
-			}
-			System.out.println("list: "+list);
-			int total = toatalCountR("commentno"); // 총 게시글 수
-			int pages = (total%pagePerCnt == 0) ? total/pagePerCnt : total/pagePerCnt+1;
-			System.out.println("총 게시글 수 : "+total+"/ 페이지 수 : "+pages);
-			
-			map.put("list", list);
-			map.put("totalPage", pages);
-			map.put("currPage", page);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return map;
-	}
 
 	//신고 메세지 리스트 보기
 	public HashMap<String, Object> rmessload(int page) {
@@ -284,7 +242,7 @@ public class ScDAO {
 				//sql = "SELECT email, name FROM member";
 				sql = "SELECT email, name FROM"+
 				 "(SELECT ROW_NUMBER() OVER(ORDER BY email DESC) AS rnum," + 
-				 "email, name FROM member WHERE blacklist = 0) WHERE rnum BETWEEN ? AND ?";
+				 "email, name FROM member WHERE blacklist = 1) WHERE rnum BETWEEN ? AND ?";
 				ArrayList<MemberDTO> list = null;
 				MemberDTO dto = null;
 				try {
@@ -338,10 +296,9 @@ public class ScDAO {
 				int end = page*pagePerCnt;
 				int start = (end-pagePerCnt)+1;
 				HashMap<String, Object> map = new HashMap<String, Object>();
-				
-				sql = "SELECT email, name FROM"+
+				sql = "SELECT email,nickname,name,gender,birth,phone,blacklist,accountban,cancelmember FROM "+
 				 "(SELECT ROW_NUMBER() OVER(ORDER BY email DESC) AS rnum," + 
-				 "email, name FROM member) WHERE rnum BETWEEN ? AND ?";
+				 "email,nickname,name,gender,birth,phone,blacklist,accountban,cancelmember FROM member) WHERE rnum BETWEEN ? AND ?";
 				ArrayList<MemberDTO> list = null;
 				MemberDTO dto = null;
 				try {
@@ -353,8 +310,14 @@ public class ScDAO {
 					while(rs.next()) {
 						dto = new MemberDTO();
 						dto.setEmail(rs.getString("email"));
-						//dto.setNickname(rs.getString("nickname"));
+						dto.setNickname(rs.getString("nickname"));
 						dto.setName(rs.getString("name"));
+						dto.setGender(rs.getString("gender"));
+						dto.setBirth(rs.getDate("birth"));
+						dto.setPhone(rs.getString("phone"));
+						dto.setBlackList(rs.getString("blacklist").charAt(0));
+						dto.setAccountBan(rs.getString("accountban").charAt(0));
+						dto.setCancelMember(rs.getString("cancelMember").charAt(0));
 						list.add(dto);
 					}
 					int total = toatalCount(); // 총 게시글 수
@@ -402,7 +365,7 @@ public class ScDAO {
 		//sql = "SELECT email, name FROM member";
 		sql = "SELECT email, name FROM"+
 		 "(SELECT ROW_NUMBER() OVER(ORDER BY email DESC) AS rnum," + 
-		 "email, name FROM member WHERE accountban = 0) WHERE rnum BETWEEN ? AND ?";
+		 "email, name FROM member WHERE accountban = 1) WHERE rnum BETWEEN ? AND ?";
 		ArrayList<MemberDTO> list = null;
 		MemberDTO dto = null;
 		try {
@@ -434,7 +397,7 @@ public class ScDAO {
 	
 	public ArrayList<MemberDTO> stopmembersearch(String email) {
 		//sql = "SELECT email, name FROM member WHERE email=? AND accountBan = 1";
-		sql = "SELECT email, name FROM member WHERE email=? AND accountban=0";
+		sql = "SELECT email, name FROM member WHERE email=? AND accountban=1";
 		ArrayList<MemberDTO> list = null;
 		MemberDTO dto = null;
 		
@@ -466,7 +429,14 @@ public class ScDAO {
 			if(rs.next()) {
 				dto = new MemberDTO();
 				dto.setEmail(rs.getString("email"));
+				dto.setNickname(rs.getString("nickname"));
 				dto.setName(rs.getString("name"));
+				dto.setGender(rs.getString("gender"));
+				dto.setBirth(rs.getDate("birth"));
+				dto.setPhone(rs.getString("phone"));
+				dto.setBlackList(rs.getString("blacklist").charAt(0));
+				dto.setAccountBan(rs.getString("accountban").charAt(0));
+				dto.setCancelMember(rs.getString("cancelmember").charAt(0));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -518,7 +488,7 @@ public class ScDAO {
 	public int blackregister(String email, String reason) {
 		int success = 0;
 		//sql = "UPDATE "
-		sql = "UPDATE member SET blacklist=0 WHERE email= ?";
+		sql = "UPDATE member SET blacklist=1 WHERE email= ?";
 		try {
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, email);
@@ -533,7 +503,7 @@ public class ScDAO {
 	public int stopregister(String email, String reason) {
 		int success = 0;
 		//sql = "UPDATE "
-		sql = "UPDATE member SET accountban=0 WHERE email= ?";
+		sql = "UPDATE member SET accountban=1 WHERE email= ?";
 		try {
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, email);
@@ -547,7 +517,7 @@ public class ScDAO {
 
 	public int stopremove(String email) {
 		int success = 0;
-		sql = "UPDATE member SET accountban=1 WHERE email=?";
+		sql = "UPDATE member SET accountban=0 WHERE email=?";
 		try {
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, email);
@@ -568,7 +538,7 @@ public class ScDAO {
 		//sql = "SELECT email, name FROM member";
 		sql = "SELECT email, name FROM"+
 		 "(SELECT ROW_NUMBER() OVER(ORDER BY email DESC) AS rnum," + 
-		 "email, name FROM member WHERE cancelmember = 0) WHERE rnum BETWEEN ? AND ?";
+		 "email, name FROM member WHERE cancelmember = 1) WHERE rnum BETWEEN ? AND ?";
 		ArrayList<MemberDTO> list = null;
 		MemberDTO dto = null;
 		try {
@@ -598,7 +568,7 @@ public class ScDAO {
 	}
 
 	public ArrayList<MemberDTO> blacksearch(String email) {
-				sql = "SELECT email, name FROM member WHERE email=? AND blacklist=0";
+				sql = "SELECT email, name FROM member WHERE email=? AND blacklist=1";
 				ArrayList<MemberDTO> list = null;
 				MemberDTO dto = null;
 				
@@ -621,7 +591,7 @@ public class ScDAO {
 
 	public int blackremove(String email) {
 		int success = 0;
-		sql = "UPDATE member SET blacklist=1 WHERE email=?";
+		sql = "UPDATE member SET blacklist=0 WHERE email=?";
 		try {
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, email);
