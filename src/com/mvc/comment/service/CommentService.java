@@ -5,9 +5,7 @@ import java.util.HashMap;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.mvc.board.dto.FootprintDTO;
 import com.mvc.comment.dao.CommentDAO;
-import com.mvc.msg.dao.MsgDAO;
 
 public class CommentService {
 
@@ -58,16 +56,22 @@ public class CommentService {
 		System.out.println("자원반납 했음!");
 		return success;
 	}
+
+	public int qnacommentWrite(String loginemail, String qnano, String commentText1) {
+		System.out.println("loginemail: 	"+loginemail);
+		System.out.println("qnano: " + qnano);
+		System.out.println("commentText1: " + commentText1);
+		int success = 0;
+		CommentDAO dao = new CommentDAO();
+		success = dao.qnacommentWrite(loginemail,qnano ,commentText1);
+		dao.resClose();
+		System.out.println("자원반납 했음!");
 		
-	
-	
-	
-	
-	
-	
-	
-	
-	 
+		return success;
+		
+	}
+		
+
 	} //class end
 
 
