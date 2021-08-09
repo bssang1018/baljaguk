@@ -187,10 +187,9 @@ public class BoardController extends HttpServlet {
 			  email = (String)  req.getSession().getAttribute("loginemail"); 
 			  String fpn = req.getParameter("footPrintNO");
 			  System.out.println(fpn+"/ "+email);
-			  suc =  service.like(fpn, email);
-			  System.out.println("성공 여부 :"+suc);
-			  resp.sendRedirect("/feedlist");
-			  
+			  service.like(fpn, email);
+			  dis = req.getRequestDispatcher("/feedlist");
+			  dis.forward(req, resp);
 		  break;
 		 
 		}		

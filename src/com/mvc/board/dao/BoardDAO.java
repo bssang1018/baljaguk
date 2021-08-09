@@ -94,12 +94,18 @@ public class BoardDAO {
 	}
 	//피드 리스트
 	public ArrayList<FootprintDTO> feedlist(int page) {
-		String sql="SELECT fnum, footPrintNO, markerNO, email, reg_date, footprintText, likeCnt ,oriFileName, newFileName " + 
-				 " FROM (SELECT ROW_NUMBER() OVER (ORDER BY f.footprintNO DESC)" + 
-				 " AS fnum, f.footPrintNO, f.markerNO, f.email, f.reg_date, f.footprintText, f.likeCnt , f.postblind,  P.oriFileName, P.newFileName " + 
-				 " FROM footprint f LEFT OUTER JOIN PostPic P ON f.footPrintNO = P.footPrintNO"  + 
-				 " WHERE f.release = 1 AND f.postblind IS NULL OR f.postblind=0) WHERE fnum BETWEEN 1 AND ?";
-	   
+		
+		  String
+		  sql="SELECT fnum, footPrintNO, markerNO, email, reg_date, footprintText, likeCnt ,oriFileName, newFileName "
+		  + " FROM (SELECT ROW_NUMBER() OVER (ORDER BY f.footprintNO DESC)" +
+		  " AS fnum, f.footPrintNO, f.markerNO, f.email, f.reg_date, f.footprintText, f.likeCnt , f.postblind,  P.oriFileName, P.newFileName "
+		  +
+		  " FROM footprint f LEFT OUTER JOIN PostPic P ON f.footPrintNO = P.footPrintNO"
+		  +
+		  " WHERE f.release = 1 AND f.postblind IS NULL OR f.postblind=0) WHERE fnum BETWEEN 1 AND ?"
+		  ;
+		 
+		
 		// 한블럭당 페이지 갯수
 				int pageLength = 5;
 				// 블럭 인덱스
@@ -439,20 +445,54 @@ public class BoardDAO {
 		return success;
 	}
 
-	public boolean like(String fpn, String email) {
-		String sql = "INSERT INTO likes(contentno, likecnt, email) VALUES(?,1,?)";
-		boolean suc = false;
+	public void like(String fpn, String email) {
+		String sql1 = "select likecnt from likes where contentno=? AND email=?";
+		String sql2 = "INSERT  INTO likes(contentno, likecnt, email) VALUES(?,1,?)";
+		String sql3 = "UPDATE footprint SET likecnt  = (select count(email) from likes where contentno=?) where footprintno = ?";
+		String sql4 = "UPDATE likes SET likeCnt = ? WHERE contentno =?";
 		try {
-			ps = conn.prepareStatement(sql);
+			
+			ps = conn.prepareStatement(sql1);
 			ps.setString(1, fpn);
 			ps.setString(2, email);
-			suc = ps.execute();
+			rs = ps.executeQuery();
+			boolean success = rs.next();
+			System.out.println("성공 유무 :"+success);
+			if(!success) {
+				ps = conn.prepareStatement(sql2);
+				ps.setString(1, fpn);
+				ps.setString(2, email);
+				System.out.println("sql2 번 실행" +  ps.executeUpdate());
+
+				ps = conn.prepareStatement(sql3);
+				ps.setString(1, fpn);
+				ps.setString(2, fpn);
+				ps.executeUpdate();
+				System.out.println("sql3 번 실행" + ps.executeUpdate());
+			
+			}else {
+				ps = conn.prepareStatement(sql1);
+				ps.setString(1, fpn);
+				ps.setString(2, email);
+				rs = ps.executeQuery();
+				
+				int i = 1;
+				if(Integer.parseInt(rs.getString("likecnt"))==1) {
+					i = 0;
+				}else {
+					i = 1;
+				}
+				ps = conn.prepareStatement(sql4);
+				ps.setInt(1, i);
+				ps.setString(2, email);
+				ps.execute();
+				
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			resClose();
 		}
-		return suc;
 	}
 
 	
