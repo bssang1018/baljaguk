@@ -372,4 +372,37 @@ public class MemberDAO {
 		}
 		return dt;
 	}
+
+	public boolean mailchk(String email, String name, String phone) {
+		sql = "select password from member where email=? and name = ? and phone = ?";
+		boolean suc = false;
+		 try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, email);
+			ps.setString(2, name);
+			ps.setString(3, phone);
+			suc = ps.execute();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			resClose();
+		}
+		return suc;
+	}
+
+	public boolean resetpw(String email, String pw1) {
+		sql = "UPDATE  member SET  password = ? WHERE email = ?";
+		boolean suc = false;
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, pw1);
+			ps.setString(2, email);
+			suc = ps.execute();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			resClose();
+		}
+		return suc;
+	}
 }

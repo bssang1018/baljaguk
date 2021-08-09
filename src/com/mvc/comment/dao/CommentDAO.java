@@ -12,7 +12,7 @@ import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
 import com.mvc.comment.dto.CommentDTO;
-import com.mvc.msg.dto.MsgDTO;
+
 
 public class CommentDAO {
 	
@@ -162,6 +162,24 @@ public class CommentDAO {
 			success = ps.executeUpdate();
 			if (success > 0 ) {
 				System.out.println("댓글 DB 삭제 성공! 삭제개수: "+success);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return success;
+	}
+
+	public int qnacommentWrite(String loginemail, String qnano, String commentText1) {
+		int success = 0;
+		String sql = "INSERT INTO comment1(commentno, qnano, email, commenttext) VALUES(comment1_seq.NEXTVAL,?,?,?)";
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, Integer.parseInt(qnano));
+			ps.setString(2, loginemail);
+			ps.setString(3, commentText1);
+			success = ps.executeUpdate();
+			if(success>0) {
+				System.out.println("댓글등록 성공"+success);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

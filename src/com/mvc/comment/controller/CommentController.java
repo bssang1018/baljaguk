@@ -11,8 +11,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.mvc.comment.service.CommentService;
 
-@WebServlet({"/commentWrite","/commentWriteForm","/commentList","/commentDel"})
+@WebServlet({"/commentWrite","/commentWriteForm","/commentList","/commentDel", "/qnacommentWrite", "/qnacommentWritenForm", "/qnacommentList", "/qnacommentDel"})
 public class CommentController extends HttpServlet {
+
+
+	private static final long serialVersionUID = 1L;
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -86,6 +89,26 @@ public class CommentController extends HttpServlet {
 				dis = req.getRequestDispatcher("/fpdetail");
 				dis.forward(req, resp);
 			}
+			break;
+			
+		case "/qnacommentWriteForm":
+			System.out.println("댓글 작성 폼 요청, 피드번호 추출");
+			String qnano = req.getParameter("qnano");
+			System.out.println("qna 번호는?: " +qnano);
+			req.setAttribute("qnano", qnano);
+			dis = req.getRequestDispatcher("qnacommentWrite");
+			dis.forward(req, resp);
+			break;
+			
+		case "/qnacommentWrite" :
+			System.out.println("댓글 작성 요청...");
+			qnano = req.getParameter("qnano");
+			System.out.println(qnano);
+			String commentText1 = req.getParameter("commentText1");
+			service.qnacommentWrite(loginemail, qnano, commentText1);
+			req.setAttribute("qnano", qnano);
+			dis = req.getRequestDispatcher("/qnadetail");
+			dis.forward(req, resp);
 			break;
 		}
 		
