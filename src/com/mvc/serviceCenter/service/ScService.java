@@ -14,6 +14,7 @@ import com.mvc.board.dto.FootprintDTO;
 import com.mvc.member.dto.MemberDTO;
 import com.mvc.msg.dto.MsgDTO;
 import com.mvc.serviceCenter.dao.ScDAO;
+import com.mvc.serviceCenter.dto.ScServiceDTO;
 
 
 public class ScService {
@@ -254,12 +255,11 @@ public class ScService {
 		return success;
 	}
 
-	public int stopregister(String email) {
+	public int stopregister(String loginemail, String email, String reason) {
 		int success = 0;
 		ScDAO dao = new ScDAO();
-		String reason = req.getParameter("reason");
-		System.out.println("이메일: "+email+"사유: "+reason);
-		success = dao.stopregister(email,reason);
+		System.out.println("관리자 이메일: "+loginemail+ "이메일: "+email+"사유: "+reason);
+		success = dao.stopregister(loginemail, email, reason);
 		dao.resClose();
 		
 		return success;
@@ -305,6 +305,17 @@ public class ScService {
 		dao.resClose();
 		
 		return success;
+	}
+
+	public ScServiceDTO stopReason(String email) {
+		System.out.println("정지사유를 볼 이메일은?: " + email);
+		ScDAO dao = new ScDAO();
+		ScServiceDTO dto = null; 
+		dto = dao.stopReason(email);
+		dao.resClose();
+		
+		return dto;
+		
 	}
 
 	
