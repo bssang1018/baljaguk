@@ -6,18 +6,12 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<style>
-	table,tr,th,td{
-		border: 1px solid;
-		border-collapse: collapse;
-		padding : 10px;
-	}
-</style>
+
 </head>
 <body>
 	<!-- 상단 메뉴바 -->
 <c:import url="./view/topmenu.jsp"/>
-<h2 class="text-center">메세지 상세보기</h2>
+<h2  style="text-align: center">메세지 상세보기</h2>
 					
 	<table class="table table-striped" style="width: 500px; margin-left: auto; margin-right: auto;">
     <tr>

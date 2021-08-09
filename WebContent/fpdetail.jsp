@@ -51,7 +51,6 @@
    <tr>
 		<td colspan="2">
       <c:if test='${sessionScope.loginemail eq footprint.email}'>
-
       <button onclick="location.href='./fplist'">발자국</button>
       <button onclick="location.href='./fpupdateForm?footPrintNO=${footprint.footPrintNO}'" >발자국 수정</button>
       <button onclick="location.href='./fpdel?footPrintNO=${footprint.footPrintNO}'">발자국 삭제</button>
@@ -90,6 +89,8 @@
 				</c:if>			
 			</tr>
 		</c:forEach>
+		
+		
 
    </table>
    <form action="commentWriteForm" method="post">
@@ -104,7 +105,28 @@
    		</table>
    </form>
    
-   
+   <nav>
+			<ul class="pagination">
+				<c:if test="${map.startPage ne 1}">
+				<li class="page-item">
+				<a class="page-link" href="./commentList?page=${map.startPage-1}&footPrintNO=${footPrintNO}" aria-label="Previous"> <span aria-hidden="true">&laquo;</span></a>
+				</li>
+				</c:if>
+				<c:forEach var="i" begin="${map.startPage}" end="${map.endPage}">
+				<c:if test="${i ne map.currPage}">
+				<li class="page-item"><a class="page-link" href="./commentList?page=${i}&footPrintNO=${footPrintNO}">${i}</a></li>
+				</c:if>
+				<c:if test="${i eq map.currPage}">
+				<li class="page-item active"><a class="page-link" href="./commentList?page=${i}&footPrintNO=${footPrintNO}">${i}</a></li>
+				</c:if>
+				</c:forEach>
+				<c:if test="${map.totalPage ne map.endPage}">
+				<li class="page-item"><a class="page-link" href="./commentList?page=${map.endPage+1}&footPrintNO=${footPrintNO}"
+					aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+				</a></li>
+				</c:if>
+			</ul>
+			</nav>
    
    
  
@@ -112,10 +134,7 @@
 <script>
 	var footPrintNO = "${comment.footPrintNO}";
 	var loginemail = "${session.getAttribute('loginemail')}"
+
 	
-	var commentMsg = "${commentMsg}";
-	if(commentMsg != ""){
-		alert(commentMsg);
-	}
 </script>
 </html>

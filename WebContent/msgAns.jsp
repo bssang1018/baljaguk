@@ -6,19 +6,13 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<style>
-	table,tr,th,td{
-		border: 1px solid;
-		border-collapse: collapse;
-		padding : 10px;
-	}
-</style>
+
 </head>
 <body>
 	<!-- 상단 메뉴바 -->
 <c:import url="./view/topmenu.jsp"/>
 	<!-- 내용시작 -->
-<h3> 답장 보내기 </h3>
+<h3 style="text-align: center"> 답장 보내기 </h3>
 
 	<form action="msgWrite" method="post">
 <table class="table" style="width: 500px; margin-left: auto; margin-right: auto;">				
