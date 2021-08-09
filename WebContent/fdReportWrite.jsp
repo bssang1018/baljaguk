@@ -24,8 +24,8 @@ tabel,tr,th,td{
 	   <tr>
 	      <th>신고할 피드 번호</th>
 	      <td>
-	      ${fpdetail.contentNO}
-	      <input type="hidden" name ="contentNO" value ="${fpdetail.contentNO}"/>
+	      ${fpdetail.footPrintNO}
+	      <input type="hidden" name ="contentNO" value ="${fpdetail.footPrintNO}"/>
 	      </td>
 	      </tr>
 	      <tr>
