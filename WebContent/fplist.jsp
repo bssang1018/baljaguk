@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="css/common.css" type="text/css">
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=af37bb113fb5c630dd1cdf63348a1073&libraries=services"></script>
 <style type="text/css">
 body, head {
 	top: 0;
@@ -32,6 +33,8 @@ max-width: 100%;
 <body>
 <!-- 상단 메뉴바 -->
 <c:import url="./view/topmenu.jsp"/>
+<!-- 지도를 표시할 div 입니다 -->
+				<div id="map"	style="width: 100%; height: 450px; position: relative; overflow: hidden;"></div>
 <form class="d-inline-flex justify-content-end"  action="fpsearch" method="post">
 	 
    <div class="form-group">
@@ -119,7 +122,13 @@ $(document).on('click','#plusBtn',function(){
 	})
 	
 })
-		
+var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+	mapOption = {
+		center : new kakao.maps.LatLng(33.38453042646361, 126.56120892927193), // 지도의 중심좌표 (위도,경도)
+		level : 10
+	// 지도의 확대 레벨
+	};
+	map = new kakao.maps.Map(mapContainer, mapOption);		
 
 
  

@@ -10,13 +10,17 @@ import java.util.HashMap;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 83a33d9e87b1b3283018a353489893847d34d114
 import com.mvc.comment.dto.CommentDTO;
 import com.mvc.board.dto.FootprintDTO;
 import com.mvc.comment.dto.CommentDTO;
 import com.mvc.member.dto.MemberDTO;
 import com.mvc.msg.dto.MsgDTO;
 import com.mvc.serviceCenter.dto.ReportDTO;
+import com.mvc.serviceCenter.dto.ScServiceDTO;
 
 
 
@@ -499,21 +503,6 @@ public class ScDAO {
 		return success;
 	}
 
-	public int stopregister(String email, String reason) {
-		int success = 0;
-		//sql = "UPDATE "
-		sql = "UPDATE member SET accountban=1 WHERE email= ?";
-		try {
-			ps = conn.prepareStatement(sql);
-			ps.setString(1, email);
-			success = ps.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		System.out.println(reason);
-		return success;
-	}
-
 	public int stopremove(String email) {
 		int success = 0;
 		sql = "UPDATE member SET accountban=0 WHERE email=?";
@@ -645,5 +634,66 @@ public class ScDAO {
 		return msgNo;
 	}
 
+	//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+	public int stopregister(String loginemail, String email, String reason) {
+		int success = 0;
+		
+		sql = "SELECT * FROM admin WHERE banedemail = ?";
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, email);
+			rs = ps.executeQuery();
+			if (rs.next()) {
+				System.out.println("이미 신고된 회원");
+				
+			} else {
+				sql = "INSERT INTO admin(adminemail, banedemail, reason, categoryno) VALUES(?,?,?,14)";
+				try {
+					ps = conn.prepareStatement(sql);
+					ps.setString(1, loginemail);
+					ps.setString(2, email);
+					ps.setString(3, reason);
+					success = ps.executeUpdate();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		return success;
+	}
+
+	public ScServiceDTO stopReason(String email) {
+		sql = "SELECT * FROM admin WHERE banedemail = ?";
+		ScServiceDTO dto = null;
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, email);
+			rs = ps.executeQuery();
+			if(rs.next()) {
+				System.out.println("정지사유 조회성공");
+				dto = new ScServiceDTO();
+				dto.setAdminEmail(rs.getString("adminemail"));
+				dto.setBanedEmail(rs.getString("banedemail"));
+				dto.setReason(rs.getString("reason"));
+				dto.setCategoryNo(rs.getString("categoryNo"));
+				dto.setReg_date(rs.getString("reg_date"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return dto;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
 
