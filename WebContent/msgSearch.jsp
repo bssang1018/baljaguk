@@ -12,48 +12,46 @@
 	<!-- 상단 메뉴바 -->
 <c:import url="./view/topmenu.jsp"/>
 	<h3>"${searchKey}" 로 검색한 결과...</h3>
-
+<div class="text-center" >
 <button class="btn btn-primary" onclick="del()">메세지 삭제</button>
 <input class="btn btn-primary" type="button" onclick="location.href='./msgMain'" value="이전으로" />
-
-<div class="d-inline p-2">
- <table class="table">
+</div>
+ <table class="table" style="width: 800px; margin-left: auto; margin-right: auto;">
   <thead class="table-dark">
     <tr>
 			<th></th>
-			<th>보낸 사람</th>
-			<th>메세지 내용</th>
-			<th>받은날짜</th>
-			<th>읽음 상태</th>
+			<th style="text-align: center">보낸 사람</th>
+			<th style="text-align: center">메세지 내용</th>
+			<th style="text-align: center">받은날짜</th>
+			<th style="text-align: center">읽음 상태</th>
 		</tr>
   </thead>
   
 		<tbody>
 			<c:if test="${empty map.emailList}">
 			<tr>
-				<td colspan="5"> 검색 결과가 없어요ㅠ </td>
+				<td colspan="5"  style="text-align: center"> 검색 결과가 없어요ㅠ </td>
 			</tr>
 		</c:if>
 		
 		<c:forEach items="${map.emailList}" var="msges">
 			<tr>
-				<td><input type="checkbox" value='${msges.msgNo}'/></td>
-				<td>${msges.sender_email}</td>
-				<td><a href="msgDetail?msgNo=${msges.msgNo}">${msges.msgContent}</a></td>
-				<td>${msges.reg_date}</td>
+				<td style="text-align: center"><input type="checkbox" value='${msges.msgNo}'/></td>
+				<td style="text-align: center">${msges.sender_email}</td>
+				<td style="text-align: center"><a href="msgDetail?msgNo=${msges.msgNo}">${msges.msgContent}</a></td>
+				<td style="text-align: center">${msges.reg_date}</td>
 				
 				<c:if test="${msges.msgOpen eq  '1'}">
-				<td>읽음</td>	
+				<td style="text-align: center">읽음</td>	
 				</c:if>
 				<c:if test="${msges.msgOpen eq  '0'}">
-				<td>읽지 않음</td>
+				<td style="text-align: center">읽지 않음</td>
 				</c:if>
 				
 			</tr>
 		</c:forEach>	
 	</tbody>
 </table>	
-</div>
 	
 	<nav>
 			<ul class="pagination justify-content-center">
@@ -77,11 +75,13 @@
 				</c:if>
 			</ul>
 	</nav>
-	
+	<div class="text-center">
 	<form class="d-inline-flex" style="height: 30px;" action="msgSearch" method="post">
 				<input class="form-control me-1" type="search" placeholder="이메일을 입력해 주세요" aria-label="Search" name="searchKey" required/>
 						<button type="submit" class="btn btn-outline-secondary" style="width: 100px;">검색</button>
 			</form>
+				</div>
+			
 </body>
 
 <script>

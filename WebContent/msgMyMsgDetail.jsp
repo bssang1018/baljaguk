@@ -18,35 +18,31 @@
 	<!-- 상단 메뉴바 -->
 <c:import url="./view/topmenu.jsp"/>
 	<!-- 내용시작 -->
-	<h2>메세지 상세보기</h2>
+	<h2 class="text-center">메세지 상세보기</h2>
 	
-					<button class="btn btn-primary" onclick="location.href='./msgDel?msgNo=${msgDetail.msgNo}'">메세지 삭제</button>
-					<button class="btn btn-primary" onclick="location.href='./msgReportWrite?msgNo=${msgDetail.msgNo}'">메세지 신고하기</button>
-					<input class="btn btn-primary" type="button" onclick="location.href='./msgMain'" value="이전으로" />
-
-		<table class="table table-striped">
+	<table class="table table-striped" style="width: 500px; margin-left: auto; margin-right: auto;">
 			<tr>
-				<th class="col-2">메세지 넘버</th>
+				<th style="text-align: center">메세지 넘버</th>
 				<td>${msgDetail.msgNo}</td>
 			</tr>
 			<tr>
-				<th>보낸 사람</th>
+				<th style="text-align: center">보낸 사람</th>
 				<td>${msgDetail.sender_email}</td>
 			</tr>
 			<tr>
-				<th>받는 사람</th>
+				<th style="text-align: center">받는 사람</th>
 				<td>${msgDetail.receiver_email}</td>
 			</tr>
 			<tr>
-				<th>메세지 내용</th>
+				<th style="text-align: center">메세지 내용</th>
 				<td>${msgDetail.msgContent}</td>
 			</tr>
 			<tr>
-				<th>보낸 날짜</th>
+				<th style="text-align: center">보낸 날짜</th>
 				<td>${msgDetail.reg_date}</td>
 			</tr>
 			<tr>
-				<th>읽음 상태</th>
+				<th style="text-align: center">읽음 상태</th>
 				<c:if test="${msgDetail.msgOpen eq  '1'}">
 				<td>읽음</td>	
 				</c:if>
@@ -55,6 +51,13 @@
 				</c:if>
 			</tr>
 		</table>
+		
+		
+		<div class="text-center" >
+					<button class="btn btn-primary" onclick="location.href='./msgDel?msgNo=${msgDetail.msgNo}'">메세지 삭제</button>
+					<button class="btn btn-primary" onclick="location.href='./msgReportWrite?msgNo=${msgDetail.msgNo}'">메세지 신고하기</button>
+					<input class="btn btn-primary" type="button" onclick="location.href='./msgMain'" value="이전으로" />
+		</div>
 </body>
 <script>
 	var msgMsg = "${msgMsg}";
