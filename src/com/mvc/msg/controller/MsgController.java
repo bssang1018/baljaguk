@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.mvc.msg.service.MsgService;
 
-@WebServlet({"/msgWrite","/msgMain","/msgList","/msgDetail","/msgDel","/msgAns","/msgMyMsgDetail",
+@WebServlet({"/msgWrite","/msgMain","/msgList","/msgDetail","/msgDel","/msgAns","/msgMyMsgDetail","/repWrite",
 					"/msgArrDel","/msgMyMsg","/msgReport","/msgReportWrite", "/msgSearch"})
 
 public class MsgController extends HttpServlet {
@@ -62,6 +62,20 @@ public class MsgController extends HttpServlet {
 				msgMsg = "경고!! 메세지를 받을사람 또는 메세지를 받는사람을 확인해주세요!!";
 				req.setAttribute("msgMsg", msgMsg);
 				dis = req.getRequestDispatcher("msgWrite.jsp");
+				dis.forward(req, resp);
+			}
+			break;
+		// 답변 메세지 기능
+		case "/repWrite": 
+			System.out.println("메세지 쓰기 요청");
+			if(service.repwrite() > 0) {
+				//신고글 메인으로
+				dis = req.getRequestDispatcher("reportlist.jsp");
+				dis.forward(req, resp);
+			} else {
+				msgMsg = "경고!! 메세지를 받을사람 또는 메세지를 받는사람을 확인해주세요!!";
+				req.setAttribute("msgMsg", msgMsg);
+				dis = req.getRequestDispatcher("reportAnswer.jsp");
 				dis.forward(req, resp);
 			}
 			break;
