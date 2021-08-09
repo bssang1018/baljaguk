@@ -19,9 +19,9 @@
 <!-- 상단 메뉴바 -->
 <c:import url="./view/topmenu.jsp"/>
 	<!-- 내용시작 -->
-   <h2>상세보기</h2>
+   <h2 style="text-align: center">상세보기</h2>
 
-   <table>
+   <table style="width: 800px; margin-left: auto; margin-right: auto;">
    <tr>
       <th>발자국 번호</th>
       <td>${footprint.footPrintNO}</td>
@@ -51,71 +51,81 @@
    <tr>
 		<td colspan="2">
       <c:if test='${sessionScope.loginemail eq footprint.email}'>
-
       <button onclick="location.href='./fplist'">발자국</button>
       <button onclick="location.href='./fpupdateForm?footPrintNO=${footprint.footPrintNO}'" >발자국 수정</button>
       <button onclick="location.href='./fpdel?footPrintNO=${footprint.footPrintNO}'">발자국 삭제</button>
-      <button onclick="location.href='/fpdel?footPrintNO=${footprint.footPrintNO}'" value ="1" >피드 삭제</button>
-      <button onclick="location.href='./fdReportWrite?contentNO=${fpdetail.contentNO}'">피드 신고하기</button>
+      <button onclick="location.href='./fdReportWrite?footPrintNO=${footprint.footPrintNO}'">피드 신고하기</button>
+
 		</c:if>
   		</td>
    	</tr>
 </table>
    
-   
-   <h3>댓글 창</h3>
-   
-   <table>
+   <!-- <h3 style="text-align: center">댓글</h3>  -->
+   <table class="table table-striped" style="width: 800px; margin-left: auto; margin-right: auto;">
    	<tr>
-   		<th>이메일</th>
-   		<th>댓글내용</th>
-   		<th>등록일</th>
-   		<th>삭제</th>
+   		<th class="col-2" style="text-align: center">이메일</th>
+   		<th class="col-6" style="text-align: center">댓글내용</th>
+   		<th class="col-3" style="text-align: center">등록일</th>
+   		<th class="col-1" style="text-align: center">삭제</th>
    	</tr>
    	<c:if test="${empty map.commentList}">
 			<tr>
-				<td colspan="4"> 등록된 댓글이 없네요! 첫 댓글을 달아보세요! </td>
+				<td style="text-align: center" colspan="4"> 등록된 댓글이 없네요! 첫 댓글을 달아보세요! </td>
 			</tr>
 		</c:if>
 	<c:forEach items="${map.commentList}" var="comment">
 			<tr>
-				<td>${comment.email}</td>
+				<td style="text-align: center">${comment.email}</td>
 				<td>${comment.commentText}</td>
-				<td>${comment.regDate}</td>
+				<td style="text-align: center">${comment.regDate}</td>
 				<c:if test="${comment.email eq loginemail}">
-					<td><input type="button" onclick="location.href='./commentDel?footPrintNO=${comment.footPrintNO}&commentNO=${comment.commentNo}'" value="삭제"/></td>
+					<td style="text-align: center"><input type="button" onclick="location.href='./commentDel?footPrintNO=${comment.footPrintNO}&commentNO=${comment.commentNo}'" value="삭제"/></td>
 				</c:if>
 				<c:if test="${comment.email ne loginemail}">
 					<td></td>
 				</c:if>			
 			</tr>
 		</c:forEach>
-
    </table>
+   
+   
+   
+   <nav>
+			<ul class="pagination justify-content-center">
+				<c:if test="${map.startPage ne 1}">
+				<li class="page-item">
+				<a class="page-link" href="./commentList?page=${map.startPage-1}&footPrintNO=${footPrintNO}" aria-label="Previous"> <span aria-hidden="true">&laquo;</span></a>
+				</li>
+				</c:if>
+				<c:forEach var="i" begin="${map.startPage}" end="${map.endPage}">
+				<c:if test="${i ne map.currPage}">
+				<li class="page-item"><a class="page-link" href="./commentList?page=${i}&footPrintNO=${footPrintNO}">${i}</a></li>
+				</c:if>
+				<c:if test="${i eq map.currPage}">
+				<li class="page-item active"><a class="page-link" href="./commentList?page=${i}&footPrintNO=${footPrintNO}">${i}</a></li>
+				</c:if>
+				</c:forEach>
+				<c:if test="${map.totalPage ne map.endPage}">
+				<li class="page-item"><a class="page-link" href="./commentList?page=${map.endPage+1}&footPrintNO=${footPrintNO}"
+					aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+				</a></li>
+				</c:if>
+			</ul>
+			</nav>
+   
    <form action="commentWriteForm" method="post">
-   		<table>
-   			<tr>
-   				<td>댓글입력</td>
-   				<td>
-   					<input type="text" name="commentText"/><button>등록</button>
-					<input type="hidden" name="footPrintNO" value="${footPrintNO}"/>   				
-   				</td>
-   			</tr>
-   		</table>
+   <div class="text-center">
+   			<span>  댓글입력  </span><input type="text" name="commentText"/><button>등록</button>
+			<input type="hidden" name="footPrintNO" value="${footPrintNO}"/>   				
+   </div>
    </form>
-   
-   
-   
-   
  
 </body>
 <script>
 	var footPrintNO = "${comment.footPrintNO}";
 	var loginemail = "${session.getAttribute('loginemail')}"
+
 	
-	var commentMsg = "${commentMsg}";
-	if(commentMsg != ""){
-		alert(commentMsg);
-	}
 </script>
 </html>

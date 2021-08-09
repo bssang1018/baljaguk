@@ -13,7 +13,7 @@
 <c:import url="./view/topmenu.jsp"/>
 
 
-	<h3>내가 보낸 메세지</h3>
+	<h3 style="text-align: center">내가 보낸 메세지</h3>
 	<div class="text-center" >
 		<button class="btn btn-primary" onclick="del()">메세지 삭제</button>
 		<input class="btn btn-primary" type="button" onclick="location.href='./msgMain'" value="이전으로" />
@@ -22,10 +22,10 @@
  <table class="table" style="width: 800px; margin-left: auto; margin-right: auto;">
   <thead class="table-dark">
 		<tr>
-			<th></th>
-			<th style="text-align: center">받는 사람</th>
-			<th style="text-align: center">메세지 내용</th>
-			<th style="text-align: center">받은날짜</th>
+			<th class="col-1" style="text-align: center"></th>
+			<th class="col-2" style="text-align: center">받는 사람</th>
+			<th class="col-6" style="text-align: center">메세지 내용</th>
+			<th class="col-2" style="text-align: center">받은날짜</th>
 		</tr>
 </thead>
 <tbody>
@@ -33,11 +33,11 @@
 		<tr style="text-align: center"><td colspan="4">온 메세지가 없어요!</td></tr>
 		</c:if>
 		<c:forEach items="${map.msgList}" var="msges">
-			<tr style="text-align: center">
-				<td><input type="checkbox" value='${msges.msgNo}'/></td>
-				<td>${msges.receiver_email}</td>
+			<tr>
+				<td style="text-align: center"><input type="checkbox" value='${msges.msgNo}'/></td>
+				<td style="text-align: center">${msges.receiver_email}</td>
 				<td><a href="msgMyMsgDetail?msgNo=${msges.msgNo}">${msges.msgContent}</a></td>
-				<td>${msges.reg_date}</td>
+				<td style="text-align: center">${msges.reg_date}</td>
 			</tr>
 		</c:forEach>
   </tbody>
