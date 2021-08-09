@@ -10,15 +10,8 @@ import java.util.HashMap;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
-<<<<<<< HEAD
 import com.mvc.comment.dto.CommentDTO;
 import com.mvc.board.dto.FootprintDTO;
-=======
-
-import com.mvc.comment.dto.CommentDTO;
-import com.mvc.board.dto.FootprintDTO;
-
->>>>>>> 4255dc68ee8e0e3bb1cdf5bb2889022a6238d948
 import com.mvc.member.dto.MemberDTO;
 import com.mvc.msg.dto.MsgDTO;
 import com.mvc.serviceCenter.dto.ReportDTO;
@@ -640,13 +633,6 @@ public class ScDAO {
 		sql = "SELECT reportno, categoryno, email, reporttext, reportdate, state FROM report1 WHERE email=?";
 		ArrayList<ReportDTO> list = null;
 		ReportDTO dto = null;
-	}
-	
-	public int stopregister(String loginemail, String email, String reason) {
-		int success = 0;
-		ArrayList<ReportDTO> list = null;
-		ReportDTO dto = null;
-		sql = "SELECT * FROM admin WHERE banedemail = ?";
 		try {
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, email);
@@ -661,49 +647,63 @@ public class ScDAO {
 				dto.setReportDate(rs.getDate("reportdate"));
 				dto.setState(rs.getString("state").charAt(0));
 				list.add(dto);
-			if (rs.next()) {
-				System.out.println("이미 신고된 회원");
-				
-			} else {
-				sql = "INSERT INTO admin(adminemail, banedemail, reason, categoryno) VALUES(?,?,?,14)";
-				try {
-					ps = conn.prepareStatement(sql);
-					ps.setString(1, loginemail);
-					ps.setString(2, email);
-					ps.setString(3, reason);
-					success = ps.executeUpdate();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-		} catch (SQLException e1) {
-			e1.printStackTrace();
-		}
-		return success;
-	}
-
-	public ScServiceDTO stopReason(String email) {
-		sql = "SELECT * FROM admin WHERE banedemail = ?";
-		ScServiceDTO dto = null;
-		try {
-			ps = conn.prepareStatement(sql);
-			ps.setString(1, email);
-			rs = ps.executeQuery();
-			if(rs.next()) {
-				System.out.println("정지사유 조회성공");
-				dto = new ScServiceDTO();
-				dto.setAdminEmail(rs.getString("adminemail"));
-				dto.setBanedEmail(rs.getString("banedemail"));
-				dto.setReason(rs.getString("reason"));
-				dto.setCategoryNo(rs.getString("categoryNo"));
-				dto.setReg_date(rs.getString("reg_date"));
 			}
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return list;
 	}
+	
+	public int stopregister(String loginemail, String email, String reason) {
+	      int success = 0;
+	      
+	      sql = "SELECT * FROM admin WHERE banedemail = ?";
+	      try {
+	         ps = conn.prepareStatement(sql);
+	         ps.setString(1, email);
+	         rs = ps.executeQuery();
+	         if (rs.next()) {
+	            System.out.println("이미 신고된 회원");
+	            
+	         } else {
+	            sql = "INSERT INTO admin(adminemail, banedemail, reason, categoryno) VALUES(?,?,?,14)";
+	            try {
+	               ps = conn.prepareStatement(sql);
+	               ps.setString(1, loginemail);
+	               ps.setString(2, email);
+	               ps.setString(3, reason);
+	               success = ps.executeUpdate();
+	            } catch (SQLException e) {
+	               e.printStackTrace();
+	            }
+	         }
+	      } catch (SQLException e1) {
+	         e1.printStackTrace();
+	      }
+	      return success;
+	   }
 
-		return dto;
-	}
+	   public ScServiceDTO stopReason(String email) {
+	      sql = "SELECT * FROM admin WHERE banedemail = ?";
+	      ScServiceDTO dto = null;
+	      try {
+	         ps = conn.prepareStatement(sql);
+	         ps.setString(1, email);
+	         rs = ps.executeQuery();
+	         if(rs.next()) {
+	            System.out.println("정지사유 조회성공");
+	            dto = new ScServiceDTO();
+	            dto.setAdminEmail(rs.getString("adminemail"));
+	            dto.setBanedEmail(rs.getString("banedemail"));
+	            dto.setReason(rs.getString("reason"));
+	            dto.setCategoryNo(rs.getString("categoryNo"));
+	            dto.setReg_date(rs.getString("reg_date"));
+	         }
+	      } catch (SQLException e) {
+	         e.printStackTrace();
+	      }
+	      return dto;
+	   }
 }
 

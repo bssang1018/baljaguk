@@ -14,13 +14,9 @@ import com.mvc.board.dto.FootprintDTO;
 import com.mvc.member.dto.MemberDTO;
 import com.mvc.msg.dto.MsgDTO;
 import com.mvc.serviceCenter.dao.ScDAO;
-<<<<<<< HEAD
 import com.mvc.serviceCenter.dto.ReportDTO;
 import com.mvc.serviceCenter.dto.ScServiceDTO;
-=======
-import com.mvc.serviceCenter.dto.ScServiceDTO;
 
->>>>>>> 4255dc68ee8e0e3bb1cdf5bb2889022a6238d948
 
 
 public class ScService {
