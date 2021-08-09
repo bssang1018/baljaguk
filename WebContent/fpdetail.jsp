@@ -54,7 +54,12 @@
       <button onclick="location.href='./fplist'">발자국</button>
       <button onclick="location.href='./fpupdateForm?footPrintNO=${footprint.footPrintNO}'" >발자국 수정</button>
       <button onclick="location.href='./fpdel?footPrintNO=${footprint.footPrintNO}'">발자국 삭제</button>
+<<<<<<< HEAD
    
+=======
+      <button onclick="location.href='/fpdel?footPrintNO=${footprint.footPrintNO}'" value ="1" >피드 삭제</button>
+      <button onclick="location.href='./fdReportWrite?footPrintNO=${footprint.footPrintNO}'">피드 신고하기</button>
+>>>>>>> 6156dda98f965b43cda4f2525480d35a6f690458
 		</c:if>
   		</td>
    	</tr>
