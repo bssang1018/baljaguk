@@ -313,7 +313,8 @@
 		<div id="menu_wrap" class="bg_white">
 			<div class="option">
 				<div>
-					<form onsubmit="searchPlaces(); return false;">키워드 : <input type="text" value="" id="keyword" size="15">
+					<form onsubmit="searchPlaces(); return false;">
+						키워드 : <input type="text" value="" id="keyword" size="15">
 						<button type="submit">검색하기</button>
 					</form>
 				</div>
@@ -569,7 +570,7 @@
 			//map.setBounds(bounds);
 		}
 	} */
-	
+
 	// 장소검색이 완료됐을 때 호출되는 콜백함수 입니다
 	function placesSearchCB(data, status, pagination) {
 		if (status === kakao.maps.services.Status.OK) {
