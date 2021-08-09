@@ -14,13 +14,13 @@ body, head {
 	padding: 0;
 }
 #size{
-max-width: 100%;
+/* max-width: 100%; */
   height: 210px;
 }
 
  img{
   max-width: 100%;
-  object-fit : cover;
+  object-fit : contain;
 }
 #text{
   display: inline-block; width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
@@ -53,7 +53,7 @@ max-width: 100%;
 			<div class="gogo col text-center" id="frame" style="opacity:0;">
 					<p style="display : none;">${M.boardNO}</p>
 					<div id="size">
-					<img src="/photo/${M.newFileName}" />
+					<img src="/photo/${M.newFileName}" onerror="this.src='view/test.jpg'"/>
 					</div>
 					<div class="card-body">
 						<p class="card-title">작성자 : ${M.email} </p>
@@ -108,7 +108,6 @@ $(document).on('click','#plusBtn',function(){
 		    	   content += 		'</div>'
 		    	   content += 	'</div>' 	  
 		        })
-		        $('#card').empty();
 		        $('#card').append(content);
 		    },
 		    error : function(e) {
