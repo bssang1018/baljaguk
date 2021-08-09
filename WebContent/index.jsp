@@ -5,6 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript"
+	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=af37bb113fb5c630dd1cdf63348a1073&libraries=services"></script>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -60,7 +62,8 @@ body, head {
 			<div class="col-6">
 				<h2>지도</h2>
 				<hr />
-				
+				<!-- 지도를 표시할 div 입니다 -->
+				<div id="map"	style="width: 100%; height: 350px; position: relative; overflow: hidden;"></div>
 			</div>
 			<div class="col-6">
 				<a class="nav-link" href="./main.jsp"><h2>플래너시작</h2></a>
@@ -138,6 +141,7 @@ body, head {
 							level : 10
 						// 지도의 확대 레벨
 						};
+						map = new kakao.maps.Map(mapContainer, mapOption);
 					</script>
 </body>
 </html>

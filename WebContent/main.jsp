@@ -55,7 +55,8 @@ img {
 					<a href="fplist">플래너시작</a>
 				</h2>
 				<hr />
-				내용 들어감
+				<!-- 지도를 표시할 div 입니다 -->
+				<div id="fpMap"	style="width: 100%; height: 350px; position: relative; overflow: hidden;"></div>
 			</div>
 		</div>
 		<div class="row row-cols-1 row-cols-md-4 g-4 mt-4" id="card">
@@ -163,7 +164,16 @@ img {
 	}
 
 	var page = 1;
+	
 	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+	mapOption = {
+		center : new kakao.maps.LatLng(33.38453042646361, 126.56120892927193), // 지도의 중심좌표 (위도,경도)
+		level : 10
+	// 지도의 확대 레벨
+	};
+	map = new kakao.maps.Map(mapContainer, mapOption);
+	
+	var mapContainer = document.getElementById('fpMap'), // 지도를 표시할 div 
 	mapOption = {
 		center : new kakao.maps.LatLng(33.38453042646361, 126.56120892927193), // 지도의 중심좌표 (위도,경도)
 		level : 10
