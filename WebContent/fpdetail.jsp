@@ -94,12 +94,6 @@
 			</tr>
 		</c:forEach>
 
-<<<<<<< HEAD
-</c:if>
-  
-   </tr>
-=======
->>>>>>> cb725d98c6a24dbfe7ea6cc33a6533d8b43fd10a
    </table>
    <form action="commentWriteForm" method="post">
    		<table>
