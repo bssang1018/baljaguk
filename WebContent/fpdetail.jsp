@@ -51,10 +51,7 @@
    <tr>
 		<td colspan="2">
       <c:if test='${sessionScope.loginemail eq footprint.email}'>
-<<<<<<< HEAD
 
-=======
->>>>>>> cb725d98c6a24dbfe7ea6cc33a6533d8b43fd10a
       <button onclick="location.href='./fplist'">발자국</button>
       <button onclick="location.href='./fpupdateForm?footPrintNO=${footprint.footPrintNO}'" >발자국 수정</button>
       <button onclick="location.href='./fpdel?footPrintNO=${footprint.footPrintNO}'">발자국 삭제</button>
