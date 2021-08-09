@@ -11,7 +11,7 @@
 <body>
 	<!-- 상단 메뉴바 -->
 <c:import url="./view/topmenu.jsp"/>
-	<h3>"${searchKey}" 로 검색한 결과...</h3>
+	<h3 style="text-align: center">"${searchKey}" 로 검색한 결과...</h3>
 <div class="text-center" >
 <button class="btn btn-primary" onclick="del()">메세지 삭제</button>
 <input class="btn btn-primary" type="button" onclick="location.href='./msgMain'" value="이전으로" />
