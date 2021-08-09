@@ -9,7 +9,7 @@ public class ReportDTO {
 	private int commentNo;
 	private String email;
 	private Date reportDate;
-	private char state;
+	private String state;
 	private String reportText;
 	private char blind;
 	
@@ -49,10 +49,10 @@ public class ReportDTO {
 	public void setReportDate(Date reportDate) {
 		this.reportDate = reportDate;
 	}
-	public char getState() {
+	public String getState() {
 		return state;
 	}
-	public void setState(char state) {
+	public void setState(String state) {
 		this.state = state;
 	}
 	public String getReportText() {

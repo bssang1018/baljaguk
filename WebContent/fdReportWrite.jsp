@@ -24,15 +24,15 @@ tabel,tr,th,td{
 	   <tr>
 	      <th>신고할 피드 번호</th>
 	      <td>
-	      ${fddetail.contentNO}
-	      <input type="hidden" name ="contentNO" value ="${fddetail.contentNO}"/>
+	      ${fpdetail.contentNO}
+	      <input type="hidden" name ="contentNO" value ="${fpdetail.contentNO}"/>
 	      </td>
 	      </tr>
 	      <tr>
 	        <th>신고할 이메일</th>
 	      <td>
-	      ${fddetail.email}
-	      <input type="hidden" name ="email" value ="${fddetail.email}"/>
+	      ${fpdetail.email}
+	      <input type="hidden" name ="email" value ="${fpdetail.email}"/>
 	      </td>
 	      </tr>
 	      <tr>

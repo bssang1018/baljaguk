@@ -77,7 +77,7 @@ body, head {
             <div id="redalert"
                class=" alert alert-danger d-flex align-items-center"
                role="alert">
-               <div>${info.email }</div>
+               <div>등록된 이메일은 <span class="text-primary">${info.email }</span> 입니다.</div>
             </div>
          </c:if>
          <c:if test="${suc == false}">
@@ -88,7 +88,7 @@ body, head {
             </div>
          </c:if>
 	<span class="text-center">
-        <a href="./login.jsp">로그인</a><span> | </span> <a>비밀번호 초기화</a><span> | </span><a href="./joinForm.jsp" >회원가입</a>
+        <a href="./login.jsp">로그인</a><span> | </span> <a href="./restpw.jsp">비밀번호 초기화</a><span> | </span><a href="./joinForm.jsp" >회원가입</a>
 	</span>
 </div>
 </div>

@@ -86,7 +86,8 @@ public class BoardController extends HttpServlet {
 			 */
 			email = (String) req.getSession().getAttribute("loginemail");
 		    int num = service.fpwriteOk(email);
-		   page = num > 0 ? "./fpdetail?footPrintNO="+num:"feedlist.jsp";
+		    //feedlist에서 fplist로 바꿈
+		   page = num > 0 ? "./fpdetail?footPrintNO="+num:"fplist.jsp";
 		    resp.sendRedirect(page);
 		    
 		break;
@@ -160,11 +161,12 @@ public class BoardController extends HttpServlet {
 			break;
 			
 		case "/fdReport":
-			System.out.println("피드 신고 요청");
 			int success =0;
+			System.out.println("피드 신고 요청");
 			//신고 넘버, 발자국 넘버, 등록일, 신고내용, 신고자 이메일
-			success = service.fdReport();
-			if(success >0) {
+			 success = service.fdReport();
+				
+			if(success > 0){
 				System.out.println("신고 완료");
 				fdmsg="피드를 신고했습니다!!";
 			}else {

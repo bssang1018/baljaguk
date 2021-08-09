@@ -28,8 +28,13 @@ public class BoardService {
 	public ArrayList<FootprintDTO> fplist(String email) {
 		
 		BoardDAO dao = new BoardDAO();
-		ArrayList<FootprintDTO> fplist = dao.fplist(email);
-		System.out.println("fplist size : "+fplist.size());
+		String page = req.getParameter("page");
+		if(page == null) {
+			page= "1";
+		}
+		ArrayList<FootprintDTO> fplist = dao.fplist(email,Integer.parseInt(page));
+		System.out.println(fplist.size()+"건의 발자국");
+		
 		dao.resClose();
 		return fplist;
 	}
@@ -37,8 +42,13 @@ public class BoardService {
 	
 	public ArrayList<FootprintDTO> feedlist() {
 		BoardDAO dao = new BoardDAO();
-		ArrayList<FootprintDTO> feedlist = dao.feedlist();
-		System.out.println("feedlist size : "+feedlist.size());
+		String page = req.getParameter("page");
+		if(page == null) {
+			page= "1";
+		}
+		ArrayList<FootprintDTO> feedlist = dao.feedlist(Integer.parseInt(page));
+		System.out.println(feedlist.size()+"건의 피드");
+		
 		dao.resClose();
 		return feedlist;
 	}
@@ -74,6 +84,15 @@ public class BoardService {
 		
 		FootprintDTO dto = null;
 		String footPrintNO = req.getParameter("footPrintNO");
+        BoardDAO dao = new BoardDAO();
+		dto = dao.fpdetail(footPrintNO);
+		//System.out.println("dto : "+dto);
+		dao.resClose();
+		return dto;
+	}
+	public FootprintDTO fpdetail(String footPrintNO) {
+		
+		FootprintDTO dto = null;
 		System.out.println("footPrintNO : "+footPrintNO);
         BoardDAO dao = new BoardDAO();
 		dto = dao.fpdetail(footPrintNO);
