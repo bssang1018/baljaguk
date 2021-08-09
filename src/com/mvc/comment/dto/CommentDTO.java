@@ -7,7 +7,14 @@ public class CommentDTO {
 	private String commentText;
 	private String commentBlind;
 	private String email;
+	private String qnano;
 	
+	public String getQnano() {
+		return qnano;
+	}
+	public void setQnano(String qnano) {
+		this.qnano = qnano;
+	}
 	public int getCommentNo() {
 		return commentNo;
 	}

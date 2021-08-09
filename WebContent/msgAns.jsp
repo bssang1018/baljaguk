@@ -21,28 +21,30 @@
 <h3> 답장 보내기 </h3>
 
 	<form action="msgWrite" method="post">
-		<table class="table table-striped">
+<table class="table" style="width: 500px; margin-left: auto; margin-right: auto;">				
 				<tr>
-					<th class="col-2">보내는 사람</th>
+					<th style="text-align: center">보내는 사람</th>
 					<td>
 					${loginemail}
 					<input type="hidden" name="sender" value='${loginemail}'/>
 					</td>
 				</tr>
 				<tr>
-					<th>받는 사람</th>
+					<th style="text-align: center">받는 사람</th>
 					<td>
 					${sender_email}
 					<input type="hidden" name="reciever" value='${sender_email}'/>
 					</td>
 				</tr>
 				<tr>
-					<th>메세지 내용</th>
-					<td><textarea name="content"></textarea></td>
+					<th style="text-align: center">메세지 내용</th>
+					<td><textarea name="content" style="height: 300px; width: 300px;"s></textarea></td>
 				</tr>
 		</table>
+		<div class="text-center" >
 		<button class="btn btn-primary">답장 전송</button>
 		<input class="btn btn-primary" type="button" onclick="location.href='./msgMain'" value="이전으로" />
+				</div>
 	</form>
 </body>
 <script>
