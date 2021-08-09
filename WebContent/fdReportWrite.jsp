@@ -20,7 +20,7 @@
 
 	<!-- 내용시작 -->
 	<form action="fdReport" method="post">
-<<<<<<< HEAD
+
 <table class="table" style="width: 500px; margin-left: auto; margin-right: auto;">				
 				<tr>
 					<th style="text-align: center">신고할 피드 번호</th>
@@ -46,36 +46,7 @@
 			<button class="btn btn-primary">피드 신고</button>
 			<input class="btn btn-primary" type="button" onclick="location.href='./feedlist'" value="이전으로" />
 		</div>
-=======
-	<table>
-	   <tr>
-	      <th>신고할 피드 번호</th>
-	      <td>
-	      ${fpdetail.footPrintNO}
-	      <input type="hidden" name ="contentNO" value ="${fpdetail.footPrintNO}"/>
-	      </td>
-	      </tr>
-	      <tr>
-	        <th>신고할 이메일</th>
-	      <td>
-	      ${fpdetail.email}
-	      <input type="hidden" name ="email" value ="${fpdetail.email}"/>
-	      </td>
-	      </tr>
-	      <tr>
-	       <th>피드 신고 사유</th>
-	      <td><textarea name ="reportContent"></textarea>
-	      </td>
-	      </tr>
-	    <tr>
-	    <td colspan ="2">
-	    <button>피드 신고</button>
-	    &nbsp;&nbsp;&nbsp;&nbsp;
-	    <input type = "button" onclick ="location.href='./feedlist'" value ="피드 리스트"/>
-	    </tr>
-	</table>
-</form>
->>>>>>> 6156dda98f965b43cda4f2525480d35a6f690458
+
 	
 	</form>
 </body>

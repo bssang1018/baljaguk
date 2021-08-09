@@ -140,23 +140,6 @@ public class BoardDAO {
 		return feedlist;
 	}
     
-	public int uplike(String footPrintNO) {
-		int success = 0;
-		String sql ="UPDATE footprint SET  likeCnt = likeCnt +1 WHERE footPrintNO =?";
-		
-		try {
-			ps = conn.prepareStatement(sql);
-			ps.setString(1, footPrintNO);
-			success =ps.executeUpdate();
-			System.out.println("좋아요 수 올리기 성공 : "+success);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-		
-		return success;
-		
-	}
 	
 	
 	//메인 피드 리스트
@@ -212,6 +195,7 @@ public class BoardDAO {
 			String sql1 = "INSERT INTO footprint(footPrintNO, email,release, footprintText, likeCnt)"
 					+ " VALUES(footprint_seq.NEXTVAL,?,?,?,0)";
 			//해시태그 등록 sql
+			
 			String sql2 ="INSERT INTO Post_Tag(footPrintNO, hashTag) VALUES(?,?)";
 			//사진업로드 sql
 			String sql3 ="INSERT INTO PostPic(footPrintNO, oriFileName, newFileName)"
@@ -273,6 +257,25 @@ public class BoardDAO {
 		return dto;
 	}
 
+	public int uplike(String footPrintNO) {
+		int success = 0;
+		String sql ="UPDATE footprint SET  likeCnt = likeCnt +1 WHERE footPrintNO =?";
+		
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, footPrintNO);
+			success =ps.executeUpdate();
+			System.out.println("좋아요 수 올리기 성공 : "+success);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		return success;
+		
+	}
+	
+	
 	public int fpdel(String footPrintNO) {
 		int success = 0;
 		String sql ="UPDATE footprint SET postblind = 1 , release =1 WHERE footPrintNO = ?";
@@ -433,6 +436,30 @@ public class BoardDAO {
 			}
 		} catch (SQLException e) {
 			
+			e.printStackTrace();
+		}
+		
+		return success;
+	}
+
+	public int like(String contentNo, String email, String likeCnt, String footPrintNo) {
+		int success =0;
+		String sql1="INSERT INTO LIKES(contentNO, email , likeCnt)VALUES(?,?,1)";
+		String sql2 ="UPDATE footprint SET  likeCnt = likeCnt - 1 WHERE footPrintNO =?";
+		
+		try {
+			ps = conn.prepareStatement(sql1);
+			ps.setString(1, contentNo);
+			ps.setString(2, email);
+		
+			ps.executeUpdate();
+			rs = ps.getGeneratedKeys();
+			if(rs.next()) {
+				ps.setString(1, footPrintNo);
+				ps.executeUpdate();
+				success = ps.executeUpdate();
+			}
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
