@@ -81,7 +81,7 @@ public class MapDAO {
 	}
 
 	public int del(String apiNo, String email) throws SQLException {
-		email = "test";
+		//email = "test";
 		String sql = "DELETE FROM tourinfofavorit WHERE email=? AND apiNo = ?";
 
 		ps = conn.prepareStatement(sql);

@@ -23,9 +23,9 @@ public class MapService {
 
 	public void fav() throws IOException {
 
-		String email = (String) req.getSession().getAttribute("loginEmail");
+		String email = (String) req.getSession().getAttribute("loginemail");
 		String contentsid = req.getParameter("contentsid");
-		email = "test";
+		//email = "test";
 		System.out.println("contentsid : " + contentsid);
 		int success = 0;
 
@@ -51,11 +51,11 @@ public class MapService {
 		// ajax로 데이터를 넘겨주기 위한 hashmap
 		HashMap<String, Object> map = new HashMap<String, Object>();
 
-		String email = (String) req.getSession().getAttribute("loginEmail");
+		String email = (String) req.getSession().getAttribute("loginemail");
 		// System.out.println("email : "+email);
 		// MapDAO dao = new MapDAO();
 		// ArrayList<MapDTO> list = dao.favList(email);
-		email = "test";
+		//email = "test";
 
 		if (email != null) {// 로그인 check
 			System.out.println("로그인이 됨");
@@ -81,7 +81,7 @@ public class MapService {
 	}
 
 	public int favDel() throws IOException {
-		String email = (String) req.getSession().getAttribute("loginEmail");
+		String email = (String) req.getSession().getAttribute("loginemail");
 		// System.out.println("email : "+email);
 		//String apiNo = req.getParameter("contentsid");
 		String apiNo = req.getParameter("apiNo");

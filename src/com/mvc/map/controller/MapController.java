@@ -70,7 +70,7 @@ public class MapController extends HttpServlet {
 			 * "삭제에 성공 했습니다."; //page += "?apiNo" + apiNo; } req.setAttribute("msg", msg);
 			 * dis = req.getRequestDispatcher("list.jsp"); dis.forward(req, resp);
 			 */
-			resp.sendRedirect("list.jsp");
+			resp.sendRedirect("favList.jsp");
 			break;
 
 		}
