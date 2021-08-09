@@ -41,7 +41,7 @@
 		</tr>
 		<tr>
 			<th>회원정지여부</th>
-			<td>${member.accountBan}</td>
+			<td>${member.accountBan}<input type="button" onclick="location.href='./stopReason?email=${member.email}'" value="정지사유보기"/></td>
 		</tr>
 		<tr>
 			<th>회원탈퇴여부</th>
