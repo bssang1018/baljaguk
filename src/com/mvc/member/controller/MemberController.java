@@ -17,7 +17,7 @@ import com.mvc.board.service.BoardService;
 import com.mvc.member.dto.MemberDTO;
 import com.mvc.member.service.MemberService;
 
-@WebServlet({"/findE","/plusMain","/","/main","/login", "/join","/logout","/overlay", "/memberInfo","/memberUpdate","/memberUpdateForm","/uploadphoto","/cancel","/chk"})
+@WebServlet({"/resetpw","/mailchk","/findE","/plusMain","/","/main","/login", "/join","/logout","/overlay", "/memberInfo","/memberUpdate","/memberUpdateForm","/uploadphoto","/cancel","/chk"})
 public class MemberController extends HttpServlet {
 
 	@Override
@@ -90,10 +90,11 @@ public class MemberController extends HttpServlet {
 				req.setAttribute("suc", suc);
 				dis = req.getRequestDispatcher("findE.jsp");
 				dis.forward(req, resp);
-			}
+			}else {
 			req.setAttribute("suc", suc);
 			dis = req.getRequestDispatcher("findE.jsp");
 			dis.forward(req, resp);
+			}
 			break;
 			
 		case "/login":
@@ -239,6 +240,36 @@ public class MemberController extends HttpServlet {
 			System.out.println("회원 탈퇴 성공? "+success);
 			dis = req.getRequestDispatcher("index.jsp");
 			dis.forward(req, resp);
+			break;
+		
+		case "/mailchk" :
+			System.out.println("계정 일치확인");
+			email = req.getParameter("email");
+			name = req.getParameter("name");
+			phone = req.getParameter("phone");
+			suc =  service.mailchk(email, name, phone);
+			System.out.println("계정 일치 확인 "+suc);
+				req.setAttribute("suc", suc);
+				req.setAttribute("email", email);
+				dis = req.getRequestDispatcher("restpw.jsp");
+				dis.forward(req, resp);
+			break;
+			
+		case "/resetpw":
+			String pw1= req.getParameter("newpw1");
+			String pw2 = req.getParameter("newpw2");
+			System.out.println("실행 1pw " + pw1+"/ 2pw "+pw2);
+			email = req.getParameter("send");
+			System.out.println(email);
+			if(pw1.equals(pw2)) {
+				suc = service.resetpw(email, pw1);
+				if(suc) {
+				System.out.println("비밀번호 변경");
+				req.setAttribute("pwsuc", suc);
+				dis = req.getRequestDispatcher("login.jsp");
+				dis.forward(req, resp);
+				}
+			}
 			break;
 		}
 	}
