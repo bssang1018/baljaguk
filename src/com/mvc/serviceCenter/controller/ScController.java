@@ -18,8 +18,8 @@ import com.mvc.serviceCenter.service.ScService;
 
 
 
-@WebServlet({"/rcontload","/rcommload","/rmessload","/detail",
-	"/contentload","/commentload","/messageload",
+@WebServlet({"/rcontload","/rmessload","/reportsearch","/detail",
+	"/contentload","/messageload",
 	"/memberlist","/membersearch","/memberdetail",
 	"/blacklist","/blacksearch","/blackwriteform","/blackregister","/blackremove",
 	"/stoplist","/stopmembersearch","/stopwriteform","/stopregister","/stopremove",
@@ -61,15 +61,13 @@ public class ScController extends HttpServlet {
 			System.out.println("신고글 리스트 부르기");
 			service.rcontload(Integer.parseInt(page));
 			break;
-		case "/rcommload":
-			System.out.println("신고댓글 리스트 부르기");
-			service.rcommload(Integer.parseInt(page));
-			break;
 		case "/rmessload":
 			System.out.println("신고메세지 리스트 부르기");
 			service.rmessload(Integer.parseInt(page));
 			break;
-		
+		case "/reportsearch":
+			
+			break;
 		// 신고 원본 페이지 이동함수
 		case "/detail":
 			System.out.println("신고 원본 페이지 정하기");
@@ -84,8 +82,6 @@ public class ScController extends HttpServlet {
 				req.setAttribute("footprint", service1.fpdetail(footPrintNO));
 				dis = req.getRequestDispatcher("fpdetail.jsp"); 
 				dis.forward(req,resp);
-			}else if(stx.equals("rcommload")) {
-				service.commentload(reportno);
 			}else if(stx.equals("rmessload")) {
 				System.out.println("신고 메세지 원본 가기");
 				int msgNo = service.messageload(reportno);

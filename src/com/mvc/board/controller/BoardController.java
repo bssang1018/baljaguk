@@ -155,7 +155,8 @@ public class BoardController extends HttpServlet {
 			
 		case "/fdReportWrite":
 			System.out.println("피드 신고폼 요청");
-			req.setAttribute("fpdetail", service.fpdetail());
+			String fdn = req.getParameter("footPrintNO");
+			req.setAttribute("fpdetail", service.fpdetail(fdn));
 			dis = req.getRequestDispatcher("fdReportWrite.jsp");
 			dis.forward(req, resp);
 			break;

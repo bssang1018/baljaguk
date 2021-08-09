@@ -27,7 +27,7 @@ body, head {
           <a class="nav-link active" aria-current="page" href="main">홈</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">지도</a>
+          <a class="nav-link" href="map">지도</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="feedlist">피드</a>

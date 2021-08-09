@@ -75,6 +75,41 @@ public class MsgDAO {
 		}
 		return success;
 	}
+	// 신고답변 함수
+	public int repwrite(String sender, String reciever, String content) {
+		int success = 0;
+		String sql = "INSERT INTO message(msgNo,sender_email,receiver_email,msgContent,msgOpen) "
+							+ "VALUES(msgNo_seq.NEXTVAL,?,?,?,0)";
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, sender);
+			ps.setString(2, reciever);
+			ps.setString(3, content);
+			success = ps.executeUpdate();
+			if(success>0) {
+				System.out.println("메시지 DB 삽입 성공! 삽입개수: "+success);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return success;
+	}
+	// 신고답변 성공시 답변여부 올리기 함수
+	public int stateup(String reportno) {
+		int success = 0;
+		String sql = "UPDATE report1 set state = 0 WHERE reportno = ?";
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, reportno);
+			System.out.println("상태바꿈?");
+			success = ps.executeUpdate();
+			System.out.println("상태바꿈 성공"+success);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return success;
+	}
+
 	
 	//나한테 보낸사람 이메일, 내용, 받은날짜
 	//리시버 이메일은 현재 로그인을 한 사람의 이메일 이여야 함!
@@ -497,5 +532,6 @@ public class MsgDAO {
 		
 		return msgMap;
 	}
+
 	
 }

@@ -67,7 +67,7 @@ public class CommentDAO {
 
 	public HashMap<String, Object> commentList(int page, String footPrintNO) {
 		String sql = "SELECT * FROM "
-				+"(SELECT ROW_NUMBER() OVER(ORDER BY commentno DESC)AS rnum, commentno, footprintno, regdate, commenttext, commentblind, email FROM comment1 WHERE footprintno= ?) "
+				+"(SELECT ROW_NUMBER() OVER(ORDER BY commentno ASC)AS rnum, commentno, footprintno, regdate, commenttext, commentblind, email FROM comment1 WHERE footprintno= ?) "
 				+"WHERE rnum BETWEEN ? AND ?";
 				
 				ArrayList<CommentDTO> commentList = null;

@@ -10,7 +10,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 import com.mvc.comment.dto.CommentDTO;
+<<<<<<< HEAD
 
+=======
+>>>>>>> d603815aa012e97e41b965613844909bc3cf0c79
 import com.mvc.board.dto.FootprintDTO;
 import com.mvc.comment.dto.CommentDTO;
 import com.mvc.member.dto.MemberDTO;
@@ -92,16 +95,6 @@ public class ScService {
 		ScDAO dao = new ScDAO();
 		
 		map = dao.rcontload(page);
-		dao.resClose();
-		resp.setContentType("text/html; charset=UTF-8");
-		resp.getWriter().println(new Gson().toJson(map));
-	}
-
-	public void rcommload(int page) throws IOException {
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		ScDAO dao = new ScDAO();
-		
-		map = dao.rcommload(page);
 		dao.resClose();
 		resp.setContentType("text/html; charset=UTF-8");
 		resp.getWriter().println(new Gson().toJson(map));
@@ -227,8 +220,8 @@ public class ScService {
 		MemberDTO dto = null;
 		ScDAO dao = new ScDAO();
 		String email = req.getParameter("email");
-		System.out.println("email: "+email);
 		dto = dao.memberdetail(email);
+		System.out.println("DTO: "+dto);
 		dao.resClose();
 		return dto;
 		

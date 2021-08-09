@@ -7,6 +7,12 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<style>
+	table, th, td{
+		border: 1px solid black;
+		border-collapse: collapse;
+	}
+</style>
 </head>
 <body>
 	<!-- 상단 메뉴바 -->
@@ -14,8 +20,7 @@
 	<!-- 내용시작 -->
 	<h2>신고 페이지</h2>
 	<input class='btn1' type="button" value="신고글보기" />
-	<input class='btn2' type="button" value="신고댓글보기" />
-	<input class='btn3' type="button" value="신고메세지보기" />
+	<input class='btn2' type="button" value="신고메세지보기" />
 	<br>
 	<table>
 		<thead>
@@ -57,13 +62,8 @@ listCall(page,stx);
 		stx = 'rcontload';
 		listCall(page,stx);
 	});
-	$(".btn2").click(function() {
-		page = 1;
-		stx = 'rcommload';
-		listCall(page,stx);
-	});
 	
-	$(".btn3").click(function() {
+	$(".btn2").click(function() {
 			page = 1;
 			stx = 'rmessload';
 			listCall(page,stx);
@@ -103,7 +103,7 @@ listCall(page,stx);
 				content += "<td><a href='detail?stx="+stx+"&reportno="+item.reportNo+"'>상세보기</a></td>";
 				content += "<td>" + item.email + "</td>";
 				content += "<td>" + item.reportDate + "</td>";
-				content += "<td><a href='reportAnswer?reportno="+item.reportNo+"'>답변하기</a></td>";
+				content += "<td><a href='reportAnswer.jsp?email="+item.email+"&reportno="+item.reportNo+"'>답변하기</a></td>";
 				content += "<td>" + item.state + "</td>";
 				content += "</tr>";
 				console.log(list);
@@ -122,7 +122,7 @@ listCall(page,stx);
 		 console.log(param);
 		 $.ajax({
 				type:'POST',
-				url:'blacksearch',
+				url:'reportsearch',
 				data:param,
 				dataType:'JSON',
 				success:function(data){
@@ -165,8 +165,8 @@ listCall(page,stx);
 					}
 					content += "</span>";
 				};
-				$("div").empty();
-				$("div").append(content);
+				$("div.pageArea").empty();
+				$("div.pageArea").append(content);
 		}
 </script>
 </html>

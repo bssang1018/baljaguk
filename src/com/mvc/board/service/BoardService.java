@@ -205,11 +205,12 @@ public ArrayList<FootprintDTO> hashtaglist(String hashtag){
 	   String contentNO = req.getParameter("contentNO");
 	   String email = req.getParameter("email");
 	   String reportContent = req.getParameter("reportContent");
+	   System.out.println("글번호 :" +contentNO );
 	   BoardDAO dao = new BoardDAO();
 	   success = dao.fdReport(contentNO,email,reportContent);
 	   dao.resClose();
 	   System.out.println("자원 반납 완료~!!");
-	    return 0;
+	    return success;
 }
 
 

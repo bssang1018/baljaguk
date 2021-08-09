@@ -165,7 +165,7 @@ public class BoardDAO {
 				+ "FROM (SELECT ROW_NUMBER() OVER (ORDER BY f.footprintNO DESC) "
 				+ "AS fnum, f.footPrintNO, f.markerNO, f.email, f.reg_date, f.footprintText, f.postblind, P.oriFileName, P.newFileName "
 				+ "FROM footprint f LEFT OUTER JOIN PostPic P ON f.footPrintNO = P.footPrintNO "
-				+ "WHERE f.release = 1 AND f.postblind IS NULL OR f.postblind=0) WHERE fnum BETWEEN 1 AND ? ";
+				+ "WHERE f.release = 1 AND f.postblind IS NULL OR f.postblind=0) WHERE fnum BETWEEN ? AND ? ";
 		// 한블럭당 페이지 갯수
 		int pageLength = 5;
 		// 블럭 인덱스
@@ -183,7 +183,8 @@ public class BoardDAO {
 		    try {
 		    	
 				ps = conn.prepareStatement(sql);
-				ps.setInt(1, end);
+				ps.setInt(1, start);
+				ps.setInt(2, end);
 				rs = ps.executeQuery();
 				Mfeedlist = new ArrayList<FootprintDTO>();
 				while(rs.next()) {
