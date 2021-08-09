@@ -11,7 +11,7 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
-import com.mvc.board.dto.CommentDTO;
+import com.mvc.comment.dto.CommentDTO;
 import com.mvc.board.dto.FootprintDTO;
 import com.mvc.member.dto.MemberDTO;
 import com.mvc.msg.dto.MsgDTO;
