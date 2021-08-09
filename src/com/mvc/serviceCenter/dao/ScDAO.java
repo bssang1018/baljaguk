@@ -10,13 +10,8 @@ import java.util.HashMap;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
-<<<<<<< HEAD
-
-=======
->>>>>>> 83a33d9e87b1b3283018a353489893847d34d114
 import com.mvc.comment.dto.CommentDTO;
 import com.mvc.board.dto.FootprintDTO;
-import com.mvc.comment.dto.CommentDTO;
 import com.mvc.member.dto.MemberDTO;
 import com.mvc.msg.dto.MsgDTO;
 import com.mvc.serviceCenter.dto.ReportDTO;
@@ -634,24 +629,21 @@ public class ScDAO {
 		return msgNo;
 	}
 
-<<<<<<< HEAD
 	public ArrayList<ReportDTO> reportsearch(String email) {
 		sql = "SELECT reportno, categoryno, email, reporttext, reportdate, state FROM report1 WHERE email=?";
 		ArrayList<ReportDTO> list = null;
 		ReportDTO dto = null;
-		
-=======
-	//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+	}
+	
 	public int stopregister(String loginemail, String email, String reason) {
 		int success = 0;
-		
+		ArrayList<ReportDTO> list = null;
+		ReportDTO dto = null;
 		sql = "SELECT * FROM admin WHERE banedemail = ?";
->>>>>>> 83a33d9e87b1b3283018a353489893847d34d114
 		try {
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, email);
 			rs = ps.executeQuery();
-<<<<<<< HEAD
 			list = new ArrayList<ReportDTO>();
 			while(rs.next()) {
 				dto = new ReportDTO();
@@ -662,7 +654,6 @@ public class ScDAO {
 				dto.setReportDate(rs.getDate("reportdate"));
 				dto.setState(rs.getString("state").charAt(0));
 				list.add(dto);
-=======
 			if (rs.next()) {
 				System.out.println("이미 신고된 회원");
 				
@@ -677,7 +668,6 @@ public class ScDAO {
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
-			}
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}
@@ -699,28 +689,14 @@ public class ScDAO {
 				dto.setReason(rs.getString("reason"));
 				dto.setCategoryNo(rs.getString("categoryNo"));
 				dto.setReg_date(rs.getString("reg_date"));
->>>>>>> 83a33d9e87b1b3283018a353489893847d34d114
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-<<<<<<< HEAD
 		return list;
 	}
 
-=======
 		return dto;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
->>>>>>> 83a33d9e87b1b3283018a353489893847d34d114
 }
 
