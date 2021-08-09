@@ -325,7 +325,7 @@
 	</div>
 	<a href="#">발자국 전환</a>
 	<script type="text/javascript"
-		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=	af37bb113fb5c630dd1cdf63348a1073"></script>
+		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=af37bb113fb5c630dd1cdf63348a1073"></script>
 
 </body>
 <script type="text/javascript">

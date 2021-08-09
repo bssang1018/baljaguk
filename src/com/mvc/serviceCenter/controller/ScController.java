@@ -67,7 +67,9 @@ public class ScController extends HttpServlet {
 			service.rmessload(Integer.parseInt(page));
 			break;
 		case "/reportsearch":
-			
+			System.out.println("신고검색");
+			String email = req.getParameter("email");
+			service.reportsearch(email);
 			break;
 		// 신고 원본 페이지 이동함수
 		case "/detail":
@@ -113,7 +115,7 @@ public class ScController extends HttpServlet {
 		// 블랙리스트 검색
 		case "/blacksearch":
 			System.out.println("블랙리스트 검색");
-			String email = req.getParameter("email");
+			email = req.getParameter("email");
 			service.blacksearch(email);
 			break;
 		//회원블랙리스트 폼 이동
