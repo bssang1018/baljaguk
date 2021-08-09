@@ -54,7 +54,7 @@
       
       <button onclick="location.href='./commentWrite?footPrintNO=${footprint.footPrintNO}'">댓글 쓰기</button>
       <c:if test='${sessionScope.loginemail eq footprint.email}'>
-<<<<<<< HEAD
+
       <button onclick="location.href='./fplist'">발자국</button>
       <button onclick="location.href='./fpupdateForm?footPrintNO=${footprint.footPrintNO}'" >발자국 수정</button>
       <button onclick="location.href='./fpdel?footPrintNO=${footprint.footPrintNO}'">발자국 삭제</button>
@@ -62,16 +62,7 @@
       <button onclick="location.href='./fdReportWrite?contentNO=${fpdetail.contentNO}'">피드 신고하기</button>
 
 </c:if>
-  </td>
-=======
-	      <button onclick="location.href='./fplist'">발자국</button>
-	      <button onclick="location.href='./fpupdateForm?footPrintNO=${footprint.footPrintNO}'">발자국 수정</button>
-	      <button onclick="location.href='./fpdel?footPrintNO=${footprint.footPrintNO}'">발자국 삭제</button>
-	      <button onclick="location.href='./fpdel?footPrintNO=${footprint.footPrintNO}'">피드 삭제</button>
-	      <button onclick="location.href='./feedReportWrite?contentNo=${fpdetail.contentNo}'">피드 신고하기</button>
-	  </c:if>
- 		</td>
->>>>>>> 01d721c2d0dab57fc39296d56cb7cbe9d90e854a
+  
    </tr>
    </table>
 </body>
