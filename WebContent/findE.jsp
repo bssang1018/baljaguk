@@ -56,39 +56,39 @@ body, head {
 </nav>
 <div class="container row ">
 <div class="col-4 text-center" style="margin:100 auto;">
-	<form action="login" method="post">
+	<form action="findE" method="post">
         <table id="login" class="table table-bordered text-center" style="margin-left: auto; margin-right: auto;" >
             <tr>
-                <td>이메일</td>
-                <td><input type="text" name="email"/></td>
+                <td>이름</td>
+                <td><input type="text" name="name" minlength="1" required/></td>
             </tr>
              <tr>
-                <td>비밀번호</td>
-                <td><input type="password" name="pw"/></td>
+                <td>생년월일</td>
+                <td><input  type="text" name="birth"  minlength="8" maxlength="8" placeholder="생년월일 8자로 입력해주세요." required/></td>
             </tr>
             <tr>
                 <td colspan="2">
-                <button class="btn btn-secondary">로그인</button><!-- onclick="opener.top.location='./main.jsp';self.close();" -->
+                <button class="btn btn-secondary">찾기</button><!-- onclick="opener.top.location='./main.jsp';self.close();" -->
                 </td>
             </tr>
         </table>
         	</form>
-        	<c:if test="${success == false}">
+        	<c:if test="${suc == true}">
             <div id="redalert"
                class=" alert alert-danger d-flex align-items-center"
                role="alert">
-               <div>없는 이메일이거나 비밀번호가 틀립니다</div>
+               <div>${info.email }</div>
             </div>
          </c:if>
-         <c:if test="${cancel eq 'ok'}">
+         <c:if test="${suc == false}">
             <div id="redalert"
                class=" alert alert-danger d-flex align-items-center"
                role="alert">
-               <div>탈퇴한 계정입니다.</div>
+               <div>이름과 생년월일을 확인해주세요.</div>
             </div>
          </c:if>
 	<span class="text-center">
-        <a href="./findE.jsp">계정 찾기</a><span> | </span> <a>비밀번호 초기화</a><span> | </span><a href="./joinForm.jsp" >회원가입</a>
+        <a href="./login.jsp">로그인</a><span> | </span> <a>비밀번호 초기화</a><span> | </span><a href="./joinForm.jsp" >회원가입</a>
 	</span>
 </div>
 </div>

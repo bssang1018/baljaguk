@@ -6,38 +6,30 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<style>
-	table,tr,th,td{
-		border: 1px solid;
-		border-collapse: collapse;
-		padding : 10px;
-		text-align: center;
-	}
-	
-		li{
-   	   	list-style:none;
-   		float: left;
-   		margin-left: 10px;
-   }
-</style>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
 </head>
-
-<input type="button" onclick="location.href='./msgMain'" value="메세지 메인" />
-
 <body>
-	<h3>로그인한 회원: ${loginemail}</h3>
+	<!-- 상단 메뉴바 -->
+<c:import url="./view/topmenu.jsp"/>
 	<h3>"${searchKey}" 로 검색한 결과...</h3>
-		
-<table>
-		<tr>
+
+<button class="btn btn-primary" onclick="del()">메세지 삭제</button>
+<input class="btn btn-primary" type="button" onclick="location.href='./msgMain'" value="이전으로" />
+
+<div class="d-inline p-2">
+ <table class="table">
+  <thead class="table-dark">
+    <tr>
 			<th></th>
 			<th>보낸 사람</th>
 			<th>메세지 내용</th>
 			<th>받은날짜</th>
 			<th>읽음 상태</th>
 		</tr>
-		
-			<c:if test="${map eq null || map eq ''}">
+  </thead>
+  
+		<tbody>
+			<c:if test="${empty map.emailList}">
 			<tr>
 				<td colspan="5"> 검색 결과가 없어요ㅠ </td>
 			</tr>
@@ -58,13 +50,13 @@
 				</c:if>
 				
 			</tr>
-		</c:forEach>
-</table>
-	
-	<br/>
+		</c:forEach>	
+	</tbody>
+</table>	
+</div>
 	
 	<nav>
-			<ul class="pagination">
+			<ul class="pagination justify-content-center">
 				<c:if test="${map.startPage ne 1}">
 				<li class="page-item"><a class="page-link" href="./msgSearch?page=${map.startPage-1}&searchKey=${searchKey}"
 					aria-label="Previous"> <span aria-hidden="true">&laquo;</span>		
@@ -86,10 +78,49 @@
 			</ul>
 	</nav>
 	
-	<br/>
-	<br/>
-	
-	<input type="button" onclick="location.href='./msgMain'" value="메세지 메인" />
+	<form class="d-inline-flex" style="height: 30px;" action="msgSearch" method="post">
+				<input class="form-control me-1" type="search" placeholder="이메일을 입력해 주세요" aria-label="Search" name="searchKey" required/>
+						<button type="submit" class="btn btn-outline-secondary" style="width: 100px;">검색</button>
+			</form>
 </body>
 
+<script>
+var msgMsg = "${msgMsg}";
+if(msgMsg != ""){
+	alert(msgMsg);
+}
+
+function del(){
+	var $chk =$("input[type='checkbox']:checked");
+	if($chk.length>0){
+		
+		var chkArr = [];
+		
+		$chk.each(function(msgNo,msges){ // msges 의 msgNo 을 꺼낸다
+			chkArr.push($(this).val());
+		});
+		
+		$.ajax({
+			type:'get',
+			url:'./msgArrDel', //여기로 요청을 보내서~
+			data:{'delList':chkArr},
+			dataType:'JSON',
+			success:function(data){ // 요청을 결과 data 를 성공적으로 받았다면~
+				console.log(data);
+				if(data.cnt>0){
+					alert(data.cnt+'개의 메세지 삭제를 성공했습니다.');
+					location.href='./msgMain';
+				}else{
+					alert('메세지 삭제를 실패 했습니다.');
+				}
+			},
+			error:function(e){
+				console.log(e);
+			}
+		});		
+	}else{
+		alert("삭제할 메세지를 선택해 주세요~");
+	}
+}
+</script>
 </html>

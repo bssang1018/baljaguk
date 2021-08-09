@@ -44,14 +44,34 @@ public class BoardDAO {
 		}		
 	}
 	
-	public ArrayList<FootprintDTO> fplist(String email) {
-		String sql="SELECT fnum, footPrintNO, markerNO, email, reg_date, footprintText FROM (SELECT ROW_NUMBER() OVER (ORDER BY footprintNO DESC) AS fnum, footPrintNO, markerNO, email, reg_date, footprintText,postblind FROM footprint WHERE email=? AND postblind IS NULL OR postblind=0) ";
-	    ArrayList<FootprintDTO>fplist = null;
+	public ArrayList<FootprintDTO> fplist(String email, int page) {
+		String sql="SELECT fnum, footPrintNO, markerNO, email, reg_date, footprintText , likeCnt, oriFileName, newFileName" + 
+				" FROM (SELECT ROW_NUMBER() OVER (ORDER BY f.footprintNO DESC) " + 
+				" AS fnum, f.footPrintNO, f.markerNO, f.email, f.reg_date, f.footprintText, f.likeCnt, f.postblind ,P.oriFileName, P.newFileName" + 
+				" FROM footprint f LEFT OUTER JOIN PostPic P ON f.footPrintNO =P.footPrintNO" + 
+				" WHERE f.email= ? AND postblind IS NULL OR postblind=0)WHERE fnum BETWEEN 1 AND ?";
+	    
+		       // 한블럭당 페이지 갯수
+				int pageLength = 1;
+				// 블럭 인덱스
+				int currentBlock = page % pageLength == 0 ? page / pageLength : (page / pageLength) + 1;
+				// 시작페이지
+				int startPage = (currentBlock - 1) * pageLength + 1;
+				// 끝페이지
+				int endPage = startPage + pageLength - 1;
+				// 노출할 데이터 갯수
+				int pagePerCnt = 1;
+				int end = page * pagePerCnt;
+				int start = (end - pagePerCnt) + 1;
+		
+		
+		ArrayList<FootprintDTO>fplist = null;
 	    FootprintDTO dto = null;
 	    
 	    try {
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, email);
+			ps.setInt(2, end);
 			rs = ps.executeQuery();
 			fplist = new ArrayList<FootprintDTO>();
 			while(rs.next()) {
@@ -62,6 +82,9 @@ public class BoardDAO {
 				dto.setEmail(rs.getString("email"));
 				dto.setReg_date(rs.getDate("reg_date"));
 				dto.setFootprintText(rs.getString("footprintText"));
+				dto.setLikeCnt(rs.getInt("likeCnt"));
+				dto.setOriFileName(rs.getString("oriFileName"));
+				dto.setNewFileName(rs.getString("newFileName"));
 				fplist.add(dto);
 			}
 		} catch (SQLException e) {
@@ -70,12 +93,32 @@ public class BoardDAO {
 		return fplist;
 	}
 	//피드 리스트
-	public ArrayList<FootprintDTO> feedlist() {
-		String sql="SELECT fnum, footPrintNO, markerNO, email, reg_date, footprintText FROM (SELECT ROW_NUMBER() OVER (ORDER BY footprintNO DESC) AS fnum, footPrintNO, markerNO, email, reg_date, footprintText,postblind FROM footprint WHERE release = 1 AND postblind IS NULL OR postblind=0) ";
-	    ArrayList<FootprintDTO> feedlist = null;
+	public ArrayList<FootprintDTO> feedlist(int page) {
+		String sql="SELECT fnum, footPrintNO, markerNO, email, reg_date, footprintText, likeCnt ,oriFileName, newFileName " + 
+				 " FROM (SELECT ROW_NUMBER() OVER (ORDER BY f.footprintNO DESC)" + 
+				 " AS fnum, f.footPrintNO, f.markerNO, f.email, f.reg_date, f.footprintText, f.likeCnt , f.postblind,  P.oriFileName, P.newFileName " + 
+				 " FROM footprint f LEFT OUTER JOIN PostPic P ON f.footPrintNO = P.footPrintNO"  + 
+				 " WHERE f.release = 1 AND f.postblind IS NULL OR f.postblind=0) WHERE fnum BETWEEN 1 AND ?";
+	   
+		// 한블럭당 페이지 갯수
+				int pageLength = 5;
+				// 블럭 인덱스
+				int currentBlock = page % pageLength == 0 ? page / pageLength : (page / pageLength) + 1;
+				// 시작페이지
+				int startPage = (currentBlock - 1) * pageLength + 1;
+				// 끝페이지
+				int endPage = startPage + pageLength - 1;
+				// 노출할 데이터 갯수
+				int pagePerCnt = 8;
+				int end = page * pagePerCnt;
+				int start = (end - pagePerCnt) + 1;
+		
+		
+		ArrayList<FootprintDTO> feedlist = null;
 	    FootprintDTO dto = null;
 	    try {
 			ps = conn.prepareStatement(sql);
+			ps.setInt(1, end);
 			rs = ps.executeQuery();
 			feedlist = new ArrayList<FootprintDTO>();
 			while(rs.next()) {
@@ -86,6 +129,9 @@ public class BoardDAO {
 				dto.setEmail(rs.getString("email"));
 				dto.setReg_date(rs.getDate("reg_date"));
 				dto.setFootprintText(rs.getString("footprintText"));
+				dto.setLikeCnt(rs.getInt("likeCnt"));
+				dto.setOriFileName(rs.getString("oriFileName"));
+				dto.setNewFileName(rs.getString("newFileName"));
 				feedlist.add(dto);
 			}
 		} catch (SQLException e) {
@@ -93,7 +139,27 @@ public class BoardDAO {
 		}
 		return feedlist;
 	}
-
+    
+	public int uplike(String footPrintNO) {
+		int success = 0;
+		String sql ="UPDATE footprint SET  likeCnt = likeCnt +1 WHERE footPrintNO =?";
+		
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, footPrintNO);
+			success =ps.executeUpdate();
+			System.out.println("좋아요 수 올리기 성공 : "+success);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		return success;
+		
+	}
+	
+	
+	//메인 피드 리스트
 	public ArrayList<FootprintDTO> Mfeedlist(int page) {
 		String sql ="SELECT fnum, footPrintNO, markerNO, email, reg_date, footprintText, oriFileName, newFileName "
 				+ "FROM (SELECT ROW_NUMBER() OVER (ORDER BY f.footprintNO DESC) "
@@ -142,8 +208,8 @@ public class BoardDAO {
 	//공개 글쓰기
 		public int fpwriteOk(FootprintDTO dto, String email) {
 			//발자국 글 등록 sql//찜마커가 지금 없으므로 뺴고 진행
-			String sql1 = "INSERT INTO footprint(footPrintNO, email,release, footprintText)"
-					+ " VALUES(footprint_seq.NEXTVAL,?,?,?)";
+			String sql1 = "INSERT INTO footprint(footPrintNO, email,release, footprintText, likeCnt)"
+					+ " VALUES(footprint_seq.NEXTVAL,?,?,?,0)";
 			//해시태그 등록 sql
 			String sql2 ="INSERT INTO Post_Tag(footPrintNO, hashTag) VALUES(?,?)";
 			//사진업로드 sql
@@ -208,7 +274,7 @@ public class BoardDAO {
 
 	public int fpdel(String footPrintNO) {
 		int success = 0;
-		String sql ="UPDATE footprint SET postblind = 1 WHERE footPrintNO = ?";
+		String sql ="UPDATE footprint SET postblind = 1 , release =1 WHERE footPrintNO = ?";
 		try {
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, footPrintNO);
@@ -220,6 +286,8 @@ public class BoardDAO {
 	}
 
 
+
+
 	public int fpupdate(FootprintDTO dto) {
 		int success = 0;
 		String sql = "UPDATE footprint SET footprintText =?, release = ? WHERE footPrintNO=?";
@@ -227,9 +295,11 @@ public class BoardDAO {
 		try {
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, dto.getFootprintText());
-			ps.setString(2, toString().valueOf(dto.getRelease()));
+			toString();
+			ps.setString(2, String.valueOf(dto.getRelease()));
 			ps.setInt(3, dto.getFootPrintNO());
 			success = ps.executeUpdate();
+			System.out.println("피드 신고 완료됨??"+success);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -338,6 +408,35 @@ public class BoardDAO {
 		}
 			return hashtaglist;
 		}
+
+	public int fdReport(String contentNO, String email, String reportContent) {
+		int success =0;
+		String sql1 ="SELECT reportNo FROM report1 WHERE contentNO =? AND state =1";
+		String sql2 ="INSERT INTO report1(reportNo, contentNO, email, reportText, state)"
+				          +"VALUES(reportNo_seq.NEXTVAL,?,?,?,1)";
+
+		try {
+			ps = conn.prepareStatement(sql1);
+			ps.setString(1, contentNO);
+			rs = ps.executeQuery();
+			if(!rs.next()) {
+				try {
+				ps = conn.prepareStatement(sql2);
+				ps.setString(1, contentNO);
+				ps.setString(2, email);
+				ps.setString(3, reportContent);
+				success = ps.executeUpdate();
+				}catch(SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+		
+		return success;
+	}
 
 	
 

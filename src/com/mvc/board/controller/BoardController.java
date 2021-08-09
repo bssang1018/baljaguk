@@ -56,10 +56,9 @@ public class BoardController extends HttpServlet {
 		BoardService service = new BoardService(req);
 		String page ="";
 		String msg = "";
-	    
+	    String fdmsg ="";
 		
 		switch(addr) {
-		
 		
 		  case "/fplist": 
 			  System.out.println("발자국 불러오기"); 
@@ -87,7 +86,8 @@ public class BoardController extends HttpServlet {
 			 */
 			email = (String) req.getSession().getAttribute("loginemail");
 		    int num = service.fpwriteOk(email);
-		   page = num > 0 ? "./fpdetail?footPrintNO="+num:"feedlist.jsp";
+		    //feedlist에서 fplist로 바꿈
+		   page = num > 0 ? "./fpdetail?footPrintNO="+num:"fplist.jsp";
 		    resp.sendRedirect(page);
 		    
 		break;
@@ -102,9 +102,8 @@ public class BoardController extends HttpServlet {
 		
 		case "/fpdetail":
 		System.out.println("발자국 상세보기 요청");
-		
 		req.setAttribute("footprint", service.fpdetail());
-		dis = req.getRequestDispatcher("fpdetail.jsp");
+		dis = req.getRequestDispatcher("commentList");
 		dis.forward(req, resp);
 		break;
 		
@@ -162,19 +161,20 @@ public class BoardController extends HttpServlet {
 			break;
 			
 		case "/fdReport":
-			System.out.println("피드 신고 요청");
 			int success =0;
+			System.out.println("피드 신고 요청");
 			//신고 넘버, 발자국 넘버, 등록일, 신고내용, 신고자 이메일
-			success = service.fdReport();
-			if(success >0) {
+			 success = service.fdReport();
+				
+			if(success > 0){
 				System.out.println("신고 완료");
-				msg="피드를 신고했습니다!!";
+				fdmsg="피드를 신고했습니다!!";
 			}else {
 				System.out.println("피드 신고 실패...");
-				msg ="피드 신고를 실패했습니다! 재시도 해주세요(이미 신고된 피드)";
+				fdmsg ="피드 신고를 실패했습니다! 재시도 해주세요(이미 신고된 피드)";
 						
 			}
-			req.setAttribute("msg", msg);
+			req.setAttribute("fdmsg", fdmsg);
 			dis = req.getRequestDispatcher("/feedlist");
 			dis.forward(req, resp);
 			break;

@@ -78,7 +78,7 @@ public class MsgController extends HttpServlet {
 			break;	
 	
 		//내가보낸 메시지만 보기
-		case ("/msgMyMsg"): //로그인한 회원이, 자기한테 온 메세지를 모아보는 기능임!
+		case "/msgMyMsg": //로그인한 회원이, 자기한테 온 메세지를 모아보는 기능임!
 			System.out.println("내가 보낸 메세지 리스트 요청");
 			loginemail = (String)req.getSession().getAttribute("loginemail");
 			req.setAttribute("map",service.msgMyMsg(loginemail));
@@ -120,7 +120,7 @@ public class MsgController extends HttpServlet {
 			break;
 			
 		//체크박스 선택으로 여러개 지우기
-		case ("/msgArrDel"):
+		case "/msgArrDel":
 			System.out.println("메세지 선택삭제 요청");
 			String[] delList = req.getParameterValues("delList[]");
 			System.out.println("삭제할 개수: "+ delList.length);
@@ -154,7 +154,7 @@ public class MsgController extends HttpServlet {
 				msgMsg = "메세지를 신고했습니다!";
 			} else {
 				System.out.println("신고 실패...");
-				msgMsg = "메세지 신고를 실패했습니다! 재시도 해주세요!(이미 신고된 메세지)";
+				msgMsg = "이미 신고 접수가 완료된 메세지 입니다! (처리중...)";
 			}
 			req.setAttribute("msgMsg",msgMsg);
 			dis = req.getRequestDispatcher("/msgList");
