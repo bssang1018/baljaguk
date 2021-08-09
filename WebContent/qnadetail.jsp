@@ -42,41 +42,42 @@
 		</tr>
 	</table>
 	
-   <h3>댓글 창</h3>
+   <h3>답변</h3>
    
    <table>
    	<tr>
-   		<th>이메일</th>
-   		<th>댓글내용</th>
-   		<th>등록일</th>
+   		<th>QNA번호</th>
+   		<th>관리자</th>
+   		<th>내용</th>
    		<th>삭제</th>
    	</tr>
-   	<c:if test="${empty map.commentList}">
+   	<c:if test="${empty map.qnacommentList}">
 			<tr>
 				<td colspan="4"> 등록된 댓글이 없네요! 첫 댓글을 달아보세요! </td>
 			</tr>
 		</c:if>
-	<c:forEach items="${map.commentList}" var="comment">
+	<c:forEach items="${map.qnacommentList}" var="comment">
 			<tr>
-				<td>${comment.email}</td>
-				<td>${comment.commentText}</td>
-				<td>${comment.regDate}</td>
-				<c:if test="${comment.email eq loginemail}">
-					<td><input type="button" onclick="location.href='./commentDel?qnano=${comment.qnano}&commentNO=${comment.commentNo}'" value="삭제"/></td>
+				<td>${comment.qnano}</td>
+				<td>${comment.admin_email}</td>
+				<td>${comment.answer}</td>
+				<c:if test="${comment.admin_email eq loginemail}">
+					<td><input type="button" onclick="location.href='./qnacommentDel?qnano=${comment.qnano}&answerno=${comment.answerno}'" value="삭제"/></td>
 				</c:if>
-				<c:if test="${comment.email ne loginemail}">
+				<c:if test="${comment.admin_email ne loginemail}">
 					<td></td>
 				</c:if>			
 			</tr>
 		</c:forEach>
 
    </table>
+   
    <form action="qnacommentWriteForm" method="post">
    		<table>
    			<tr>
    				<td>댓글입력</td>
    				<td>
-   					<input type="text" name="commentText"/><button>등록</button>
+   					<input type="text" name="commentText1"/><button>등록</button>
 					<input type="hidden" name="qnano" value="${qnano}"/>   				
    				</td>
    			</tr>

@@ -43,6 +43,34 @@ public class MsgService {
 		}
 		return success;
 	}
+	// 신고답변 함수
+	public int repwrite() {
+		int success = 0;
+		int success1 = 0;
+		//받는사람, 보내는사람, 메세지내용, (메세지번호, 작성시간)
+		String sender = req.getParameter("sender");
+		String reciever = req.getParameter("reciever");
+		String content = req.getParameter("content");
+		String reportno = req.getParameter("reportno");
+		System.out.println("보내는 사람: "+sender+" / 받는사람: "+reciever+" / content: "+content +"신고번호: "+reportno);
+		
+		//메세지를 받을 사람을 적지 않았거나, 본인에게 메세지를 보내는 경우, 보내는사람이 없는 경우 => 경고 띄움
+		if ( reciever.equals("") || reciever.equals(sender) || sender.equals("") || content.equals("")) {
+			System.out.println("경고!! 메세지를 받을사람 또는 메세지를 받는사람을 확인해주세요!!");
+			success = 0;
+		} else {
+			MsgDAO dao = new MsgDAO();
+			success = dao.repwrite(sender, reciever, content);
+			if(success == 1) {
+				success1 = dao.stateup(reportno); 
+			}
+			System.out.println(success+"개 의 messang 저장");
+			System.out.println(success1+"번으로 state 변경");
+			dao.resClose();
+			System.out.println("자원반납 했음!");
+		}
+		return success1;
+	}
 
 	public HashMap<String, Object> msgList(String loginemail) {
 		String page = req.getParameter("page");

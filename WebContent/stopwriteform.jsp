@@ -29,7 +29,8 @@
 		</tr>
 		<tr>
 			<td colspan="2">
-			<button>수정</button>
+			<button>등록</button>
+			
 			<a href='/tree/memberlist.jsp'>뒤로가기</a>
 			</td>
 		</tr>

@@ -213,6 +213,11 @@ public ArrayList<FootprintDTO> hashtaglist(String hashtag){
 	    return success;
 }
 
+public void like(String fpn, String email) {
+	BoardDAO dao = new BoardDAO();
+ dao.like(fpn, email);
+}
+
 
 
 

@@ -13,17 +13,18 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.mvc.board.service.BoardService;
 import com.mvc.msg.service.MsgService;
+import com.mvc.serviceCenter.dto.ScServiceDTO;
 import com.mvc.serviceCenter.service.ScService;
 
 
 
 
-@WebServlet({"/rcontload","/rmessload","/detail",
+@WebServlet({"/rcontload","/rmessload","/reportsearch","/detail",
 	"/contentload","/messageload",
 	"/memberlist","/membersearch","/memberdetail",
 	"/blacklist","/blacksearch","/blackwriteform","/blackregister","/blackremove",
 	"/stoplist","/stopmembersearch","/stopwriteform","/stopregister","/stopremove",
-	"/withdrawlist"
+	"/withdrawlist","/stopReason"
 })
 public class ScController extends HttpServlet {
 
@@ -65,7 +66,9 @@ public class ScController extends HttpServlet {
 			System.out.println("신고메세지 리스트 부르기");
 			service.rmessload(Integer.parseInt(page));
 			break;
-		
+		case "/reportsearch":
+			
+			break;
 		// 신고 원본 페이지 이동함수
 		case "/detail":
 			System.out.println("신고 원본 페이지 정하기");
@@ -153,13 +156,7 @@ public class ScController extends HttpServlet {
 			email = req.getParameter("email");
 			service.membersearch(email);
 			break;
-		//회원상세정보
-		case "/memberdetail":
-			System.out.println("회원상세보기 가져오기");
-			req.setAttribute("member", service.memberdetail());
-			dis = req.getRequestDispatcher("memberdetail.jsp");
-			dis.forward(req, resp);
-			break;
+
 		
 		//회원정지리스트 출력 및 검색 및 정지하기 함수
 		//회원정지리스트 불러오기
@@ -180,16 +177,7 @@ public class ScController extends HttpServlet {
 			dis = req.getRequestDispatcher("stopwriteform.jsp");
 			dis.forward(req, resp);
 			break;
-		//회원정지 함수
-		case "/stopregister":
-			System.out.println("정지 등록");
-			email = req.getParameter("email");
-			if(service.stopregister(email)>0) {
-				System.out.println("정지등록 성공");
-				dis = req.getRequestDispatcher("memberlist.jsp");
-				dis.forward(req, resp);
-			};
-			break;
+		
 		case "/stopremove":
 			System.out.println("정지 해제하기");
 			email = req.getParameter("email");
@@ -206,8 +194,43 @@ public class ScController extends HttpServlet {
 			service.withdrawlist(Integer.parseInt(page));
 			break;
 		 
-		default:
-			break;
+			
+		// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+		// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+					
+					//회원정지 함수
+					case "/stopregister":
+						System.out.println("정지 등록");
+						String loginemail = (String)req.getSession().getAttribute("loginemail");
+						email = req.getParameter("email");
+						String reason = req.getParameter("reason");
+						if(service.stopregister(loginemail, email, reason)>0) {
+							System.out.println("정지등록 성공");
+							dis = req.getRequestDispatcher("memberlist.jsp");
+							dis.forward(req, resp);
+						} else {
+							System.out.println("정지등록 실패");
+							resp.sendRedirect("memberlist.jsp");
+						}
+						break;
+						
+					//정지사유 보기
+					case	"/stopReason":
+						System.out.println("정지사유 보기요청...");
+						email = req.getParameter("email");
+						ScServiceDTO dto = service.stopReason(email);
+						req.setAttribute("dto", dto);
+						dis = req.getRequestDispatcher("stopReason.jsp");
+						dis.forward(req, resp);
+						break;
+						
+						//회원상세정보
+					case "/memberdetail":
+						System.out.println("회원상세보기 가져오기");
+						req.setAttribute("member", service.memberdetail());
+						dis = req.getRequestDispatcher("memberdetail.jsp");
+						dis.forward(req, resp);
+						break;
 		}
 		
 	}

@@ -64,9 +64,20 @@ max-width: 100%;
   </span>
 </button>
   <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+<<<<<<< HEAD
     <li><a class="dropdown-item" href='./fdReportWrite?footPrintNO=${footprint.footPrintNO}'>피드 신고</a></li>
  
   </ul>
+=======
+    <li><a class="dropdown-item" href='fdReportWrite.jsp?footPrintNO=${fpdetail.footPrintNO}'>피드 신고</a></li>
+      </ul>
+  <button type="button" class="btn btn-primary position-relative" onclick="location.href='./like?footPrintNO=${footprint.footPrintNO}'" >
+  ♥
+  <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+    ${footprint.likeCnt}
+  </span>
+</button>
+>>>>>>> 820f472e92302fc582061b1eac317951d2e0e48f
 </div>
          </div>
          </div>
