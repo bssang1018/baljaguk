@@ -67,7 +67,7 @@ public class QnaController extends HttpServlet {
 		case "/qnadetail":
 			System.out.println("Q&A 상세보기");
 			req.setAttribute("qna", service.detail());
-			dis = req.getRequestDispatcher("qnadetail.jsp");
+			dis = req.getRequestDispatcher("qnacommentList");
 			dis.forward(req, resp);
 			
 			break;

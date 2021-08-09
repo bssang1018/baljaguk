@@ -8,7 +8,29 @@ public class CommentDTO {
 	private String commentBlind;
 	private String email;
 	private String qnano;
+	private String admin_email;
+	private String answer;
+	private String answerno;
 	
+	
+	public String getAnswerno() {
+		return answerno;
+	}
+	public void setAnswerno(String answerno) {
+		this.answerno = answerno;
+	}
+	public String getAdmin_email() {
+		return admin_email;
+	}
+	public void setAdmin_email(String admin_email) {
+		this.admin_email = admin_email;
+	}
+	public String getAnswer() {
+		return answer;
+	}
+	public void setAnswer(String answer) {
+		this.answer = answer;
+	}
 	public String getQnano() {
 		return qnano;
 	}

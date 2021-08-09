@@ -9,10 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
-<<<<<<< HEAD
-=======
 import com.mvc.comment.dto.CommentDTO;
->>>>>>> a09ee764dea76de9ba74b985e86ef99a7d02da65
+
 import com.mvc.board.dto.FootprintDTO;
 import com.mvc.comment.dto.CommentDTO;
 import com.mvc.member.dto.MemberDTO;

@@ -11,11 +11,11 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
-<<<<<<< HEAD
 
-=======
+
+
 import com.mvc.comment.dto.CommentDTO;
->>>>>>> a09ee764dea76de9ba74b985e86ef99a7d02da65
+
 import com.mvc.board.dto.FootprintDTO;
 import com.mvc.comment.dto.CommentDTO;
 import com.mvc.member.dto.MemberDTO;
