@@ -27,7 +27,7 @@
 		</tr>
 		<tr>
 			<th>작성자</th>
-			<td><input type="text" name="email" value="${noticefaq.email}"/></td>
+			<td><input type="hidden" name="email" value="${noticefaq.email}"/>${noticefaq.email}</td>
 		</tr>
 		<tr>
 			<th>내용</th>

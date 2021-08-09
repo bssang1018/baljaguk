@@ -67,7 +67,7 @@ public class QnaController extends HttpServlet {
 		case "/qnadetail":
 			System.out.println("Q&A 상세보기");
 			req.setAttribute("qna", service.detail());
-			dis = req.getRequestDispatcher("qnadetail.jsp");
+			dis = req.getRequestDispatcher("qnacommentList");
 			dis.forward(req, resp);
 			
 			break;
@@ -90,6 +90,7 @@ public class QnaController extends HttpServlet {
 		case "/qnaupdateForm":
 			System.out.println("Q&A 수정 요청");
 			req.setAttribute("qna", service.qnaupdateForm());
+			req.setAttribute("email", req.getParameter("email"));
 			dis = req.getRequestDispatcher("qnaupdateForm.jsp");
 			dis.forward(req, resp);
 			break;

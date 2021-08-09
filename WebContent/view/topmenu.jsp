@@ -30,6 +30,9 @@ body, head {
           <a class="nav-link" href="map">지도</a>
         </li>
         <li class="nav-item">
+          <a class="nav-link" href="favList.jsp">찜</a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link" href="feedlist">피드</a>
         </li>
         <li class="nav-item">
