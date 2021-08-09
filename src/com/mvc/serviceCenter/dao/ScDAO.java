@@ -187,45 +187,6 @@ public class ScDAO {
 		}
 		return map;
 	}
-	
-
-	//신고 댓글 리스트 보기
-	public HashMap<String, Object> rcommload(int page) {
-		int pagePerCnt = 5;
-		int end = page*pagePerCnt;
-		int start = (end-pagePerCnt)+1;
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		
-		sql = "SELECT email, reporttext FROM"+
-		 "(SELECT ROW_NUMBER() OVER(ORDER BY email DESC) AS rnum," + 
-		 "email, reporttext FROM report1 WHERE commentno is not null) WHERE rnum BETWEEN ? AND ?";
-		ArrayList<ReportDTO> list = null;
-		ReportDTO dto = null;
-		try {
-			ps = conn.prepareStatement(sql);
-			ps.setInt(1, start);
-			ps.setInt(2, end);
-			rs = ps.executeQuery();
-			list = new ArrayList<ReportDTO>();
-			while(rs.next()) {
-				dto = new ReportDTO();
-				dto.setEmail(rs.getString("email"));
-				dto.setReportText(rs.getString("reporttext"));
-				list.add(dto);
-			}
-			System.out.println("list: "+list);
-			int total = toatalCountR("commentno"); // 총 게시글 수
-			int pages = (total%pagePerCnt == 0) ? total/pagePerCnt : total/pagePerCnt+1;
-			System.out.println("총 게시글 수 : "+total+"/ 페이지 수 : "+pages);
-			
-			map.put("list", list);
-			map.put("totalPage", pages);
-			map.put("currPage", page);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return map;
-	}
 
 	//신고 메세지 리스트 보기
 	public HashMap<String, Object> rmessload(int page) {

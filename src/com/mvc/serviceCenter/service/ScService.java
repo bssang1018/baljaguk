@@ -95,16 +95,6 @@ public class ScService {
 		resp.getWriter().println(new Gson().toJson(map));
 	}
 
-	public void rcommload(int page) throws IOException {
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		ScDAO dao = new ScDAO();
-		
-		map = dao.rcommload(page);
-		dao.resClose();
-		resp.setContentType("text/html; charset=UTF-8");
-		resp.getWriter().println(new Gson().toJson(map));
-	}
-
 	public void rmessload(int page) throws IOException {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		ScDAO dao = new ScDAO();
