@@ -57,8 +57,13 @@ max-width: 100%;
     더보기
   </button>
   <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+<<<<<<< HEAD
+    <li><a class="dropdown-item" href='fdReportWrite.jsp?footPrintNO=${fpdetail.footPrintNO}'>피드 신고</a></li>
+    
+=======
     <li><a class="dropdown-item" href='./fdReportWrite?footPrintNO=${footprint.footPrintNO}'>피드 신고</a></li>
     <li><a class="dropdown-item" href='./fpdel?footPrintNO=${footprint.footPrintNO}'>피드 삭제</a></li>
+>>>>>>> 6156dda98f965b43cda4f2525480d35a6f690458
   </ul>
 </div>
          </div>
