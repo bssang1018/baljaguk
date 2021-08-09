@@ -21,11 +21,11 @@
 <table class="table" style="width: 800px; margin-left: auto; margin-right: auto;">
   <thead class="table-dark">
     <tr>
-			<th></th>
-			<th style="text-align: center">보낸 사람</th>
-			<th style="text-align: center">메세지 내용</th>
-			<th style="text-align: center">받은날짜</th>
-			<th style="text-align: center">읽음 상태</th>
+			<th class="col-1" style="text-align: center"></th>
+			<th class="col-2" style="text-align: center">보낸 사람</th>
+			<th class="col-5" style="text-align: center">메세지 내용</th>
+			<th class="col-2" style="text-align: center">받은날짜</th>
+			<th class="col-2" style="text-align: center">읽음 상태</th>
 		</tr>
   </thead>
   <tbody>
@@ -37,10 +37,10 @@
 		
 		<c:forEach items="${map.msgList}" var="msges">
 			<tr>
-				<td><input type="checkbox" value='${msges.msgNo}'/></td>
+				<td style="text-align: center"><input type="checkbox" value='${msges.msgNo}'/></td>
 				
 				<td style="text-align: center">${msges.sender_email}</td>
-				<td style="text-align: center"><a href="msgDetail?msgNo=${msges.msgNo}">${msges.msgContent}</a></td>
+				<td><a href="msgDetail?msgNo=${msges.msgNo}">${msges.msgContent}</a></td>
 				<td style="text-align: center">${msges.reg_date}</td>
 				
 				<c:if test="${msges.msgOpen eq  '1'}">

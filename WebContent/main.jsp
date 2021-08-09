@@ -34,7 +34,7 @@ body, head {
 	<div class="container px-4 my-4">
 		<div class="row">
 			<div class="col-6">
-				<h2>지도</h2>
+				<h2><a href="map">지도</a></h2>
 				<hr />
 				내용 들어감
 			</div>
