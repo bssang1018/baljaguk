@@ -18,7 +18,7 @@ import com.mvc.serviceCenter.service.ScService;
 
 
 
-@WebServlet({"/rcontload","/rmessload","reportsearch","/detail",
+@WebServlet({"/rcontload","/rmessload","/reportsearch","/detail",
 	"/contentload","/messageload",
 	"/memberlist","/membersearch","/memberdetail",
 	"/blacklist","/blacksearch","/blackwriteform","/blackregister","/blackremove",
