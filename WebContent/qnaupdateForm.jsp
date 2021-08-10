@@ -9,36 +9,35 @@
 
 </head>
 <body>
-
+	<!-- 상단 메뉴바 -->
+<c:import url="./view/topmenu.jsp"/>
 	<!-- 내용시작 -->
 <form action="qnaupdate" method="POST">
-	<table>
+	<table class="table" style="width: 500px; margin-left: auto; margin-right: auto;">
 		<tr>
-			<th>글번호</th>
+			<th style="text-align: center">글번호</th>
 			<td>
 				${qna.qnano}
 				<input type="hidden" name="qnano" value="${qna.qnano}"/>
 			</td>
 		</tr>
 		<tr>
-			<th>제목</th>
-			<td><input type="text" name="title" value="${qna.title}"/></td>
+			<th style="text-align: center">제목</th>
+			<td><input type="text" name="title" size=40 maxlength=15 value="${qna.title}"/></td>
 		</tr>
 		<tr>
-			<th>작성자</th>
+			<th style="text-align: center">작성자</th>
 			<td><input type="hidden" name="email" value="${qna.email}"/>${qna.email}</td>
 		</tr>
 		<tr>
-			<th>내용</th>
-			<td><textarea name="content">${qna.content}</textarea></td>
-		</tr>
-		<tr>
-			<td colspan="2">
-				<input type="button" onclick="location.href='./qnalist'" value="리스트"/>
-				<button>저장</button>
-			</td>
-		</tr>
+			<th style="text-align: center">내용</th>
+			<td><textarea name="content" style="width:300px; height:450px; resize: none;">${qna.content}</textarea></td>
+		</tr>		
 	</table>
+			<div class="text-center" >
+				<input class="btn btn-primary" type="button" onclick="location.href='./qnalist'" value="리스트"/>
+				<button class="btn btn-primary">저장</button>
+			</div>
 </form>
 </body>
 <script>

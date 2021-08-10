@@ -14,9 +14,25 @@ import javax.servlet.http.HttpServletResponse;
 import com.mvc.board.service.BoardService;
 
 import com.oreilly.servlet.MultipartRequest;
+<<<<<<< HEAD
 
 
 @WebServlet({"/like","/fpsearch","/fplist","/fpwriteOk","/fpwriteNo","/fpdetail","/fpdel","/fpupdateForm","/fpupdate","/fpserach","/feedlist","/fdReport","/fdReportWrite"})
+=======
+
+
+
+
+
+
+@WebServlet({"/fpsearch","/fplist","/fpwriteOk","/fpwriteNo","/fpdetail","/fpdel","/fpupdateForm","/fpupdate","/fpserach","/feedlist","/fdReport","/fdReportWrite","/like"})
+
+
+
+
+
+
+>>>>>>> 413b2311e6bd51735efdd050debb426d5f80f88f
 
 public class BoardController extends HttpServlet {
 
@@ -173,6 +189,13 @@ public class BoardController extends HttpServlet {
 			dis = req.getRequestDispatcher("/feedlist");
 			dis.forward(req, resp);
 			break;
+<<<<<<< HEAD
+=======
+
+
+			
+
+>>>>>>> 413b2311e6bd51735efdd050debb426d5f80f88f
 		
 		  case "/like": 
 			  boolean suc;
@@ -184,7 +207,20 @@ public class BoardController extends HttpServlet {
 			  dis = req.getRequestDispatcher("/feedlist");
 			  dis.forward(req, resp);
 		  break;
+<<<<<<< HEAD
 		   
 		}
+=======
+
+		 
+		}		
+
+		
+		
+	     
+
+		
+
+>>>>>>> 413b2311e6bd51735efdd050debb426d5f80f88f
 	}
 }

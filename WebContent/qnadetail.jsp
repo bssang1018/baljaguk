@@ -8,43 +8,48 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-
+	<!-- 상단 메뉴바 -->
+<c:import url="./view/topmenu.jsp"/>
 	<!-- 내용시작 -->
-
-	<h2>Q&A 상세보기</h2>	
-	<table>
+<%-- <h3>${loginemail}</h3>
+	<h3>${qna.email}</h3> --%>
+	<h2  style="text-align: center">Q&A 상세보기</h2>	
+	<table class="table table-striped" style="width: 500px; margin-left: auto; margin-right: auto;">
 		<tr>
-			<th>글번호</th>
+			<th style="text-align: center">글번호</th>
 			<td>${qna.qnano}</td>
 		</tr>
 		<tr>
-			<th>제목</th>
+			<th style="text-align: center">제목</th>
 			<td>${qna.title}</td>
 		</tr>
 		<tr>
-			<th>작성자</th>
+			<th style="text-align: center">작성자</th>
 			<td>${qna.email}</td>
 		</tr>
 		<tr>
-			<th>작성일</th>
+			<th style="text-align: center">작성일</th>
 			<td>${qna.reg_date}</td>
 		</tr>
 		<tr>
-			<th>내용</th>
+			<th style="text-align: center">내용</th>
 			<td>${qna.content}</td>
-		</tr>
-		<tr>
-			<td colspan="2">
-				<button onclick="location.href='./qnalist'">리스트</button>
-				<button onclick="location.href='./qnaupdateForm?qnano=${qna.qnano}'">수정</button>
-				<button onclick="location.href='./qnadel?qnano=${qna.qnano}'">삭제</button>			
-			</td>
-		</tr>
+		</tr>	
 	</table>
 	
-   <h3>답변</h3>
+				<div class="text-center" >
+				<button class="btn btn-primary" class="btn btn-primary"onclick="location.href='./qnalist'">리스트</button>
+				<c:if test="${loginemail eq qna.email}">
+				<button class="btn btn-primary" onclick="location.href='./qnaupdateForm?qnano=${qna.qnano}'">수정</button>
+				<button class="btn btn-primary" onclick="location.href='./qnadel?qnano=${qna.qnano}'">삭제</button>			
+				</c:if>
+				</div>
+	<br/>
+	<br/>
+	
+   <h3 style="text-align: center">답변</h3>
    
-   <table>
+   <table class="table table-striped" style="width: 500px; margin-left: auto; margin-right: auto;">
    	<tr>
    		<th>QNA번호</th>
    		<th>관리자</th>
@@ -62,7 +67,7 @@
 				<td>${comment.admin_email}</td>
 				<td>${comment.answer}</td>
 				<c:if test="${comment.admin_email eq loginemail}">
-					<td><input type="button" onclick="location.href='./qnacommentDel?qnano=${comment.qnano}&answerno=${comment.answerno}'" value="삭제"/></td>
+					<td><input class="btn btn-primary" type="button" onclick="location.href='./qnacommentDel?qnano=${comment.qnano}&answerno=${comment.answerno}'" value="삭제"/></td>
 				</c:if>
 				<c:if test="${comment.admin_email ne loginemail}">
 					<td></td>
@@ -73,7 +78,7 @@
    </table>
    
    <form action="qnacommentWriteForm" method="post">
-   		<table>
+   	<table class="table table-striped" style="width: 500px; margin-left: auto; margin-right: auto;">
    			<tr>
    				<td>댓글입력</td>
    				<td>

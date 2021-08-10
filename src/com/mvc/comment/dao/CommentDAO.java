@@ -240,7 +240,7 @@ public class CommentDAO {
 //qnano, answer, admin_email,answer,answerno
 	public int commentWrite1(String loginemail, String qnano, String commentText1) {
 		int success = 0;
-		String sql = "INSERT INTO QNAANSWER(answerno, qnano, admin_email,answer) VALUES(answerno_seq.NEXTVAL,?,?,?) AND admin_email = ?";
+		String sql = "INSERT INTO QNAANSWER(answerno, qnano, admin_email,answer) VALUES(answerno_seq.NEXTVAL,?,?,?)";
 		try {
 			ps = conn.prepareStatement(sql);
 			ps.setInt(1, Integer.parseInt(qnano));
