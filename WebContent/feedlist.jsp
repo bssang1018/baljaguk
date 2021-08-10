@@ -71,7 +71,7 @@ height:auto;
   </span>
 </button>
   <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-    <li><a class="dropdown-item" href='fdReportWrite.jsp?footPrintNO=${fpdetail.footPrintNO}'>피드 신고</a></li>
+    <li><a class="dropdown-item" href='./fdReportWrite?footPrintNO=${footprint.footPrintNO}'>피드 신고</a></li>
       </ul>
 </div>
          </div>
