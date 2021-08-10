@@ -15,28 +15,7 @@ import com.mvc.board.service.BoardService;
 
 import com.oreilly.servlet.MultipartRequest;
 
-
-
-@WebServlet({"/like","/fpsearch","/fplist","/fpwriteOk","/fpwriteNo","/fpdetail","/fpdel","/fpupdateForm","/fpupdate","/fpserach","/feedlist","/fdReport","/fdReportWrite"})
-=======
-
-
-
-
-
-
 @WebServlet({"/fpsearch","/fplist","/fpwriteOk","/fpwriteNo","/fpdetail","/fpdel","/fpupdateForm","/fpupdate","/fpserach","/feedlist","/fdReport","/fdReportWrite","/like"})
-
-
-
-<<<<<<< HEAD
-=======
-
->>>>>>> 413b2311e6bd51735efdd050debb426d5f80f88f
-
-
-
->>>>>>> 413b2311e6bd51735efdd050debb426d5f80f88f
 
 public class BoardController extends HttpServlet {
 
@@ -193,20 +172,6 @@ public class BoardController extends HttpServlet {
 			dis = req.getRequestDispatcher("/feedlist");
 			dis.forward(req, resp);
 			break;
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> 413b2311e6bd51735efdd050debb426d5f80f88f
-
-
-			
-
-<<<<<<< HEAD
->>>>>>> 413b2311e6bd51735efdd050debb426d5f80f88f
-=======
->>>>>>> 413b2311e6bd51735efdd050debb426d5f80f88f
-		
 		  case "/like": 
 			  boolean suc;
 			  System.out.println("조아용"); 
@@ -217,26 +182,6 @@ public class BoardController extends HttpServlet {
 			  dis = req.getRequestDispatcher("/feedlist");
 			  dis.forward(req, resp);
 		  break;
-<<<<<<< HEAD
-<<<<<<< HEAD
-		   
-		}
-=======
-=======
->>>>>>> 413b2311e6bd51735efdd050debb426d5f80f88f
-
-		 
 		}		
-
-		
-		
-	     
-
-		
-
-<<<<<<< HEAD
->>>>>>> 413b2311e6bd51735efdd050debb426d5f80f88f
-=======
->>>>>>> 413b2311e6bd51735efdd050debb426d5f80f88f
 	}
 }

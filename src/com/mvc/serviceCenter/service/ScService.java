@@ -315,17 +315,27 @@ public class ScService {
 		ScServiceDTO dto = null; 
 		dto = dao.stopReason(email);
 		dao.resClose();
-		
 		return dto;
-		
 	}
-
+	
 	public void reportsearch(String email) throws IOException {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		ScDAO dao = new ScDAO();
 		ArrayList<ReportDTO> list = null;
 		
 		list = dao.reportsearch(email);
+		dao.resClose();
+		map.put("list", list);
+		resp.setContentType("text/html; charset=UTF-8");
+		resp.getWriter().println(new Gson().toJson(map));
+	}
+
+	public void withdrawsearch(String email) throws IOException {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		ScDAO dao = new ScDAO();
+		ArrayList<MemberDTO> list = null;
+		
+		list = dao.withdrawsearch(email);
 		dao.resClose();
 		map.put("list", list);
 		resp.setContentType("text/html; charset=UTF-8");

@@ -60,7 +60,7 @@ public class ScDAO {
 	
 	public int toatalCount(String condition) throws SQLException {
 		System.out.println("일루와");
-		String sql = "SELECT COUNT(email) FROM member WHERE "+condition+" = 0";
+		String sql = "SELECT COUNT(email) FROM member WHERE "+condition+" = 1";
 		System.out.println(sql);
 		ps = conn.prepareStatement(sql);
 		System.out.println("일루와");
@@ -354,13 +354,11 @@ public class ScDAO {
 	}
 
 	public HashMap<String, Object> stoplist(int page) {
-		//sql = "SELECT email, nickname FROM member WHERE accountBan = 1";
 		int pagePerCnt = 5;
 		int end = page*pagePerCnt;
 		int start = (end-pagePerCnt)+1;
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
-		//sql = "SELECT email, name FROM member";
 		sql = "SELECT email, name FROM"+
 		 "(SELECT ROW_NUMBER() OVER(ORDER BY email DESC) AS rnum," + 
 		 "email, name FROM member WHERE accountban = 1) WHERE rnum BETWEEN ? AND ?";
@@ -375,7 +373,6 @@ public class ScDAO {
 			while(rs.next()) {
 				dto = new MemberDTO();
 				dto.setEmail(rs.getString("email"));
-				//dto.setNickname(rs.getString("nickname"));
 				dto.setName(rs.getString("name"));
 				list.add(dto);
 			}
@@ -700,6 +697,28 @@ public class ScDAO {
 				list.add(dto);
 			}
 			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	public ArrayList<MemberDTO> withdrawsearch(String email) {
+		sql = "SELECT email, name FROM member WHERE email=? AND cancelmember=1";
+		ArrayList<MemberDTO> list = null;
+		MemberDTO dto = null;
+		
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, email);
+			rs = ps.executeQuery();
+			list = new ArrayList<MemberDTO>();
+			if(rs.next()) {
+				dto = new MemberDTO();
+				dto.setEmail(rs.getString("email"));
+				dto.setName(rs.getString("name"));
+				list.add(dto);
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

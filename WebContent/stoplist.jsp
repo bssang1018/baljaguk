@@ -19,16 +19,8 @@ table, th, td {
 	<!-- 상단 메뉴바 -->
 <c:import url="./view/topmenu.jsp"/>
 	<!-- 내용시작 -->
-<h2>으하하하 정지회원목록이다~@@@@@</h2>
-		<table>
-			<thead>
-				<tr>
-					<td><input class='search' type="text" name='email'/></td>
-					<td><button class="btn">검색</button></td>
-					<td><input type='button' onclick='location.href="/tree/index1.jsp"' value="목록으로"/></td>
-				</tr>
-			</thead>
-		</table>
+<h2>정지회원목록</h2>
+		
 	<table>
 		<thead>
 			<tr>
@@ -44,6 +36,15 @@ table, th, td {
 	<div class="pageArea">
 	
 	</div>
+	<table>
+			<thead>
+				<tr>
+					<td><input class='search' type="text" name='email'/></td>
+					<td><button class="btn">검색</button></td>
+					<td><input type='button' onclick='location.href="/tree/index1.jsp"' value="목록으로"/></td>
+				</tr>
+			</thead>
+		</table>
 </body>
 <script>
 var page = 1;

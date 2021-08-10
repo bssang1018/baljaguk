@@ -7,38 +7,13 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<style>
-table, th, td {
-	border: 1px solid;
-	border-collapse: collapse;
-	margin: 10px;
-}
-div.pageArea{
-		margin: 10px;
-	}
-	
-	span.page{
-		padding: 2px 10px;
-		margin: 5px;
-		border: 1px solid gray;
-	}
-</style>
 </head>
 <body>
 	<!-- 상단 메뉴바 -->
 <c:import url="./view/topmenu.jsp"/>
 	<!-- 내용시작 -->
-<h2>으하하하 탈퇴회원목록이다~@@@@@</h2>
-<p>${map.currPage}${map.totalPage}</p>
-		<table>
-			<thead>
-				<tr>
-					<td><input class='search' type="text" name='email'/></td>
-					<td><button class="btn">검색</button></td>
-					<td><input type='button' onclick='location.href="/tree/index1.jsp"' value="목록으로"/></td>
-				</tr>
-			</thead>
-		</table>
+<h2>탈퇴회원목록</h2>
+		
 	<table>
 		<thead>
 			<tr>
@@ -53,6 +28,15 @@ div.pageArea{
 	<div class="pageArea">
 	
 	</div>
+	<table>
+			<thead>
+				<tr>
+					<td><input class='search' type="text" name='email'/></td>
+					<td><button class="btn">검색</button></td>
+					<td><input type='button' onclick='location.href="/tree/index1.jsp"' value="목록으로"/></td>
+				</tr>
+			</thead>
+		</table>
 </body>
 <script>
 var page = 1;
@@ -124,7 +108,6 @@ console.log($('.btn'));
 			content += "<td>" + item.email + "</td>";
 			content += "<td>" + item.name + "</td>";
 			content += "<td><a href='memberdetail?email="+item.email+"'>상세보기</a></td>";
-			content += "<td><a href='stopremove?email="+item.email+"'>정지해제</a></td>";
 			content += "</tr>";
 		});
 		$("tbody").empty();
