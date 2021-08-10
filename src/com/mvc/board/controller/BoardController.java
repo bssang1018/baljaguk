@@ -15,18 +15,7 @@ import com.mvc.board.service.BoardService;
 
 import com.oreilly.servlet.MultipartRequest;
 
-
-
-
-
-
 @WebServlet({"/fpsearch","/fplist","/fpwriteOk","/fpwriteNo","/fpdetail","/fpdel","/fpupdateForm","/fpupdate","/fpserach","/feedlist","/fdReport","/fdReportWrite","/like"})
-
-
-
-
-
-
 
 public class BoardController extends HttpServlet {
 
@@ -50,8 +39,6 @@ public class BoardController extends HttpServlet {
 
 	private void dual(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException{
-	
-		
 		
 		String uri = req.getRequestURI();
 		String ctx = req.getContextPath();
@@ -71,8 +58,8 @@ public class BoardController extends HttpServlet {
 			  String email = (String) req.getSession().getAttribute("loginemail");
 			  req.setAttribute("fplist",  service.fplist(email));
 			  dis = req.getRequestDispatcher("fplist.jsp");
-		  dis.forward(req, resp); 
-		  break;
+			  dis.forward(req, resp); 
+			  break;
 		  
 		  case "/feedlist":
 			  System.out.println("피드 불러오기");
@@ -185,11 +172,6 @@ public class BoardController extends HttpServlet {
 			dis = req.getRequestDispatcher("/feedlist");
 			dis.forward(req, resp);
 			break;
-
-
-			
-
-		
 		  case "/like": 
 			  boolean suc;
 			  System.out.println("조아용"); 
@@ -200,15 +182,6 @@ public class BoardController extends HttpServlet {
 			  dis = req.getRequestDispatcher("/feedlist");
 			  dis.forward(req, resp);
 		  break;
-
-		 
 		}		
-
-		
-		
-	     
-
-		
-
 	}
 }
