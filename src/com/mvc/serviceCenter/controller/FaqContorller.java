@@ -53,14 +53,16 @@ public class FaqContorller extends HttpServlet {
 			break;
 
 		case "/faqwrite":
-			System.out.println("공지 글쓰기 요청");
+			System.out.println("faq 글쓰기 요청");
 			String writer = (String) req.getSession().getAttribute("loginemail");
 			System.out.println("writer :" +writer);
 			msg = "글 작성 실패";
 			page = "faqwriteForm.jsp";
+			
 			if (service.write() == 1) {
 				msg = "글 작성 성공";
-				page = "faqdetail.jsp";
+				page = "faqlist";
+				System.out.println("msg :" + msg);
 			}
 
 			req.setAttribute("msg", msg);

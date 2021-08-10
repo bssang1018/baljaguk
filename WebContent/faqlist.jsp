@@ -18,7 +18,9 @@
   <a href="./qnalist" class="list-group-item list-group-item-action list-group-item-light" >문의사항</a>
   <a href="./noticelist" class="list-group-item list-group-item-action list-group-item-light">공지사항</a>
   <a href="./faqlist"  class="list-group-item list-group-item-action list-group-item-light">FAQ</a>
+      <c:if test="${sessionScope.admin eq '1'.charAt(0)}">
   <a href="./faqwriteForm.jsp" class="list-group-item list-group-item-action list-group-item-light" >글쓰기</a>
+      </c:if>
 </div>
       
 <div class="col-6 center-block" style="margin:100 auto;">
@@ -47,7 +49,7 @@
 	</table>
 	<div class="col-md-6 mb-2" style="float: none; margin:0 auto;">
 		<form class="d-inline-flex justify-content-end" style="height: 25px;" action="faqsearch" method="post">
-	<input class="form-control me-1" type="search" placeholder="검색어 입력" aria-label="Search" name="searchKey"/>
+	<input class="form-control me-1" type="search" placeholder="검색어 입력" aria-label="Search" name="searchKey" required/>
 			<button class="btn btn-outline-secondary" type="submit">Serch</button>
 </form>
 </div>

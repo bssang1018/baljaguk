@@ -37,7 +37,7 @@
 			<th scope="col">작성자</th>
 			<th scope="col">작성일</th>
 		</tr>
-		<c:if test="${map eq null || map eq ''}">
+		<c:if test="${empty map.list}">
 		<tr><td colspan="5">해당 데이터가 존재하지 않습니다.</td></tr>
 		</c:if>
 		<c:forEach items="${map.list}" var="qna">
@@ -51,8 +51,8 @@
 	</table>
 	<div class="col-md-6 mb-2" style="float: none; margin:0 auto;">
 		<form class="d-inline-flex justify-content-end" style="height: 25px;" action="qnasearch" method="post">
-	<input class="form-control me-1" type="search" placeholder="검색어 입력" aria-label="Search" name="searchKey"/>
-			<button class="btn btn-outline-secondary" type="submit">Serch</button>
+	<input class="form-control me-1" type="search" placeholder="검색어 입력" aria-label="Search" name="searchKey" required/>
+			<button class="btn btn-outline-secondary" type="submit">Search</button>
 </form>
 </div>
 <nav aria-label="Page navigation example text-center">
