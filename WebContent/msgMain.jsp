@@ -11,15 +11,18 @@
 <body>
 	<!-- 상단 메뉴바 -->
 <c:import url="./view/topmenu.jsp"/>
-<div class="text-center" >
-<input class="btn btn-primary" type="button" onclick="location.href='msgWrite.jsp'" value="메세지 쓰기">
-<button class="btn btn-primary" onclick="del()">메세지 삭제</button>
-<button class="btn btn-primary" onclick="location.href='./msgMyMsg'">보낸 메세지</button>
+
+<div class="row m-2">
+<div class="list-group col-md-2 m-1 text-center" id="noticecenter">
+<input class="list-group-item list-group-item-action list-group-item-light" type="button" onclick="location.href='msgWrite.jsp'" value="메세지 쓰기">
+<button class="list-group-item list-group-item-action list-group-item-light" onclick="del()">메세지 삭제</button>
+<button class="list-group-item list-group-item-action list-group-item-light" onclick="location.href='./msgMyMsg'">보낸 메세지</button>
 </div>
 
-
+<div class="col-6 center-block" style="margin:100 auto;">
+<h2> 받은 메시지 목록</h2>
 <table class="table" style="width: 800px; margin-left: auto; margin-right: auto;">
-  <thead class="table-dark">
+  <thead class="table">
     <tr>
 			<th class="col-1" style="text-align: center"></th>
 			<th class="col-2" style="text-align: center">보낸 사람</th>
@@ -76,14 +79,14 @@
 				</c:if>
 			</ul>
 			</nav>
-	
-	<div class="text-center">
+			
+			<div class="col-md-6 mb-2" style="float: none; margin:0 auto;">
 			<form class="d-inline-flex" style="height: 30px;" action="msgSearch" method="post">
 				<input class="form-control me-1" type="search" placeholder="이메일을 입력해 주세요" aria-label="Search" name="searchKey" required/>
 						<button type="submit" class="btn btn-outline-secondary" style="width: 100px;">검색</button>
 			</form>
-	</div>
-
+			</div>
+</div>
 
 <!-- 
 <div class="btn-group-vertical">

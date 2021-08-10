@@ -12,10 +12,21 @@
 	<!-- 상단 메뉴바 -->
 <c:import url="./view/topmenu.jsp"/>
 	<!-- 내용시작 -->
-<h3 style="text-align: center"> 답장 보내기 </h3>
+
 
 	<form action="msgWrite" method="post">
-<table class="table" style="width: 500px; margin-left: auto; margin-right: auto;">				
+	
+<div class="row m-2">
+
+<div class="list-group col-md-2 m-1 text-center">
+	<button class="list-group-item list-group-item-action list-group-item-light">답장 전송</button>
+	<input class="list-group-item list-group-item-action list-group-item-light" type="button" onclick="location.href='./msgMain'" value="이전으로" />
+</div>
+	
+<div class="col-6 center-block" style="margin:100 auto;">
+
+	<h3> 답장 보내기 </h3>
+<table class="table">				
 				<tr>
 					<th style="text-align: center">보내는 사람</th>
 					<td>
@@ -35,11 +46,11 @@
 					<td><textarea name="content" style="height: 300px; width: 300px;"s></textarea></td>
 				</tr>
 		</table>
-		<div class="text-center" >
-		<button class="btn btn-primary">답장 전송</button>
-		<input class="btn btn-primary" type="button" onclick="location.href='./msgMain'" value="이전으로" />
-				</div>
 	</form>
+</div>
+
+</div>
+
 </body>
 <script>
 	$('#reciever').val('${sender_email}');
