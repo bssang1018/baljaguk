@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.mvc.msg.service.MsgService;
 
 @WebServlet({"/msgWrite","/msgMain","/msgList","/msgDetail","/msgDel","/msgAns","/msgMyMsgDetail","/repWrite",
-					"/msgArrDel","/msgMyMsg","/msgReport","/msgReportWrite", "/msgSearch"})
+					"/msgArrDel","/msgMyMsg","/msgReport","/msgReportWrite", "/msgSearch","/msgAnsWrite"})
 
 public class MsgController extends HttpServlet {
 
@@ -62,6 +62,24 @@ public class MsgController extends HttpServlet {
 				msgMsg = "경고!! 메세지를 받을사람 또는 메세지를 받는사람을 확인해주세요!!";
 				req.setAttribute("msgMsg", msgMsg);
 				dis = req.getRequestDispatcher("msgWrite.jsp");
+				dis.forward(req, resp);
+			}
+			break;
+			
+		case "/msgAnsWrite": 
+			System.out.println("메세지 답장 쓰기 요청...");
+			String reciever = req.getParameter("reciever");
+			if(service.writeAns() > 0) {
+				//메세지 메인으로
+				msgMsg = "메세지 전송 성공";
+				req.setAttribute("msgMsg", msgMsg);
+				dis = req.getRequestDispatcher("/msgMain");
+				dis.forward(req, resp);
+			} else {
+				msgMsg = "경고!! 메세지를 받을사람 또는 메세지를 받는사람을 확인해주세요!!";
+				req.setAttribute("msgMsg", msgMsg);
+				req.setAttribute("sender_email", reciever);
+				dis = req.getRequestDispatcher("msgAns.jsp");
 				dis.forward(req, resp);
 			}
 			break;
@@ -157,7 +175,8 @@ public class MsgController extends HttpServlet {
 			dis = req.getRequestDispatcher("msgReportWrite.jsp");
 			dis.forward(req, resp);
 			break;
-			
+		
+		//받은메세지 상세보기에서 신고	
 		case "/msgReport": 
 			System.out.println("메세지 신고 등록 요청");
 			int success = 0;
@@ -174,7 +193,7 @@ public class MsgController extends HttpServlet {
 			dis = req.getRequestDispatcher("/msgList");
 			dis.forward(req, resp);
 			break;
-			
+		
 		//나한테 편지보낸사람 검색
 		case "/msgSearch":
 			System.out.println("메세지 검색 요청...");

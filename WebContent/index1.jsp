@@ -17,7 +17,7 @@
 	<!-- 상단 메뉴바 -->
 <c:import url="./view/topmenu.jsp"/>
 	<!-- 내용시작 -->
-<h2>회원보기</h2>
+<h2>관리자 페이지</h2>
 <div class="btn-group " role="group">
 	<input class='btn1' type="button" value="전체회원보기"/>
 	<input class='btn2' type="button" value="신고글보기"/>
