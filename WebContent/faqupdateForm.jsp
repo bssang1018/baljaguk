@@ -6,40 +6,37 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<link rel="stylesheet" href="css/common.css" type="text/css">
 </head>
 <body>
 	<!-- 상단 메뉴바 -->
 <c:import url="./view/topmenu.jsp"/>
 	<!-- 내용시작 -->
 <form action="faqupdate" method="POST">
-	<table>
+<table class="table" style="width: 500px; margin-left: auto; margin-right: auto;">
 		<tr>
-			<th>글번호</th>
+			<th style="text-align: center">글번호</th>
 			<td>
 				${noticefaq.idx}
 				<input type="hidden" name="idx" value="${noticefaq.idx}"/>
 			</td>
 		</tr>
 		<tr>
-			<th>제목</th>
-			<td><input type="text" name="title" value="${noticefaq.title}"/></td>
+			<th style="text-align: center">제목</th>
+			<td><input type="text" name="title" size=40 maxlength=15 value="${noticefaq.title}"/></td>
 		</tr>
 		<tr>
-			<th>작성자</th>			
+			<th style="text-align: center">작성자</th>			
 			<td><input type="hidden" name="email" value="${noticefaq.email}"/>${noticefaq.email}</td>
 		</tr>
 		<tr>
-			<th>내용</th>
-			<td><textarea name="content">${noticefaq.content}</textarea></td>
-		</tr>
-		<tr>
-			<td colspan="2">
-				<input type="button" onclick="location.href='./faqlist'" value="리스트"/>
-				<button>저장</button>
-			</td>
-		</tr>
+			<th style="text-align: center">내용</th>
+			<td><textarea name="content" style="width:300px; height:450px; resize: none;">${noticefaq.content}</textarea></td>
+		</tr>			
 	</table>
+			<div class="text-center" >
+				<input class="btn btn-primary" type="button" onclick="location.href='./faqlist'" value="리스트"/>
+				<button class="btn btn-primary">저장</button>
+			</div>
 </form>
 </body>
 <script>

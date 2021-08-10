@@ -51,6 +51,8 @@ public class NoticeController extends HttpServlet {
 
 		case "/noticewrite":
 			System.out.println("공지 글쓰기 요청");
+			String writer = (String) req.getSession().getAttribute("loginemail");
+			System.out.println("writer :" +writer);
 			msg = "글 작성 실패";
 			page = "noticewriteForm.jsp";
 

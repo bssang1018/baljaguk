@@ -7,47 +7,41 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<link rel="stylesheet" href="css/common.css" type="text/css">
-<style>
-table, tr, th, td {
-	border: 1px solid;
-	border-collapse: collapse;
-	padding: 10px;
-	text-align: center;
-}
-</style>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+
+
 </head>
 <body>
-
-<h3>"${searchlist}"</h3>
-
-	<table>
+<!-- 상단 메뉴바 -->
+<c:import url="./view/topmenu.jsp"/>
+<h2 style="text-align: center">공지검색 결과</h2>
+<h3 style="text-align: center">검색명 :${searchlist}</h3>
+<table class="table" style="width: 800px; margin-left: auto; margin-right: auto;">
 		<tr>
-			<th>번호</th>
-			<th>제목</th>
-			<th>작성자</th>
-			<th>작성일</th>
+			<th class="col-1" style="text-align: center">번호</th>
+			<th class="col-1" style="text-align: center">제목</th>
+			<th class="col-1" style="text-align: center">작성자</th>
+			<th class="col-1" style="text-align: center">작성일</th>
 		</tr>
 
-		<c:if test="${map eq null || map eq ''}">
+		<c:if test="${empty map.searchlist}">
 			<tr>
-				<td colspan="5">검색 결과가 없어요ㅠ</td>
+				<td colspan="5" style="text-align: center">검색 결과가 없어요</td>
 			</tr>
 		</c:if>
 
 		<c:forEach items="${map.searchlist}" var="notice">
 			<tr>
-				<td>${notice.idx}</td>
-				<td><a href="noticedetail?idx=${notice.idx}">${notice.title}</a></td>
-				<td>${notice.email}</td>
-				<td>${notice.reg_date}</td>
-
+				<td style="text-align: center">${notice.idx}</td>
+				<td style="text-align: center"><a href="noticedetail?idx=${notice.idx}">${notice.title}</a></td>
+				<td style="text-align: center">${notice.email}</td>
+				<td style="text-align: center">${notice.reg_date}</td>
 			</tr>
 		</c:forEach>
 	</table>
 
 	<br />
-			<ul class="pagination">
+			<ul class="pagination justify-content-center">
 				<c:if test="${map.startPage ne 1}">
 				<li class="page-item"><a class="page-link" href="./noticesearch?page=${map.startPage-1}&searchKey=${searchlist}"
 					aria-label="Previous"> <span aria-hidden="true">&laquo;</span>		
@@ -67,6 +61,10 @@ table, tr, th, td {
 				</a></li>
 				</c:if>
 			</ul>
+			<div class="text-center" >
+				<input class="btn btn-primary" type="button" onclick="location.href='./noticelist'" value="리스트 돌아가기"/>
+				
+			</div>
 </body>
 <script>
 </script>
