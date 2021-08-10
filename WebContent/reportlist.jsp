@@ -7,16 +7,18 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
 </head>
 <body>
 	<!-- 상단 메뉴바 -->
 	<c:import url="./view/topmenu.jsp" />
 	<!-- 내용시작 -->
+	<div class="container px-4 my-4 text-center">
 	<h2>신고 페이지</h2>
 	<input class='btn1' type="button" value="신고글보기" />
 	<input class='btn2' type="button" value="신고메세지보기" />
 	<br>
-	<table>
+	<table class='table'>
 		<thead>
 			<tr>
 				<th>신고 번호</th>
@@ -47,6 +49,7 @@
 	</table>
 <!-- 하단단 메뉴바 -->
 	<c:import url="./view/bottom.jsp" />
+</div>
 </body>
 <script>
 var page = 1;

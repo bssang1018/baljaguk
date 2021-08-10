@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
- <%
+<%
  	String email = request.getParameter("email");
  	System.out.println(email);
  	String reportno = request.getParameter("reportno");
  	System.out.println(reportno);
- %>
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,7 +20,7 @@
 	<!-- 상단 메뉴바 -->
 <c:import url="./view/topmenu.jsp"/>
 
-<h3> 메세지 보내기 </h3>
+<h3> 신고 답변 </h3>
 	
 <form action="repWrite" method="post">
 <table class="table" style="width: 500px; margin-left: auto; margin-right: auto;">	

@@ -91,13 +91,6 @@ public class ScController extends HttpServlet {
 			}
 
 			break;
-		// 신고 원본 불러오기
-		/*
-		 * case "/contentload": System.out.println("신고글 불러오기"); service.contentload();
-		 * break; case "/commentload": System.out.println("신고댓글 불러오기");
-		 * service.commentload(); break; case "/messageload":
-		 * System.out.println("신고메세지 불러오기"); service.messageload(); break;
-		 */
 
 		// 블랙리스트 관련 함수
 		// 블랙리스트 불러오기
@@ -126,8 +119,7 @@ public class ScController extends HttpServlet {
 				System.out.println("수정 성공");
 				dis = req.getRequestDispatcher("memberlist.jsp");
 				dis.forward(req, resp);
-			}
-			;
+			};
 			break;
 		// 회원블랙리스트 해제 함수
 		case "/blackremove":
@@ -137,8 +129,7 @@ public class ScController extends HttpServlet {
 				System.out.println("블랙리스트 해제 성공");
 				dis = req.getRequestDispatcher("blacklist.jsp");
 				dis.forward(req, resp);
-			}
-			;
+			};
 			break;
 
 		// 회원리스트 출력 및 검색 함수
@@ -173,7 +164,7 @@ public class ScController extends HttpServlet {
 			dis = req.getRequestDispatcher("stopwriteform.jsp");
 			dis.forward(req, resp);
 			break;
-
+			//정지 해제하기
 		case "/stopremove":
 			System.out.println("정지 해제하기");
 			email = req.getParameter("email");
@@ -184,19 +175,7 @@ public class ScController extends HttpServlet {
 			}
 			;
 			break;
-		// 회원탈퇴 관련 함수
-		// 탈퇴회원 리스트 불러오기
-		case "/withdrawlist":
-			System.out.println("탈퇴회원 리스트 불러오기");
-			service.withdrawlist(Integer.parseInt(page));
-			break;
-		case "/withdrawsearch":
-			System.out.println("탈퇴회원검색");
-			email = req.getParameter("email");
-			service.withdrawsearch(email);
-			break;
-			
-		// 회원정지 함수
+			// 회원정지 함수
 		case "/stopregister":
 			System.out.println("정지 등록");
 			String loginemail = (String) req.getSession().getAttribute("loginemail");
@@ -211,7 +190,17 @@ public class ScController extends HttpServlet {
 				resp.sendRedirect("memberlist.jsp");
 			}
 			break;
-
+		// 회원탈퇴 관련 함수
+		// 탈퇴회원 리스트 불러오기
+		case "/withdrawlist":
+			System.out.println("탈퇴회원 리스트 불러오기");
+			service.withdrawlist(Integer.parseInt(page));
+			break;
+		case "/withdrawsearch":
+			System.out.println("탈퇴회원검색");
+			email = req.getParameter("email");
+			service.withdrawsearch(email);
+			break;
 		// 정지사유 보기
 		case "/stopReason":
 			System.out.println("정지사유 보기요청...");

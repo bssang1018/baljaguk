@@ -42,12 +42,9 @@
 				</tr>
 			</thead>
 		</table>
-<<<<<<< HEAD
 	<!-- 하단단 메뉴바 -->
 	<c:import url="./view/bottom.jsp" />
-=======
 		</div>
->>>>>>> 615773d822d0edf088267e9186c10825061032b3
 </body>
 <script>
 var page = 1;
