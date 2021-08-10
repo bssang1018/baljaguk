@@ -58,7 +58,7 @@
    	</tr>
    	<c:if test="${empty map.qnacommentList}">
 			<tr>
-				<td colspan="4"> 등록된 댓글이 없네요! 첫 댓글을 달아보세요! </td>
+				<td colspan="4"> 등록된 답변이 없네요!</td>
 			</tr>
 		</c:if>
 	<c:forEach items="${map.qnacommentList}" var="comment">
@@ -76,8 +76,8 @@
 		</c:forEach>
 
    </table>
-   
-   <form action="qnacommentWriteForm" method="post">
+   <c:if test="${sessionScope.admin eq '1'.charAt(0)}">
+     <form action="qnacommentWriteForm" method="post">
    	<table class="table table-striped" style="width: 500px; margin-left: auto; margin-right: auto;">
    			<tr>
    				<td>댓글입력</td>
@@ -88,7 +88,7 @@
    			</tr>
    		</table>
    </form>
-   
+   </c:if>
 </body>
 <script>
 	var msg = "${msg}";

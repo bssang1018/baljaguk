@@ -12,6 +12,7 @@ public class FaqDTO {
 	private char blind;
 	private String writer;
 	
+	
 	public String getWriter() {
 		return writer;
 	}
