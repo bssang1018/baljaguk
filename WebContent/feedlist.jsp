@@ -31,6 +31,7 @@ height:auto;
 #text{
   display: inline-block; width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
+
 </style>
 </head>
 <body>
@@ -38,7 +39,7 @@ height:auto;
 <c:import url="./view/topmenu.jsp"/>
 
 <div class="container px-4 my-4 text-center">
-<form class="d-inline-flex justify-content-end"  action="fpsearch" method="post">
+
 
    <!-- 내용시작 -->
   
@@ -78,10 +79,12 @@ height:auto;
          </div>
    </c:forEach>
 </div>
+ </div>
+ <div class="row">
+   <form class="d-inline-flex justify-content-end"  action="fpsearch" method="post">
    
-   </form>
-   </div>
-   <div class="row">
+  
+   
  <div class="col-4"></div>
  <div class="col-4 text-center mb-3">
  <div class="input-group">
@@ -96,6 +99,7 @@ height:auto;
    <div class="text-center">
    <button id="plusBtn" class="btn btn-primary" style="margin-bottom:100px">더보기</button>
    </div>
+   </form>
 </body>
 <script>
 
