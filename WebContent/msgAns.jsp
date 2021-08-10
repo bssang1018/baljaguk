@@ -14,7 +14,7 @@
 	<!-- 내용시작 -->
 
 
-	<form action="msgWrite" method="post">
+	<form action="msgAnsWrite" method="post">
 	
 <div class="row m-2">
 

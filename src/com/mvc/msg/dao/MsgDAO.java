@@ -55,6 +55,20 @@ public class MsgDAO {
 		return total;
 	}
 	
+	//페이징처리용 토탈카운트 (검색용)
+	private int totalCount3(String loginemail, String searchKey) throws SQLException {
+		String sql = "SELECT COUNT(msgNo) FROM message WHERE (receiver_email = ? AND del = 0) AND (sender_email LIKE ?) ";
+		ps = conn.prepareStatement(sql);
+		ps.setString(1, loginemail);
+		ps.setString(2, searchKey);
+		rs = ps.executeQuery();
+		int total = 0;
+		if(rs.next()) {
+			total = rs.getInt(1);
+		}	
+		return total;
+	}
+	
 	public int write(String sender, String reciever, String content) {
 		//msgOpen 은 열람 여부 인데, 처음보낼때 0이고, 읽으면 1.
 		//작성일은 Default Sysdate 
@@ -416,41 +430,7 @@ public class MsgDAO {
 		}
 		return success;
 	}
-
-	
-	//편지를 받는 사람으로 검색
-	/*
-	public ArrayList<MsgDTO> emailList(String searchKey, String loginemail) {
-		String sql = "SELECT msgNo,sender_email,receiver_email,msgContent,reg_date,msgOpen "
-							+"FROM message WHERE (receiver_email LIKE ? OR msgContent LIKE ?) AND sender_email = ?";
-		ArrayList<MsgDTO> emailList = null;
-		MsgDTO dto = null;
 		
-		try {
-			ps = conn.prepareStatement(sql);
-			ps.setString(1, "%"+searchKey+'%');
-			ps.setString(2, "%"+searchKey+'%');
-			ps.setString(3, loginemail);
-			rs = ps.executeQuery();
-			emailList = new ArrayList<MsgDTO>();
-			while (rs.next()) {
-				dto = new MsgDTO();
-				dto.setMsgNo(rs.getInt("msgNo"));
-				dto.setSender_email(rs.getString("sender_email"));
-				dto.setReceiver_email(rs.getString("receiver_email"));
-				dto.setMsgContent(rs.getString("msgContent"));
-				dto.setReg_date(rs.getDate("reg_date"));
-				dto.setMsgOpen(rs.getString("msgOpen"));
-				emailList.add(dto);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return emailList;
-	}
-	*/
-	
-	
 	//나한테 편지를 보낸사람을 검색
 	public HashMap<String, Object> emailList(int page, String loginemail, String searchKey) {
 		/*
@@ -501,7 +481,7 @@ public class MsgDAO {
 			}
 			System.out.println("emailList 값이 있나욘?: "+ emailList);
 			
-			int total = totalCount(loginemail);
+			int total = totalCount3(loginemail, searchKey);
 			// 총 게시글 수에 나올 페이지수 나눠서 짝수면 나눠주고 홀수면 +1
 			int totalPages = total % pagePerCnt == 0 ? total / pagePerCnt : (total / pagePerCnt) + 1;
 			if (totalPages == 0) {
@@ -531,6 +511,25 @@ public class MsgDAO {
 		} 
 		
 		return msgMap;
+	}
+
+	public int writeAns(String sender, String reciever, String content) {
+		int success = 0;
+		String sql = "INSERT INTO message(msgNo,sender_email,receiver_email,msgContent,msgOpen) "
+							+ "VALUES(msgNo_seq.NEXTVAL,?,?,?,0)";
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, sender);
+			ps.setString(2, reciever);
+			ps.setString(3, content);
+			success = ps.executeUpdate();
+			if(success>0) {
+				System.out.println("메시지 DB 삽입 성공! 삽입개수: "+success);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return success;
 	}
 
 	
