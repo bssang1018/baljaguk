@@ -994,10 +994,10 @@
 				success : function(data) {
 					console.log(data);
 					if (data.success) {
-						alert(data.cnt + '찜하기에 성공 했습니다.');
+						alert('찜하기에 성공 했습니다.');
 						//location.href='main.jsp';
 					} else {
-						alert('찜하기에 실패 했습니다.');
+						alert('이미 찜한 관광지입니다.');
 					}
 				},
 				error : function(e) {

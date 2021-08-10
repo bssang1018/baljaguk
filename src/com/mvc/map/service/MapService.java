@@ -33,6 +33,10 @@ public class MapService {
 
 		try {
 			success = dao.fav(email, contentsid);
+			/*자동 커밋이 설정됨...?
+			 * if(success != 0) {//commit || rollback dao.conn.commit(); }else {
+			 * dao.conn.rollback(); }
+			 */
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
