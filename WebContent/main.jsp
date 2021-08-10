@@ -17,18 +17,24 @@ body, head {
 }
 
 #size {
-	/* max-width: 100%; */
+  max-width: 100%; 
 	height: 210px;
+		overflow: hidden;
 }
 
 img {
+ margin:auto;
 	max-width: 100%;
-	object-fit: contain;
+	  display: flex;
+            align-items: center;
+            justify-content: center;
+height:auto;
+/* 	object-fit: contain; */
 }
 
 #text {
 	display: inline-block;
-	width: 200px;
+	max-width: 100%;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
@@ -39,21 +45,17 @@ img {
 	<!-- 상단 메뉴바 -->
 	<c:import url="./view/topmenu.jsp" />
 	<!-- 내용시작 -->
-	<div class="container px-4 my-4">
+	<div class="container px-4 my-4 text-center">
 		<div class="row">
 			<div class="col-6">
-				<h2>
-					<a href="map">지도</a>
-				</h2>
+				<a href="map" class="nav-link" ><h2>지도</h2></a>
 				<hr />
 				<!-- 지도를 표시할 div 입니다 -->
 				<div id="map"	style="width: 100%; height: 350px; position: relative; overflow: hidden;"></div>
 
 			</div>
 			<div class="col-6">
-				<h2>
-					<a href="fplist">플래너시작</a>
-				</h2>
+				<a href="fplist" class="nav-link" ><h2>발자국 남기기</h2></a>
 				<hr />
 				<!-- 지도를 표시할 div 입니다 -->
 				<div id="fpMap"	style="width: 100%; height: 350px; position: relative; overflow: hidden;"></div>
@@ -68,8 +70,7 @@ img {
 				<div class="gogo col text-center" id="frame" style="opacity: 0;">
 					<p style="display: none;">${M.boardNO}</p>
 					<div id="size">
-						<img src="/photo/${M.newFileName}"
-							onerror="this.src='view/test.jpg'" />
+						<img src="/photo/${M.newFileName}" onerror="this.src='view/test.jpg'" />
 					</div>
 					<div class="card-body">
 						<p class="card-title">작성자 : ${M.email}</p>
@@ -117,8 +118,7 @@ img {
 									success : function(data) {
 										console.log(data);
 										content = '';
-										$
-												.each(
+										$.each(
 														data.list,
 														function(i, item) {
 															content += '<div class="col text-center " id="frame" >'

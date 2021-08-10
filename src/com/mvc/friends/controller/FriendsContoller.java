@@ -151,7 +151,7 @@ public class FriendsContoller extends HttpServlet {
 				System.out.println("친구 차단 해제 실패!");
 			}
 			req.setAttribute("msgMsg", msgMsg);
-			dis = req.getRequestDispatcher("/friendsList");
+			dis = req.getRequestDispatcher("/friendsBlockList");
 			dis.forward(req, resp);
 			break;
 			

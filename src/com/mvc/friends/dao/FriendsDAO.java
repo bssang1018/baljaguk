@@ -34,7 +34,7 @@ public class FriendsDAO {
 	public boolean friendsAddOverlay(String loginemail, String friends_email) {
 		boolean overlay = false;
 		String sql = "SELECT email,friends_email,block FROM friends "+
-							"WHERE email = ? AND friends_email = ?";
+							"(WHERE email = ? AND friends_email = ?) AND relation = 1";
 		try {
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, loginemail);
@@ -55,9 +55,9 @@ public class FriendsDAO {
 	
 	public int friendsAdd(String loginemail, String friends_email) {
 		int success = 0;
-		String sql = "INSERT INTO friends(email,friends_email,block) "
-							+ "VALUES(?,?,0)";
-		//block 컬럼에 0 넣는건, 차단하지 않았다는 뜻임! 1이 차단! 생성할땐 무조건 안차단!
+		String sql = "INSERT INTO friends(email,friends_email,block, relation) "
+							+ "VALUES(?,?,0,1)";
+		//block 컬럼에 0 넣는건, 차단하지 않았다는 뜻임! //1이 차단! 생성할땐 무조건 안차단!
 		try {
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, loginemail);
@@ -87,7 +87,7 @@ public class FriendsDAO {
 	
 	public int friendsBlock(String loginemail, String friends_email) {
 		int success = 0;
-		String sql = "UPDATE friends SET block = 1 "+
+		String sql = "UPDATE friends SET block = 1, relation = 0 "+
 							"WHERE email = ? AND friends_email = ?";
 		try {
 			ps = conn.prepareStatement(sql);
@@ -99,11 +99,25 @@ public class FriendsDAO {
 		}
 		return success;
 	}
-	
 	
 	public int friendsBlockCancle(String loginemail, String friends_email) {
 		int success = 0;
-		String sql = "UPDATE friends SET block = 0 "+
+		String sql = "DELETE FROM friends WHERE email = ? AND friends_email = ?";
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, loginemail);
+			ps.setString(2, friends_email);
+			success = ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return success;
+	}
+	
+	/*
+	public int friendsBlockCancle(String loginemail, String friends_email) {
+		int success = 0;
+		String sql = "UPDATE friends SET block = 0, relation = 0 "+
 							"WHERE email = ? AND friends_email = ?";
 		try {
 			ps = conn.prepareStatement(sql);
@@ -115,7 +129,7 @@ public class FriendsDAO {
 		}
 		return success;
 	}
-		
+	*/	
 	
 	
 	
@@ -265,7 +279,7 @@ public class FriendsDAO {
 	
 	public HashMap<String, Object> friendsList(int page, String loginemail) {
 		String sql ="SELECT friends_email FROM "
-						 +"(SELECT ROW_NUMBER() OVER(ORDER BY email DESC)AS rnum, email, friends_email, block FROM friends WHERE email = ? AND block = 0) "
+						 +"(SELECT ROW_NUMBER() OVER(ORDER BY email DESC)AS rnum, email, friends_email, block FROM friends WHERE ( email = ? AND relation = 1) AND block = 0 ) "
 						 +"WHERE rnum BETWEEN ? AND ?";
 				
 		FriendsDTO dto = null;

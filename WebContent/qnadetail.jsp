@@ -58,7 +58,7 @@
    	</tr>
    	<c:if test="${empty map.qnacommentList}">
 			<tr>
-				<td colspan="4"> 등록된 댓글이 없네요! 첫 댓글을 달아보세요! </td>
+				<td colspan="4"> 등록된 답변이 없네요!</td>
 			</tr>
 		</c:if>
 	<c:forEach items="${map.qnacommentList}" var="comment">
@@ -67,7 +67,7 @@
 				<td>${comment.admin_email}</td>
 				<td>${comment.answer}</td>
 				<c:if test="${comment.admin_email eq loginemail}">
-					<td><input class="btn btn-primary" type="button" onclick="location.href='./qnacommentDel?qnano=${comment.qnano}&answerno=${comment.answerno}'" value="삭제"/></td>
+					<td><input class="btn btn-primary" type="button" onclick="location.href='./qnacommentDel?qnano=${comment.qnano}&answerno=${comment.answerno}'" value="삭제"  /></td>
 				</c:if>
 				<c:if test="${comment.admin_email ne loginemail}">
 					<td></td>
@@ -76,19 +76,19 @@
 		</c:forEach>
 
    </table>
-   
-   <form action="qnacommentWriteForm" method="post">
+   <c:if test="${sessionScope.admin eq '1'.charAt(0)}">
+     <form action="qnacommentWriteForm" method="post">
    	<table class="table table-striped" style="width: 500px; margin-left: auto; margin-right: auto;">
    			<tr>
    				<td>댓글입력</td>
    				<td>
-   					<input type="text" name="commentText1"/><button>등록</button>
+   					<input type="text" name="commentText1" required/><button>등록</button>
 					<input type="hidden" name="qnano" value="${qnano}"/>   				
    				</td>
    			</tr>
    		</table>
    </form>
-   
+   </c:if>
 </body>
 <script>
 	var msg = "${msg}";

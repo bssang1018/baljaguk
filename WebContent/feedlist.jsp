@@ -15,31 +15,39 @@ body, head {
    padding: 0;
 }
 #size{
-max-width: 100%;
-  height: 210px;
+ max-width: 100%; 
+	height: 210px;
+		overflow: hidden;
 }
 
  img{
-  max-width: 100%;
-  object-fit : cover;
+ margin:auto;
+ 	max-width: 100%;
+	  display: flex;
+            align-items: center;
+            justify-content: center;
+height:auto;
 }
 #text{
   display: inline-block; width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
+
 </style>
 </head>
 <body>
    <!-- 상단 메뉴바 -->
 <c:import url="./view/topmenu.jsp"/>
-<form class="d-inline-flex justify-content-end"  action="fpsearch" method="post">
+
+<div class="container px-4 my-4 text-center">
+
 
    <!-- 내용시작 -->
   
-<div class="row row-cols-1 row-cols-md-4 g-4 mt-4" id="card">
        <c:if test="${feedlist eq null || feedlist eq ''}">
      <h1>해당 데이터가 존재하지 않습니다.</h1>
        </c:if>   
        
+<div class="row row-cols-1 row-cols-md-4 g-4 mt-4" id="card">
        <c:forEach items="${feedlist}" var="footprint" >
          <div class="gogo col text-center" id="frame" style="opacity:0;">
                <p style="display : none;">${footprint.footPrintNO}</p>
@@ -49,7 +57,7 @@ max-width: 100%;
                <div class="card-body">
                   <p class="card-title">작성자 : ${footprint.email} </p>
                   <hr/>
-                  <a href="fpdetail?footPrintNO=${footprint.footPrintNO}">${footprint.footprintText}</a>
+                  <a style=" display: inline-block; max-width:100% ; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" href="fpdetail?footPrintNO=${footprint.footPrintNO}">${footprint.footprintText}</a>
                </div>
             <div class="card-footer text-center">
          <div class="btn-group">
@@ -64,24 +72,34 @@ max-width: 100%;
   </span>
 </button>
   <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-    <li><a class="dropdown-item" href='fdReportWrite.jsp?footPrintNO=${fpdetail.footPrintNO}'>피드 신고</a></li>
+    <li><a class="dropdown-item" href='./fdReportWrite?footPrintNO=${footprint.footPrintNO}'>피드 신고</a></li>
       </ul>
 </div>
          </div>
          </div>
    </c:forEach>
 </div>
+ </div>
+ <div class="row">
+   <form class="d-inline-flex justify-content-end"  action="fpsearch" method="post">
    
-   </form>
+  
    
- <div class="form-group">
-   <input type="button" onclick="location.href='fpwrite.jsp'" value="발자국 남기기"/>
+ <div class="col-4"></div>
+ <div class="col-4 text-center mb-3">
+ <div class="input-group">
    <input class="form-control me-1" type="search" placeholder="검색어를 입력해주세요" aria-label="Search" name="hashtag"/>
          <button class="btn btn-outline-secondary" type="submit">search</button>
+ </div>
+   </div>
+   <div class="col-4 text-center">
+   <input type="button" class="btn btn-primary" onclick="location.href='fpwrite.jsp'" value="발자국 남기기"/>
+   </div>
    </div>
    <div class="text-center">
    <button id="plusBtn" class="btn btn-primary" style="margin-bottom:100px">더보기</button>
    </div>
+   </form>
 </body>
 <script>
 

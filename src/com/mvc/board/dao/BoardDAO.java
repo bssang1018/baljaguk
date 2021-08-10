@@ -442,28 +442,7 @@ public class BoardDAO {
 		
 		return success;
 	}
-	public int like(String contentNo, String email, String likeCnt, String footPrintNo) {
-		int success =0;
-		String sql1="INSERT INTO LIKES(contentNO, email , likeCnt)VALUES(?,?,1)";
-		String sql2 ="UPDATE footprint SET  likeCnt = likeCnt - 1 WHERE footPrintNO =?";
-		
-		try {
-			ps = conn.prepareStatement(sql1);
-			ps.setString(1, contentNo);
-			ps.setString(2, email);
-		
-			ps.executeUpdate();
-			rs = ps.getGeneratedKeys();
-			if(rs.next()) {
-				ps.setString(1, footPrintNo);
-				ps.executeUpdate();
-				success = ps.executeUpdate();
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return success;
-	}
+
 	public void like(String fpn, String email) {
 		String sql1 = "select likecnt from likes where contentno=? AND email=?";
 		String sql2 = "INSERT  INTO likes(contentno, likecnt, email) VALUES(?,1,?)";

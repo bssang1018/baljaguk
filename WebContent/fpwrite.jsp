@@ -6,46 +6,25 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-.controller {
-	padding: 25px 0;
-	margin: auto;
-	width: 840px;
-	text-align: center;
-}
-table {
-	width: 840px;
-	padding: 10px 0;
-	border-collapse: collapse;
-}
-th {
-	background-color: rgb(100, 100, 100);
-	color: white;
-}
-button {
-	margin: 4px 0;
-	padding: 10px 0;
-	width: 840px;
-	background-color: rgb(255, 80, 80);
-	color: white;
-	border: none;
-}
-a {
-	text-decoration: none;
-	color: black;
-}
-a:hover {
-	text-decoration-line: underline;
-}
+	table,tr,th,td{
+		border: 1px solid;
+		border-collapse: collapse;
+		padding : 10px;
+	}
+	
 </style>
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<link rel="stylesheet" href="css/common.css" type="text/css">
 </head>
 <body>
- <!-- 상단 메뉴바 -->
+<!-- 상단 메뉴바 -->
 <c:import url="./view/topmenu.jsp"/>
 	<!-- 내용시작 -->
+   <h2 style="text-align: center">발자국 남기기</h2>
+
  <form action="fpwriteOk" method="post"  enctype="multipart/form-data">
-     <table>
+    
+ <table style="width: 800px; margin-left: auto; margin-right: auto;">
      
   <!--   <tr>
       <th>발자국 번호</th>
@@ -77,9 +56,9 @@ a:hover {
        &nbsp;&nbsp;
       <input type="radio" name="ok" value="0" checked/>발자국 비공개
       <br/>
-      <input type='submit' value='저장'/>
-      <input type="button" onclick="location.href= 'fplist'" value="발자국 리스트"/>
-      <input type="button" onclick="location.href= 'feedlist'" value="피드 리스트"/>
+      <button class="btn btn-outline-primary" type="submit">저장</button>
+      <input type="button" onclick="location.href= 'fplist'" value="발자국 리스트" class="btn btn-outline-primary"/>
+      <input type="button" onclick="location.href= 'feedlist'" value="피드 리스트" class="btn btn-outline-primary" />
      </td>
    </tr>
    </table>

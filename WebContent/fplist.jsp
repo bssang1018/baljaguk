@@ -16,13 +16,18 @@ body, head {
 	padding: 0;
 }
 #size{
-max-width: 100%;
-  height: 210px;
+max-width: 100%; 
+	height: 210px;
+		overflow: hidden;
 }
 
  img{
-  max-width: 100%;
-  object-fit : cover;
+  margin:auto;
+ 	max-width: 100%;
+	  display: flex;
+            align-items: center;
+            justify-content: center;
+height:auto;
 }
 #text{
   display: inline-block; width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
@@ -35,26 +40,14 @@ max-width: 100%;
 <c:import url="./view/topmenu.jsp"/>
 <!-- 지도를 표시할 div 입니다 -->
 				<div id="map"	style="width: 100%; height: 450px; position: relative; overflow: hidden;"></div>
-<form class="d-inline-flex justify-content-end"  action="fpsearch" method="post">
-	 
-   <div class="form-group">
-   <input type="button" onclick="location.href='fpwrite.jsp'" value="발자국 남기기"/>
-   <input class="form-control me-1" type="search" placeholder="검색어를 입력해주세요" aria-label="Search" name="hashtag"/>
-			<button class="btn btn-outline-secondary" type="submit">search</button>
-   </div>
-   
-   
        
 	<!-- 내용시작 -->
+	<div class="container px-4 my-4 text-center">
 <div class="row row-cols-1 row-cols-md-4 g-4 mt-4" id="card">
-  
    
       <c:if test="${fplist eq null || fplist eq ''}">
        <tr><td colspan="5">해당 데이터가 존재하지 않습니다.</td></tr>
-       
-    
     </c:if>
-   
    <c:forEach items="${fplist}" var="footprint" varStatus = "no">
    <div class="gogo col text-center" id="frame" style="opacity:0;">
 					<p style="display : none;">${footprint.footPrintNO}</p>
@@ -63,22 +56,34 @@ max-width: 100%;
 					</div>
 					<div class="card-body">
 						<p class="card-title">작성자 : ${footprint.email} </p>
-						
-						
 					</div>
 					<div class="card-footer text-center">
-						<td><a href="fpdetail?footPrintNO=${footprint.footPrintNO}">${footprint.footprintText}</a></td>
+						<td><a style=" display: inline-block; max-width:100% ; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" href="fpdetail?footPrintNO=${footprint.footPrintNO}">${footprint.footprintText}</a></td>
 					</div>
-					
 					</div>
-					
    </c:forEach>
   </div>
-   </form>
- <div class="text-center">
-   <button id="plusBtn" class="btn btn-primary" style="margin-bottom:100px">더보기</button>
+  </div>
+
+      <div class="row">
+   <form class="d-inline-flex justify-content-end"  action="fpsearch" method="post">
+	 
+ <div class="col-4"></div>
+ <div class="col-4 text-center mb-3">
+ <div class="input-group">
+   <input class="form-control me-1" type="search" placeholder="검색어를 입력해주세요" aria-label="Search" name="hashtag"/>
+         <button class="btn btn-outline-secondary" type="submit">search</button>
+ </div>
+   </div>
+   <div class="col-4 text-center">
+   <input type="button" class="btn btn-primary" onclick="location.href='fpwrite.jsp'" value="발자국 남기기"/>
+   </div>
    </div>
 
+   <div class="text-center">
+   <button id="plusBtn" class="btn btn-primary" style="margin-bottom:100px">더보기</button>
+   </div>
+      </form>
 </body>
 <script>
 
@@ -113,7 +118,6 @@ $(document).on('click','#plusBtn',function(){
 		    	   content += 		'</div>'
 		    	   content += 	'</div>' 	  
 		        })
-		        $('#card').empty();
 		        $('#card').append(content);
 		    },
 		    error : function(e) {
@@ -130,14 +134,39 @@ var mapContainer = document.getElementById('map'), // 지도를 표시할 div
 	};
 	map = new kakao.maps.Map(mapContainer, mapOption);		
 
+	// 지도를 클릭한 위치에 표출할 마커입니다
+	var marker = new kakao.maps.Marker({ 
+	    // 지도 중심좌표에 마커를 생성합니다 
+	    position: map.getCenter() 
+	}); 
+	// 지도에 마커를 표시합니다
+	marker.setMap(map);
+
+	// 지도에 클릭 이벤트를 등록합니다
+	// 지도를 클릭하면 마지막 파라미터로 넘어온 함수를 호출합니다
+	kakao.maps.event.addListener(map, 'click', function(mouseEvent) {        
+	    
+	    // 클릭한 위도, 경도 정보를 가져옵니다 
+	    var latlng = mouseEvent.latLng; 
+	    
+	    // 마커 위치를 클릭한 위치로 옮깁니다
+	    marker.setPosition(latlng);
+	    
+	    var message = '클릭한 위치의 위도는 ' + latlng.getLat() + ' 이고, ';
+	    message += '경도는 ' + latlng.getLng() + ' 입니다';
+	    
+	    var resultDiv = document.getElementById('clickLatlng'); 
+	    resultDiv.innerHTML = message;
+	    
+	});
 
  
 </script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-	<script
+<!-- 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-		crossorigin="anonymous"></script>
+		crossorigin="anonymous"></script> -->
 </html>
 
 
