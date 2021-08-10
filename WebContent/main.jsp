@@ -17,13 +17,18 @@ body, head {
 }
 
 #size {
-	/* max-width: 100%; */
+  max-width: 100%; 
 	height: 210px;
+		overflow: hidden;
 }
 
 img {
 	max-width: 100%;
-	object-fit: contain;
+	  display: flex;
+            align-items: center;
+            justify-content: center;
+height:auto;
+/* 	object-fit: contain; */
 }
 
 #text {
