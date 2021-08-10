@@ -37,6 +37,8 @@
 				</tr>
 			</thead>
 		</table>
+	<!-- 하단단 메뉴바 -->
+	<c:import url="./view/bottom.jsp" />
 </body>
 <script>
 var page = 1;

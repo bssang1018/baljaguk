@@ -25,6 +25,8 @@
 	<input class='btn4' type="button" value="블랙리스트회원보기"/>
 	<input class='btn5' type="button" value="탈퇴회원보기"/>
 	</div>
+<!-- 하단단 메뉴바 -->
+	<c:import url="./view/bottom.jsp" />
 </body>
 <script>
 $(".btn1").click(function(){

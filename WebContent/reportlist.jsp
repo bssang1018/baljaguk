@@ -19,7 +19,6 @@
 	<table>
 		<thead>
 			<tr>
-				<th></th>
 				<th>신고 번호</th>
 				<th>신고 카테고리</th>
 				<th>신고 내용</th>
@@ -46,6 +45,8 @@
 			</tr>
 		</thead>
 	</table>
+<!-- 하단단 메뉴바 -->
+	<c:import url="./view/bottom.jsp" />
 </body>
 <script>
 var page = 1;
@@ -90,7 +91,6 @@ listCall(page,stx);
 			list.forEach(function(item, idx) {
 				console.log(item, idx);
 				content += "<tr>";
-				content += "<td><input type='checkbox' name='select' value='select' onclick='select()'/></td>";
 				content += "<td>" + item.reportNo + "</td>";
 				content += "<td>" + item.categoryNo + "</td>";
 				content += "<td>" + item.reportText + "</td>";

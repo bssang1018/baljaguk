@@ -12,8 +12,7 @@
 	<!-- 상단 메뉴바 -->
 <c:import url="./view/topmenu.jsp"/>
 	<!-- 내용시작 -->
-<h2>블랙리스트목록</h2>
-		
+<h2>블랙리스트 회원목록</h2>
 	<table>
 		<thead>
 			<tr>
@@ -38,6 +37,8 @@
 				</tr>
 			</thead>
 		</table>
+	<!-- 하단단 메뉴바 -->
+	<c:import url="./view/bottom.jsp" />
 </body>
 <script>
 var page = 1;

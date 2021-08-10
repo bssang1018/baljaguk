@@ -49,7 +49,7 @@
 		</tr>
 		<tr>
 			<td colspan="2">
-			<button onclick="location.href='memberlist.jsp'">뒤로가기</button>
+			<button onclick="location.href='../'">뒤로가기</button>
 			</td>
 		</tr>
 	</table>

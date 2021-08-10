@@ -8,11 +8,6 @@
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <style>
-table, th, td {
-	border: 1px solid;
-	border-collapse: collapse;
-	margin: 10px;
-}
 </style>
 </head>
 <body>
@@ -45,6 +40,8 @@ table, th, td {
 				</tr>
 			</thead>
 		</table>
+	<!-- 하단단 메뉴바 -->
+	<c:import url="./view/bottom.jsp" />
 </body>
 <script>
 var page = 1;
