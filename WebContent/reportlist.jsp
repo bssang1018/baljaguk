@@ -7,12 +7,6 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<style>
-	table, th, td{
-		border: 1px solid black;
-		border-collapse: collapse;
-	}
-</style>
 </head>
 <body>
 	<!-- 상단 메뉴바 -->
@@ -39,6 +33,8 @@
 		<tbody></tbody>
 	</table>
 
+	<!-- 페이지를 몇부터 몇까지 보여줄건지 (이전/다음)  -->
+	<div class="pageArea"></div>
 <!-- 검색부분 -->
 	<table>
 		<thead>
@@ -50,8 +46,6 @@
 			</tr>
 		</thead>
 	</table>
-	<!-- 페이지를 몇부터 몇까지 보여줄건지 (이전/다음)  -->
-	<div class="pageArea"></div>
 </body>
 <script>
 var page = 1;
