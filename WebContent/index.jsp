@@ -70,16 +70,11 @@ body, head {
 			<div class="col-6 text-center" >
 				<a class="nav-link" href="./main.jsp"><h2>플래너시작</h2></a>
 				<hr />
-<<<<<<< HEAD
-				 <p>방문을 환영합니다! 지금바로 회원가입을 하시고</p>
-				 <p>당신의 여행을 기록하고 공유해보세요!</p>
-=======
 				<div class="card text-dark bg-light mb-3" style="max-width: 100%; height:350px;">
   <div class="card-body">
     <h5 class="card-title">발자국에 오신 것을 환영합니다!!</h5>
     <p class="card-text"><br/>제주도에서의 즐거운 여행을 남겨주세요!</p>
   </div>
->>>>>>> 27183956b45b3fa3b2a0502b2735694eab50b025
 			</div>
 		</div>
 		<div class="row row-cols-1 row-cols-md-4 g-4 mt-4">

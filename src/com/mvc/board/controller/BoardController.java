@@ -14,13 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 import com.mvc.board.service.BoardService;
 
 import com.oreilly.servlet.MultipartRequest;
-<<<<<<< HEAD
+
 @WebServlet({"/like","/fpsearch","/fplist","/fpwriteOk","/fpwriteNo","/fpdetail","/fpdel","/fpupdateForm","/fpupdate","/fpserach","/feedlist","/fdReport","/fdReportWrite"})
-
-=======
-
-@WebServlet({"/fpsearch","/fplist","/fpwriteOk","/fpwriteNo","/fpdetail","/fpdel","/fpupdateForm","/fpupdate","/fpserach","/feedlist","/fdReport","/fdReportWrite","/like"})
->>>>>>> 5c1f4810ba3279775f875552aba4c018099a277e
 
 public class BoardController extends HttpServlet {
 
@@ -177,12 +172,8 @@ public class BoardController extends HttpServlet {
 			dis = req.getRequestDispatcher("/feedlist");
 			dis.forward(req, resp);
 			break;
-<<<<<<< HEAD
 
-		case "/like": 
-=======
 		  case "/like": 
->>>>>>> 5c1f4810ba3279775f875552aba4c018099a277e
 			  boolean suc;
 			  System.out.println("조아용"); 
 			  email = (String)  req.getSession().getAttribute("loginemail"); 
