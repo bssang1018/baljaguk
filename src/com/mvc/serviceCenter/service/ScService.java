@@ -309,6 +309,17 @@ public class ScService {
 		return success;
 	}
 
+	public ScServiceDTO stopReason(String email) {
+		System.out.println("정지사유를 볼 이메일은?: " + email);
+		ScDAO dao = new ScDAO();
+		ScServiceDTO dto = null; 
+		dto = dao.stopReason(email);
+		dao.resClose();
+		
+		return dto;
+		
+	}
+
 	public void reportsearch(String email) throws IOException {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		ScDAO dao = new ScDAO();
@@ -319,15 +330,6 @@ public class ScService {
 		map.put("list", list);
 		resp.setContentType("text/html; charset=UTF-8");
 		resp.getWriter().println(new Gson().toJson(map));
-	}
-	public ScServiceDTO stopReason(String email) {
-		System.out.println("정지사유를 볼 이메일은?: " + email);
-		ScDAO dao = new ScDAO();
-		ScServiceDTO dto = null; 
-		dto = dao.stopReason(email);
-		dao.resClose();
-		
-		return dto;
 		
 	}
 

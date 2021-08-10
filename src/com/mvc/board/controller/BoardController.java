@@ -14,21 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 import com.mvc.board.service.BoardService;
 
 import com.oreilly.servlet.MultipartRequest;
-<<<<<<< HEAD
 
 
-
-
-
-@WebServlet({"/fpsearch","/fplist","/fpwriteOk","/fpwriteNo","/fpdetail","/fpdel","/fpupdateForm","/fpupdate","/fpserach","/feedlist","/fdReport","/fdReportWrite","/like"})
-
-
-
-=======
 @WebServlet({"/like","/fpsearch","/fplist","/fpwriteOk","/fpwriteNo","/fpdetail","/fpdel","/fpupdateForm","/fpupdate","/fpserach","/feedlist","/fdReport","/fdReportWrite"})
->>>>>>> 3a9c52670ca22f92ef4c02f9ba64f1e962ce1506
-
-
 
 public class BoardController extends HttpServlet {
 
@@ -52,8 +40,6 @@ public class BoardController extends HttpServlet {
 
 	private void dual(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException{
-	
-		
 		
 		String uri = req.getRequestURI();
 		String ctx = req.getContextPath();
@@ -73,8 +59,8 @@ public class BoardController extends HttpServlet {
 			  String email = (String) req.getSession().getAttribute("loginemail");
 			  req.setAttribute("fplist",  service.fplist(email));
 			  dis = req.getRequestDispatcher("fplist.jsp");
-		  dis.forward(req, resp); 
-		  break;
+			  dis.forward(req, resp); 
+			  break;
 		  
 		  case "/feedlist":
 			  System.out.println("피드 불러오기");
@@ -187,11 +173,6 @@ public class BoardController extends HttpServlet {
 			dis = req.getRequestDispatcher("/feedlist");
 			dis.forward(req, resp);
 			break;
-<<<<<<< HEAD
-
-			
-=======
->>>>>>> 3a9c52670ca22f92ef4c02f9ba64f1e962ce1506
 		
 		  case "/like": 
 			  boolean suc;
@@ -203,37 +184,7 @@ public class BoardController extends HttpServlet {
 			  dis = req.getRequestDispatcher("/feedlist");
 			  dis.forward(req, resp);
 		  break;
-<<<<<<< HEAD
-		 
-		}		
-
-		
 		   
-		case "/like":
-		    	System.out.println("좋아요 요청");
-		    	success = service.like();
-				
-				if(success > 0){
-					System.out.println("좋아요 완료");
-					msg="좋아요를 추가했습니다!!";
-				}else {
-					System.out.println("좋아요 실패...");
-					msg ="좋아요 중복은 불가합니다";
-							
-				}
-				req.setAttribute("msg", msg);
-				dis = req.getRequestDispatcher("/feedlist");
-				dis.forward(req, resp);
-				break;
-			
-			
-		
-		}		
-	     
-		
-		
-=======
 		}
->>>>>>> 3a9c52670ca22f92ef4c02f9ba64f1e962ce1506
 	}
 }

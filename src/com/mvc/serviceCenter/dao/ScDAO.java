@@ -628,32 +628,6 @@ public class ScDAO {
 		}
 		return msgNo;
 	}
-
-	public ArrayList<ReportDTO> reportsearch(String email) {
-		sql = "SELECT reportno, categoryno, email, reporttext, reportdate, state FROM report1 WHERE email=?";
-		ArrayList<ReportDTO> list = null;
-		ReportDTO dto = null;
-		try {
-			ps = conn.prepareStatement(sql);
-			ps.setString(1, email);
-			rs = ps.executeQuery();
-			list = new ArrayList<ReportDTO>();
-			while(rs.next()) {
-				dto = new ReportDTO();
-				dto.setReportNo(rs.getInt("reportno"));
-				dto.setCategoryNo(rs.getInt("categoryno"));
-				dto.setEmail(rs.getString("email"));
-				dto.setReportText(rs.getString("reporttext"));
-				dto.setReportDate(rs.getDate("reportdate"));
-				dto.setState(rs.getString("state").charAt(0));
-				list.add(dto);
-			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return list;
-	}
 	
 	public int stopregister(String loginemail, String email, String reason) {
 	      int success = 0;
@@ -705,5 +679,32 @@ public class ScDAO {
 	      }
 	      return dto;
 	   }
+
+	public ArrayList<ReportDTO> reportsearch(String email) {
+		sql = "SELECT reportno, categoryno, email, reporttext, reportdate, state FROM report1 WHERE email=?";
+		ArrayList<ReportDTO> list = null;
+		ReportDTO dto = null;
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, email);
+			rs = ps.executeQuery();
+			list = new ArrayList<ReportDTO>();
+			while(rs.next()) {
+				dto = new ReportDTO();
+				dto.setReportNo(rs.getInt("reportno"));
+				dto.setCategoryNo(rs.getInt("categoryno"));
+				dto.setEmail(rs.getString("email"));
+				dto.setReportText(rs.getString("reporttext"));
+				dto.setReportDate(rs.getDate("reportdate"));
+				dto.setState(rs.getString("state").charAt(0));
+				list.add(dto);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 }
 
