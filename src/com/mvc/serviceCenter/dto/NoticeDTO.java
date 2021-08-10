@@ -11,6 +11,7 @@ public class NoticeDTO {
 	private String content;
 	private char blind;
 	private String writer;
+	
 	public String getWriter() {
 		return writer;
 	}

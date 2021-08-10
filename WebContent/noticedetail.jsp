@@ -12,36 +12,36 @@
 	<!-- 상단 메뉴바 -->
 <c:import url="./view/topmenu.jsp"/>
 	<!-- 내용시작 -->
-	<h2>공지사항 상세보기</h2>	
-	<table>
+	<h2 style="text-align: center">공지사항 상세보기</h2>	
+<table class="table table-striped" style="width: 500px; margin-left: auto; margin-right: auto;">
 		<tr>
-			<th>글번호</th>
+			<th style="text-align: center">글번호</th>
 			<td>${noticefaq.idx}</td>
 		</tr>
 		<tr>
-			<th>제목</th>
+			<th style="text-align: center">제목</th>
 			<td>${noticefaq.title}</td>
 		</tr>
 		<tr>
-			<th>작성자</th>
+			<th style="text-align: center">작성자</th>
 			<td>${noticefaq.email}</td>
 		</tr>
 		<tr>
-			<th>작성일</th>
+			<th style="text-align: center">작성일</th>
 			<td>${noticefaq.reg_date}</td>
 		</tr>
 		<tr>
-			<th>내용</th>
+			<th style="text-align: center">내용</th>
 			<td>${noticefaq.content}</td>
-		</tr>
-		<tr>
-			<td colspan="2">
-				<button onclick="location.href='./noticelist'">리스트</button>
-				<button onclick="location.href='./noticeupdateForm?idx=${noticefaq.idx}'">수정</button>
-				<button onclick="location.href='./noticedel?idx=${noticefaq.idx}'">삭제</button>			
-			</td>
-		</tr>
+		</tr>		
 	</table>
+			<div class="text-center" >
+				<button class="btn btn-primary" onclick="location.href='./noticelist'">리스트</button>
+				<c:if test="${loginemail eq noticefaq.email}">
+				<button class="btn btn-primary" onclick="location.href='./noticeupdateForm?idx=${noticefaq.idx}'">수정</button>
+				<button class="btn btn-primary" onclick="location.href='./noticedel?idx=${noticefaq.idx}'">삭제</button>			
+			</c:if>
+			</div>
 </body>
 <script>
 	var msg = "${msg}";

@@ -51,6 +51,8 @@ public class QnaController extends HttpServlet {
 			
 		case "/qnawrite":
 			System.out.println("Q&A 글쓰기 요청");
+			String writer = (String) req.getSession().getAttribute("loginemail");
+			System.out.println("writer :" +writer);
 			msg = "글 작성 실패";
 			page = "qnawriteForm.jsp";
 			if (service.write() == 1) {

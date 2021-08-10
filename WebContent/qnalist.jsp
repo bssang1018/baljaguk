@@ -13,14 +13,13 @@
 	crossorigin="anonymous">
 
 <style>
-
 </style>
 </head>
 <body>
 <!-- 상단 메뉴바 -->
 <c:import url="./view/topmenu.jsp"/>
 	<!-- 내용시작 -->
-		<div class="row m-2">
+	<div class="row m-2">
 	<div class="list-group col-md-2 m-1 text-center" id="noticecenter">
   <a href="./qnalist" class="list-group-item list-group-item-action list-group-item-light" >문의사항</a>
   <a href="./noticelist" class="list-group-item list-group-item-action list-group-item-light">공지사항</a>
