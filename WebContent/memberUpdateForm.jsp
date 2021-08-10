@@ -32,10 +32,10 @@ body, head {
   <a href="#" class="list-group-item list-group-item-action">내가 쓴글</a>
   <a href="#" class="list-group-item list-group-item-action" >회원탈퇴</a>
 </div>
-<div class="col-6 center-block" style="margin:100 auto;">
+<div class="col-5 center-block" style="margin:100 auto;">
 <h2>회원 정보</h2>
 	<form action="memberUpdate" method="post">
-		<table class="table table-bordered text-center">
+		<table class="table table-bordered text-center align-middle">
 		<c:if test="${info eq null}">
 			<tr><td colspan="2">요청하신 데이터가 없습니다.</td></tr>
 		</c:if>
@@ -43,19 +43,19 @@ body, head {
 			<tr>
 				<td>EMAIL</td>
 				<td>${info.email }
-				<input type="hidden" name="email" value="${info.email}"/></td>
+				<input type="hidden" class="form-control" name="email" value="${info.email}"/></td>
 			</tr>
 			<tr>
 				<td>NICKNAME</td>
-				<td><input type="text" name="nickname" value="${info.nickname }" required/></td>
+				<td><input type="text" class="form-control" name="nickname" value="${info.nickname }" required/></td>
 			</tr>
 			<tr>
 				<td>PW</td>
-				<td><input type="password" name="pw" value="${info.pw }" required/></td>
+				<td><input type="password" class="form-control" name="pw" value="${info.pw }" required/></td>
 			</tr>
 			<tr>
 				<td>NAME</td>
-			<td><input type="text" name="name" value="${info.name }" required/></td>
+			<td><input type="text" class="form-control" name="name" value="${info.name }" required/></td>
 			</tr>
 			<tr>
 				<td>GENDER</td>
@@ -67,11 +67,11 @@ body, head {
 			</tr>
 			<tr>
 				<td>BIRTH</td>
-				<td><input type="text" name="birth" id="birth" maxlength="8" value="${info.birth }"   required/></td>
+				<td><input type="text" name="birth"class="form-control"  id="birth" maxlength="8" value="${info.birth }"   required/></td>
 			</tr>
 			<tr>
 				<td>PHONE</td>
-				<td><input type="text" name="phone" maxlength="12" value="${info.phone }" required/></td>
+				<td><input type="text" name="phone" class="form-control" maxlength="12" value="${info.phone }" required/></td>
 			</tr>
 			<tr>
 				<td>STYLE</td>
@@ -92,14 +92,19 @@ body, head {
 			</c:if>
 			<tr>
 				<td colspan="2">
-				<button>개인정보 수정</button>
-				<input type="button" onclick="location.href='memberInfo'" value="취소"/>
+				<button type="button" class="btn btn-secondary btn-lg">개인정보 수정</button>
+				<input type="button" class="btn btn-secondary btn-lg" onclick="location.href='memberInfo'" value="취소"/>
 				</td>
 			</tr>
 		</table>
 	</form>
 	</div>
 </div>
+<!-- 하단단 메뉴바 -->
+	<c:import url="./view/bottom.jsp" />
 </body>
-	
+	<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+	crossorigin="anonymous"></script>
 </html>

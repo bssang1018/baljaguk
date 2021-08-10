@@ -83,13 +83,15 @@ body, head {
 			</c:if>
 			<tr>
 				<td colspan="2">
-				<button>개인정보 수정</button>
+				<button type="button" class="btn btn-secondary btn-lg">개인정보 수정</button>
 				</td>
 			</tr>
 		</table>
 	</form>
 	</div>
 </div>
+	<!-- 하단단 메뉴바 -->
+	<c:import url="./view/bottom.jsp" />
 </body>
 <script>
 var msg = "${msg}";
@@ -104,4 +106,8 @@ $('#photo').change(function(){
 
 
 </script>
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+	crossorigin="anonymous"></script>
 </html>

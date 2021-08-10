@@ -15,7 +15,7 @@ body, head {
 }
 </style>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<footer class="container-fluid bg-light fixed-bottom border-top">
+<footer class="container-fluid bg-light fixed-bottom border-top mt-2">
 <div class="row">
 			<div class="jumbotron text-center mt-1 mb-0 text-center col-11">
 				<h5 class="text-secondary">발자국</h5>
