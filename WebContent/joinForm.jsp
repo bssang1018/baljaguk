@@ -55,29 +55,30 @@ body, head {
   </div>
 </nav>
 <!-- 내용 시작 -->
-<div class="col-4" style="margin:100 auto;">
-<h2>회원가입</h2>
-	<form action="join" method="post">
-		<table class="table table-bordered text-center">
+<div class="row" >
+<div class="col-4"></div>
+<div class="col-4 text-center" style="float: none; margin:100 auto;">
+<h2 class="mt-2 mb-2">회원가입</h2>
+	<form action="join" method="post" >
+		<table class="table table-bordered text-center align-middle" >
 			<tr>
 				<td>EMAIL</td>
-				<td><input type="email" name="email"  minlength="1" required/><input type="button"  name="overlay" id ="overlay" value="중복"/></td>
-				
+				<td class="input-group mb-1"><input type="email" name="email"   class="form-control" minlength="1" required/>
+				<input class="btn btn-outline-secondary" type="button"  name="overlay" id ="overlay" value="중복확인"/></td>
 			</tr>
 			<tr>
 				<td>NICKNAME</td>
-				<td><input type="text" name="nickname" minlength="1" required/></td>
+				<td><input type="text" name="nickname" minlength="1" required  class="form-control"/></td>
 			</tr>
 			<tr>
 				<td>PW</td>
-				<td><input type="password" minlength="6" name="pw" id="pw1" required onchange="check_pw()"/><br/><span id="limit"></span>
-					<br/>
-					<input type="password" minlength="6" id="pw2" placeholder="pw를 재입력해주세요" required onchange="check_pw()"/><br/> <span id="check"></span>
+				<td><input type="password" class="form-control" minlength="6" name="pw" id="pw1" required onchange="check_pw()"/><span id="limit"></span>
+					<input type="password" class="form-control mt-1" minlength="6" id="pw2" placeholder="pw를 재입력해주세요" required onchange="check_pw()"/> <span id="check"></span>
 				</td>
 			</tr>
 			<tr>
 				<td>NAME</td>
-				<td><input type="text" name="name" minlength="1" required/></td>
+				<td><input type="text" class="form-control" name="name" minlength="1" required/></td>
 			</tr>
 			<tr>
 				<td>GENDER</td>
@@ -89,11 +90,11 @@ body, head {
 			</tr>
 			<tr>
 				<td>BIRTH</td>
-				<td><input type="text" name="birth"  minlength="8" maxlength="8" placeholder="생년월일 8자로 입력해주세요. 19990101" required/>  ex)19990101</td>
+				<td><input type="text" class="form-control" name="birth"  minlength="8" maxlength="8" placeholder="생년월일 8자로 입력해주세요. ex)19990101" required/>  </td>
 			</tr>
 			<tr>
 				<td>PHONE</td>
-				<td><input type="text" name="phone" minlength="11" maxlength="12" placeholder="-제외 입력해주세요" required/>  ex)01000000000</td>
+				<td><input type="text" class="form-control" name="phone" minlength="11" maxlength="12" placeholder="- 제외 입력해주세요" required/> </td>
 			</tr>
 			<tr>
 				<td>STYLE</td>
@@ -113,12 +114,13 @@ body, head {
 			</tr>
 			<tr>
 				<td colspan="2">
-				<button>회원가입</button>
+				<button type="button" class="btn btn-secondary btn-lg">회원가입</button>
 				</td>
 			</tr>
 		</table>
 	</form>
 	</div>
+</div>
 </body>
 <script>
 var success = "${success}";

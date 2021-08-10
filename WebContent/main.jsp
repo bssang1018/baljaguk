@@ -44,7 +44,7 @@ height:auto;
 	<!-- 상단 메뉴바 -->
 	<c:import url="./view/topmenu.jsp" />
 	<!-- 내용시작 -->
-	<div class="container px-4 my-4">
+	<div class="container px-4 my-4 text-center">
 		<div class="row">
 			<div class="col-6">
 				<h2>
@@ -57,7 +57,7 @@ height:auto;
 			</div>
 			<div class="col-6">
 				<h2>
-					<a href="fplist">플래너시작</a>
+					<a href="fplist">발자국 남기기</a>
 				</h2>
 				<hr />
 				<!-- 지도를 표시할 div 입니다 -->
@@ -131,7 +131,7 @@ height:auto;
 																	+ item.boardNO
 																	+ '</p>'
 															content += '<div id="size">'
-															content += '<img src="/photo/'+item.newFileName+'" />'
+															content += '<img src="/photo/'+item.newFileName+'"  />'
 															content += '</div>'
 															content += '<div class="card-body">'
 															content += '<p class="card-title">작성자 : '
