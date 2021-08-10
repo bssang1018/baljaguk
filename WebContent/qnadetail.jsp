@@ -67,7 +67,7 @@
 				<td>${comment.admin_email}</td>
 				<td>${comment.answer}</td>
 				<c:if test="${comment.admin_email eq loginemail}">
-					<td><input class="btn btn-primary" type="button" onclick="location.href='./qnacommentDel?qnano=${comment.qnano}&answerno=${comment.answerno}'" value="삭제"/></td>
+					<td><input class="btn btn-primary" type="button" onclick="location.href='./qnacommentDel?qnano=${comment.qnano}&answerno=${comment.answerno}'" value="삭제"  /></td>
 				</c:if>
 				<c:if test="${comment.admin_email ne loginemail}">
 					<td></td>
@@ -82,7 +82,7 @@
    			<tr>
    				<td>댓글입력</td>
    				<td>
-   					<input type="text" name="commentText1"/><button>등록</button>
+   					<input type="text" name="commentText1" required/><button>등록</button>
 					<input type="hidden" name="qnano" value="${qnano}"/>   				
    				</td>
    			</tr>

@@ -15,8 +15,7 @@
 	<div class="row m-2">
 		<div class="list-group col-md-2 m-1 text-center">
 					<button class="list-group-item list-group-item-action list-group-item-light" onclick="location.href='./msgDel?msgNo=${msgDetail.msgNo}'">메세지 삭제</button>
-					<button class="list-group-item list-group-item-action list-group-item-light" onclick="location.href='./msgReportWrite?msgNo=${msgDetail.msgNo}'">메세지 신고하기</button>
-					<input class="list-group-item list-group-item-action list-group-item-light" type="button" onclick="location.href='./msgMain'" value="이전으로" />
+					<input class="list-group-item list-group-item-action list-group-item-light" type="button" onclick="location.href='./msgMyMsg'" value="이전으로" />
 		</div>
 	
 	<div class="col-6 center-block" style="margin:100 auto;">

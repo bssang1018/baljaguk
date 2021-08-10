@@ -14,12 +14,6 @@
 	
 <div class="row m-2">
 <div class="list-group col-md-2 m-1 text-center">
-		<form action="uploadphoto" method="post" enctype="multipart/form-data" style="width:242px; border: 1px solid gray; text-align :center;">
-			<img src="/photo/${info.newName}" width="230px" height="230px" class="mt-1"/><br/>
-			<label for="photo">사진 선택</label>
-			 <input type="file" id="photo" name="photo" style="display:none;"/>
-			 <button class="mt-1 mb-1" id="up">업로드</button>
-		</form>
   <a href="memberInfo" class="list-group-item list-group-item-action list-group-item-light" >개인정보</a>
   <a href="friendsList" class="list-group-item list-group-item-action list-group-item-light">친구목록</a>
   <a href="friendsBlockList" class="list-group-item list-group-item-action list-group-item-light">차단목록</a>
