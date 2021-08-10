@@ -48,18 +48,14 @@ height:auto;
 	<div class="container px-4 my-4 text-center">
 		<div class="row">
 			<div class="col-6">
-				<h2>
-					<a href="map" class="btn btn-light">지도</a>
-				</h2>
+				<a href="map" class="nav-link" ><h2>지도</h2></a>
 				<hr />
 				<!-- 지도를 표시할 div 입니다 -->
 				<div id="map"	style="width: 100%; height: 350px; position: relative; overflow: hidden;"></div>
 
 			</div>
 			<div class="col-6">
-				<h2>
-					<a href="fplist" class="btn btn-light">발자국 남기기</a>
-				</h2>
+				<a href="fplist" class="nav-link" ><h2>발자국 남기기</h2></a>
 				<hr />
 				<!-- 지도를 표시할 div 입니다 -->
 				<div id="fpMap"	style="width: 100%; height: 350px; position: relative; overflow: hidden;"></div>

@@ -59,70 +59,90 @@ body, head {
 	<!-- 내용시작 -->
 	<div class="container px-4 my-4">
 		<div class="row">
-			<div class="col-6">
-				<h2>지도</h2>
+			<div class="col-6 text-center">
+				
+			<a href="map" class="nav-link" ><h2>지도</h2></a>
+				
 				<hr />
 				<!-- 지도를 표시할 div 입니다 -->
 				<div id="map"	style="width: 100%; height: 350px; position: relative; overflow: hidden;"></div>
 			</div>
-			<div class="col-6">
+			<div class="col-6 text-center" >
 				<a class="nav-link" href="./main.jsp"><h2>플래너시작</h2></a>
 				<hr />
-				내용 들어감
+				<div class="card text-dark bg-light mb-3" style="max-width: 100%; height:350px;">
+  <div class="card-body">
+    <h5 class="card-title">발자국에 오신 것을 환영합니다!!</h5>
+    <p class="card-text"><br/>제주도에서의 즐거운 여행을 남겨주세요!</p>
+  </div>
 			</div>
 		</div>
 		<div class="row row-cols-1 row-cols-md-4 g-4 mt-4">
 			<div class="col">
-				<div class="card">
-					<img src="/Prac/image/brand_03.png" class="card-img-top" alt="...">
+				<div class="gogo col text-center" id="frame">
+					<div id="size">
+						<img src= "view/test.jpg" />
+					</div>
 					<div class="card-body">
-						<h5 class="card-title">Card title</h5>
-						<p class="card-text">This is a longer card with supporting
-							text below as a natural lead-in to additional content. This
-							content is a little bit longer.</p>
+						<p class="card-title">작성자 </p>
+						<hr />
+						<p class="card-text" id="text">내용이 </p>
 					</div>
 					<div class="card-footer text-center">
-						<button class="btn btn-primary">자세히 보기</button>
+						<button class="btn btn-primary">자세히
+							보기</button>
 					</div>
 				</div>
-			</div>
-			<div class="col">
-				<div class="card">
-					<img src="/Prac/image/brand_04.png" class="card-img-top" alt="...">
-					<div class="card-body">
-						<h5 class="card-title">Card title</h5>
-						<p class="card-text">This is a longer card with supporting
-							text below as a natural lead-in to additional content. This
-							content is a little bit longer.</p>
+		</div>
+					<div class="col">
+				<div class="gogo col text-center" id="frame">
+					<div id="size">
+						<img src= "view/test.jpg" />
 					</div>
-					<div class="card-footer">
-						<small class="text-muted">Last updated 3 mins ago</small>
+					<div class="card-body">
+						<p class="card-title">작성자 </p>
+						<hr />
+						<p class="card-text" id="text">보고싶으면 </p>
+					</div>
+					<div class="card-footer text-center">
+						<button class="btn btn-primary">자세히
+							보기</button>
 					</div>
 				</div>
-			</div>
-			<div class="col">
-				<div class="card">
-					<img src="/Prac/image/brand_04.png" class="card-img-top" alt="...">
-					<div class="card-body">
-						<h5 class="card-title">Card title</h5>
-						<p class="card-text">This is a longer card with supporting
-							text below as a natural lead-in to additional content.</p>
+		</div>
+					<div class="col">
+				<div class="gogo col text-center" id="frame">
+					<div id="size">
+						<img src= "view/test.jpg" />
 					</div>
-					<div class="card-footer">
-						<small class="text-muted">Last updated 3 mins ago</small>
+					<div class="card-body">
+						<p class="card-title">작성자 </p>
+						<hr />
+						<p class="card-text" id="text">로그인 </p>
+					</div>
+					<div class="card-footer text-center">
+						<button class="btn btn-primary">자세히
+							보기</button>
 					</div>
 				</div>
-			</div>
-			<div class="col">
-				<div class="card">
-					<img src="/Prac/image/brand_04.png" class="card-img-top" alt="...">
-					<div class="card-body">
-						<h5 class="card-title">Card title</h5>
-						<p class="card-text">This is a longer card with supporting
-							text below as a natural lead-in to additional content. This
-							content is a little bit longer.</p>
+		</div>
+					<div class="col">
+				<div class="gogo col text-center" id="frame">
+					<div id="size">
+						<img src= "view/test.jpg" />
 					</div>
-
+					<div class="card-body">
+						<p class="card-title">작성자 </p>
+						<hr />
+						<p class="card-text" id="text">해주세요 </p>
+					</div>
+					<div class="card-footer text-center">
+						<button class="btn btn-primary">자세히
+							보기</button>
+					</div>
+				</div>
+		</div>
+		</div>
 
 					<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 					<script
