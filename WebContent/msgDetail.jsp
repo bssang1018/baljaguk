@@ -11,9 +11,18 @@
 <body>
 	<!-- 상단 메뉴바 -->
 <c:import url="./view/topmenu.jsp"/>
-<h2  style="text-align: center">메세지 상세보기</h2>
-					
-	<table class="table table-striped" style="width: 500px; margin-left: auto; margin-right: auto;">
+
+<div class="row m-2">
+		<div class="list-group col-md-2 m-1 text-center">
+<button class="list-group-item list-group-item-action list-group-item-light" onclick="location.href='./msgAns?sender_email=${msgDetail.sender_email}'">답장 작성하기</button>
+<button class="list-group-item list-group-item-action list-group-item-light" onclick="location.href='./msgDel?msgNo=${msgDetail.msgNo}'">메세지 삭제</button>
+<button class="list-group-item list-group-item-action list-group-item-light" onclick="location.href='./msgReportWrite?msgNo=${msgDetail.msgNo}'">메세지 신고하기</button>
+<input class="list-group-item list-group-item-action list-group-item-light" type="button" onclick="location.href='./msgMain'" value="이전으로" />
+</div>
+
+<div class="col-6 center-block" style="margin:100 auto;">
+<h2>메세지 상세보기</h2>
+	<table class="table">
     <tr>
 				<th style="text-align: center">메세지 넘버</th>
 				<td>${msgDetail.msgNo}</td>
@@ -44,13 +53,7 @@
 				</c:if>
 			</tr>
 </table>
-
-<div class="text-center">
-<button class="btn btn-primary" onclick="location.href='./msgAns?sender_email=${msgDetail.sender_email}'">답장 작성하기</button>
-					<button class="btn btn-primary" onclick="location.href='./msgDel?msgNo=${msgDetail.msgNo}'">메세지 삭제</button>
-					<button class="btn btn-primary" onclick="location.href='./msgReportWrite?msgNo=${msgDetail.msgNo}'">메세지 신고하기</button>
-					<input class="btn btn-primary" type="button" onclick="location.href='./msgMain'" value="이전으로" />
-	</div>
+</div>
 
 </body>
 <script>

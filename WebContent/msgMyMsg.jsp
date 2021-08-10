@@ -6,28 +6,33 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+	crossorigin="anonymous">
+	
 </head>
 <body>
 	<!-- 상단 메뉴바 -->
 <c:import url="./view/topmenu.jsp"/>
 
+<div class="row m-2">
+<div class="list-group col-md-2 m-1 text-center" id="noticecenter">
+<a class="list-group-item list-group-item-action list-group-item-light" onclick="del()">삭제</a>
+<a class="list-group-item list-group-item-action list-group-item-light" href='./msgMain'>이전으로</a>
+</div>
 
-	<h3 style="text-align: center">내가 보낸 메세지</h3>
-	<div class="text-center" >
-		<button class="btn btn-primary" onclick="del()">메세지 삭제</button>
-		<input class="btn btn-primary" type="button" onclick="location.href='./msgMain'" value="이전으로" />
-	</div>
-
- <table class="table" style="width: 800px; margin-left: auto; margin-right: auto;">
-  <thead class="table-dark">
+<div class="col-6 center-block" style="margin:100 auto;">
+	<h3>내가 보낸 메세지</h3>
+ <table class="table">
 		<tr>
 			<th class="col-1" style="text-align: center"></th>
 			<th class="col-2" style="text-align: center">받는 사람</th>
 			<th class="col-6" style="text-align: center">메세지 내용</th>
 			<th class="col-2" style="text-align: center">받은날짜</th>
 		</tr>
-</thead>
+
 <tbody>
 		<c:if test="${empty map.msgList}">
 		<tr style="text-align: center"><td colspan="4">온 메세지가 없어요!</td></tr>
@@ -43,7 +48,8 @@
   </tbody>
 </table>
 	
-			<ul class="pagination justify-content-center">
+	<nav aria-label="Page navigation example text-center">
+		<ul class="pagination div col-md-3" style="float: none; margin:0 auto;">
 				<c:if test="${map.startPage ne 1}">
 				<li class="page-item"><a class="page-link" href="./msgMyMsg?page=${map.startPage-1}"
 					aria-label="Previous"> <span aria-hidden="true">&laquo;</span>		
@@ -63,7 +69,9 @@
 				</a></li>
 				</c:if>
 			</ul>
+	</nav>
 	
+</div>
 </div>
 </body>
 <script>

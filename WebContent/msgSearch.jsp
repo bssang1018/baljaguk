@@ -11,13 +11,16 @@
 <body>
 	<!-- 상단 메뉴바 -->
 <c:import url="./view/topmenu.jsp"/>
-	<h3 style="text-align: center">"${searchKey}" 로 검색한 결과...</h3>
-<div class="text-center" >
-<button class="btn btn-primary" onclick="del()">메세지 삭제</button>
-<input class="btn btn-primary" type="button" onclick="location.href='./msgMain'" value="이전으로" />
+	
+<div class="row m-2">
+<div class="list-group col-md-2 m-1 text-center" id="noticecenter">
+<button class="list-group-item list-group-item-action list-group-item-light" onclick="del()">메세지 삭제</button>
+<input class="list-group-item list-group-item-action list-group-item-light" type="button" onclick="location.href='./msgMain'" value="이전으로" />
 </div>
- <table class="table" style="width: 800px; margin-left: auto; margin-right: auto;">
-  <thead class="table-dark">
+
+<div class="col-6 center-block" style="margin:100 auto;">
+<h2>"${searchKey}" 로 검색한 결과...</h2>
+ <table class="table">
     <tr>
 			<th class="col-1" style="text-align: center"></th>
 			<th class="col-2" style="text-align: center">보낸 사람</th>
@@ -25,7 +28,6 @@
 			<th class="col-2" style="text-align: center">받은날짜</th>
 			<th class="col-2" style="text-align: center">읽음 상태</th>
 		</tr>
-  </thead>
   
 		<tbody>
 			<c:if test="${empty map.emailList}">
@@ -53,7 +55,9 @@
 	</tbody>
 </table>	
 	
-	<nav>
+	<nav aria-label="Page navigation example text-center">
+		<ul class="pagination div col-md-3" style="float: none; margin:0 auto;">
+
 			<ul class="pagination justify-content-center">
 				<c:if test="${map.startPage ne 1}">
 				<li class="page-item"><a class="page-link" href="./msgSearch?page=${map.startPage-1}&searchKey=${searchKey}"
@@ -75,7 +79,8 @@
 				</c:if>
 			</ul>
 	</nav>
-	<div class="text-center">
+	
+	<div class="col-md-6 mb-2" style="float: none; margin:0 auto;">
 	<form class="d-inline-flex" style="height: 30px;" action="msgSearch" method="post">
 				<input class="form-control me-1" type="search" placeholder="이메일을 입력해 주세요" aria-label="Search" name="searchKey" required/>
 						<button type="submit" class="btn btn-outline-secondary" style="width: 100px;">검색</button>

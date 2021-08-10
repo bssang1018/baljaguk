@@ -11,7 +11,25 @@
 	<!-- 상단 메뉴바 -->
 <c:import url="./view/topmenu.jsp"/>
 	<!-- 내용시작 -->
-<table class="table" style="width: 500px; margin-left: auto; margin-right: auto;">
+	
+<div class="row m-2">
+<div class="list-group col-md-2 m-1 text-center">
+		<form action="uploadphoto" method="post" enctype="multipart/form-data" style="width:242px; border: 1px solid gray; text-align :center;">
+			<img src="/photo/${info.newName}" width="230px" height="230px" class="mt-1"/><br/>
+			<label for="photo">사진 선택</label>
+			 <input type="file" id="photo" name="photo" style="display:none;"/>
+			 <button class="mt-1 mb-1" id="up">업로드</button>
+		</form>
+  <a href="memberInfo" class="list-group-item list-group-item-action list-group-item-light" >개인정보</a>
+  <a href="friendsList" class="list-group-item list-group-item-action list-group-item-light">친구목록</a>
+  <a href="friendsBlockList" class="list-group-item list-group-item-action list-group-item-light">차단목록</a>
+  <a href="fplist" class="list-group-item list-group-item-action list-group-item-light">내가 쓴글</a>
+  <a href="cancel.jsp" class="list-group-item list-group-item-action list-group-item-light" >회원탈퇴</a>
+</div>
+
+<div class="col-6 center-block" style="margin:100 auto;">
+<h3>차단 목록</h3>
+<table class="table">
  			<thead class="table-dark" style="text-align: center">
  			<tr>
  				<th style="text-align: center">차단한 이메일</th>
@@ -52,10 +70,7 @@
 				</c:if>
 			</ul>
 </nav>
-
-
-<div class="text-center" >
-<input class="btn btn-primary" type="button" onclick="location.href='./friendsList'" value="이전으로" />
+</div>
 </div>
 </body>
 </html>
