@@ -51,8 +51,8 @@
 				<input type="radio" name="ok" value="1"<c:if test ="${footprint.release eq '1'.charAt(0)}">checked</c:if> />발자국 공개 &nbsp;&nbsp;
 				<input type="radio" name="ok" value="0" <c:if test ="${footprint.release eq '0'.charAt(0)}">checked</c:if> />발자국 비공개
 				<br />
-				<input type="button"	onclick="location.href='./'" value="발자국 리스트" />
-					<button>저장</button></td>
+				<input type="button"	onclick="location.href='./'" value="발자국 리스트" class="btn btn-outline-primary"/>
+					<button class="btn btn-outline-primary">저장</button></td>
 			</tr>
 		</table>
 	</form>

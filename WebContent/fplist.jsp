@@ -64,7 +64,7 @@ height:auto;
    </c:forEach>
   </div>
   </div>
-   </form>
+
       <div class="row">
    <form class="d-inline-flex justify-content-end"  action="fpsearch" method="post">
 	 
@@ -79,10 +79,11 @@ height:auto;
    <input type="button" class="btn btn-primary" onclick="location.href='fpwrite.jsp'" value="발자국 남기기"/>
    </div>
    </div>
-</form>
+
    <div class="text-center">
    <button id="plusBtn" class="btn btn-primary" style="margin-bottom:100px">더보기</button>
    </div>
+      </form>
 </body>
 <script>
 

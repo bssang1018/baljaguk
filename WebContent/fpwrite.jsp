@@ -56,9 +56,9 @@
        &nbsp;&nbsp;
       <input type="radio" name="ok" value="0" checked/>발자국 비공개
       <br/>
-      <input type='submit' value='저장'/>
-      <input type="button" onclick="location.href= 'fplist'" value="발자국 리스트"/>
-      <input type="button" onclick="location.href= 'feedlist'" value="피드 리스트"/>
+      <button class="btn btn-outline-primary" type="submit">저장</button>
+      <input type="button" onclick="location.href= 'fplist'" value="발자국 리스트" class="btn btn-outline-primary"/>
+      <input type="button" onclick="location.href= 'feedlist'" value="피드 리스트" class="btn btn-outline-primary" />
      </td>
    </tr>
    </table>
