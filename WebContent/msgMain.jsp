@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+
 </head>
 <body>
 	<!-- 상단 메뉴바 -->
@@ -43,7 +44,13 @@
 				<td style="text-align: center"><input type="checkbox" value='${msges.msgNo}'/></td>
 				
 				<td style="text-align: center">${msges.sender_email}</td>
-				<td><a href="msgDetail?msgNo=${msges.msgNo}">${msges.msgContent}</a></td>
+				<td><a style="display: inline-block;
+  										width: 200px;
+  										white-space: nowrap;
+  										overflow: hidden;
+   										text-overflow: ellipsis;
+  										text-decoration:none"
+  						href="msgDetail?msgNo=${msges.msgNo}">${msges.msgContent}</a></td>
 				<td style="text-align: center">${msges.reg_date}</td>
 				
 				<c:if test="${msges.msgOpen eq  '1'}">
