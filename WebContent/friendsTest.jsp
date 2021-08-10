@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+	<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
@@ -13,15 +13,24 @@
 <c:import url="./view/topmenu.jsp"/>
 	<!-- 내용시작 -->
 	
-
-<div class="text-center" >
- 		<form action="./friendsAddOverlay">
- 			<input type="text"  name="friends_email" required/>
- 			<button class="btn btn-primary">친구 추가</button>
- 		</form>
+<div class="row m-2">
+<div class="list-group col-md-2 m-1 text-center">
+		<form action="uploadphoto" method="post" enctype="multipart/form-data" style="width:242px; border: 1px solid gray; text-align :center;">
+			<img src="/photo/${info.newName}" width="230px" height="230px" class="mt-1"/><br/>
+			<label for="photo">사진 선택</label>
+			 <input type="file" id="photo" name="photo" style="display:none;"/>
+			 <button class="mt-1 mb-1" id="up">업로드</button>
+		</form>
+  <a href="memberInfo" class="list-group-item list-group-item-action list-group-item-light" >개인정보</a>
+  <a href="friendsList" class="list-group-item list-group-item-action list-group-item-light">친구목록</a>
+  <a href="friendsBlockList" class="list-group-item list-group-item-action list-group-item-light">차단목록</a>
+  <a href="fplist" class="list-group-item list-group-item-action list-group-item-light">내가 쓴글</a>
+  <a href="cancel.jsp" class="list-group-item list-group-item-action list-group-item-light" >회원탈퇴</a>
 </div>
 
- 		<table class="table" style="width: 500px; margin-left: auto; margin-right: auto;">
+<div class="col-6 center-block" style="margin:100 auto;">
+<h3>친구 목록</h3>
+ 		<table class="table">
  		<thead class="table-dark" style="text-align: center">
  			<tr>
  				<th style="text-align: center">친구</th>
@@ -62,11 +71,17 @@
 				</a></li>
 				</c:if>
 			</ul>
-</nav>
- 		 
+
+		<div class="col-md-4 mb-2" style="float: none; margin:0 auto;">
+ 		<form action="./friendsAddOverlay">
+ 			<input class="form-control me-2	 text-center" type="text" name="friends_email" placeholder="이메일을 입력해 주세요" required/>
+ 			<button class="btn btn-outline-secondary text-center" style="margin:10px; margin-left:70px;">친구 추가</button>
+ 		</form>
+ 		 </div>
  		<br/>
  		
- 		<table class="table" style="width: 500px; margin-left: auto; margin-right: auto;">
+ 		<h3>추천 친구 목록</h3>
+ 		<table class="table"">
  		 <thead class="table-dark">
  			<tr>
  				<th style="text-align: center">추천 친구</th>
@@ -84,16 +99,7 @@
  			</c:forEach>
  		</table>
  		
- 		<br/>
- 		<br/>
- 		
- 		<div class="text-center" >
- 		<form action="./friendsBlockList">
- 			<button class="btn btn-primary">차단 리스트 보기</button>
- 		</form>
- 		</div>
- 		
- 		</br>
+ </div>
 </body>
 <script>
 var msgMsg = "${msgMsg}";
