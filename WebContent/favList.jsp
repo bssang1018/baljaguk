@@ -132,6 +132,8 @@ td {
 </style>
 </head>
 <body>
+<!-- 상단 메뉴바 -->
+<c:import url="./view/topmenu.jsp"/>
 	<h3>찜목록</h3>
 	<div id="map" style="width: 100%; height: 350px;"></div>
 	
@@ -154,9 +156,8 @@ td {
 		var overlay = new Array();
 		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 		mapOption = {
-			center : new kakao.maps.LatLng(33.38453042646361,
-					126.56120892927193), // 지도의 중심좌표 (위도,경도)
-			level : 10
+			center : new kakao.maps.LatLng(33.59044474588304, 126.54468661424805), // 지도의 중심좌표 (위도,경도)
+			level : 11
 		// 지도의 확대 레벨
 		};
 
@@ -375,9 +376,7 @@ td {
 										+ '            <div class="desc">'
 										+ '                <div class="ellipsis">'
 										+ items.address
-										+ '</div>'
-										+ '                <div class="jibun ellipsis"> (지번) 영평동 2181</div>'
-										+ '                <button name="'+idx+'" class="btn_selected_place" data-contentsid="'+items.contentsid+'" onclick="fav('+idx+');">찜하기</button>'
+										+ '</div>'																				
 										+ '            </div>' + '        </div>'
 										+ '    </div>' + '</div>';
 										
