@@ -68,7 +68,8 @@ body, head {
 			<div class="col-6">
 				<a class="nav-link" href="./main.jsp"><h2>플래너시작</h2></a>
 				<hr />
-				내용 들어감
+				 <p>방문을 환영합니다! 지금바로 회원가입을 하시고</p>
+				 <p>당신의 여행을 기록하고 공유해보세요!</p>
 			</div>
 		</div>
 		<div class="row row-cols-1 row-cols-md-4 g-4 mt-4">
