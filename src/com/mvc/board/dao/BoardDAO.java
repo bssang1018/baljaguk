@@ -94,18 +94,12 @@ public class BoardDAO {
 	}
 	//피드 리스트
 	public ArrayList<FootprintDTO> feedlist(int page) {
-		
-		  String
-		  sql="SELECT fnum, footPrintNO, markerNO, email, reg_date, footprintText, likeCnt ,oriFileName, newFileName "
-		  + " FROM (SELECT ROW_NUMBER() OVER (ORDER BY f.footprintNO DESC)" +
-		  " AS fnum, f.footPrintNO, f.markerNO, f.email, f.reg_date, f.footprintText, f.likeCnt , f.postblind,  P.oriFileName, P.newFileName "
-		  +
-		  " FROM footprint f LEFT OUTER JOIN PostPic P ON f.footPrintNO = P.footPrintNO"
-		  +
-		  " WHERE f.release = 1 AND f.postblind IS NULL OR f.postblind=0) WHERE fnum BETWEEN 1 AND ?"
-		  ;
-		 
-		
+		String sql="SELECT fnum, footPrintNO, markerNO, email, reg_date, footprintText, likeCnt ,oriFileName, newFileName " + 
+				 " FROM (SELECT ROW_NUMBER() OVER (ORDER BY f.footprintNO DESC)" + 
+				 " AS fnum, f.footPrintNO, f.markerNO, f.email, f.reg_date, f.footprintText, f.likeCnt , f.postblind,  P.oriFileName, P.newFileName " + 
+				 " FROM footprint f LEFT OUTER JOIN PostPic P ON f.footPrintNO = P.footPrintNO"  + 
+				 " WHERE f.release = 1 AND f.postblind IS NULL OR f.postblind=0) WHERE fnum BETWEEN 1 AND ?";
+	   
 		// 한블럭당 페이지 갯수
 				int pageLength = 5;
 				// 블럭 인덱스
@@ -279,6 +273,7 @@ public class BoardDAO {
 		
 		return success;
 		
+		
 	}
 	
 	
@@ -447,6 +442,31 @@ public class BoardDAO {
 		
 		return success;
 	}
+<<<<<<< HEAD
+
+	public int like(String contentNo, String email, String likeCnt, String footPrintNo) {
+		int success =0;
+		String sql1="INSERT INTO LIKES(contentNO, email , likeCnt)VALUES(?,?,1)";
+		String sql2 ="UPDATE footprint SET  likeCnt = likeCnt - 1 WHERE footPrintNO =?";
+		
+		try {
+			ps = conn.prepareStatement(sql1);
+			ps.setString(1, contentNo);
+			ps.setString(2, email);
+		
+			ps.executeUpdate();
+			rs = ps.getGeneratedKeys();
+			if(rs.next()) {
+				ps.setString(1, footPrintNo);
+				ps.executeUpdate();
+				success = ps.executeUpdate();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return success;
+=======
 	public void like(String fpn, String email) {
 		String sql1 = "select likecnt from likes where contentno=? AND email=?";
 		String sql2 = "INSERT  INTO likes(contentno, likecnt, email) VALUES(?,1,?)";
@@ -501,6 +521,7 @@ public class BoardDAO {
 		} finally {
 			resClose();
 		}
+>>>>>>> 3a9c52670ca22f92ef4c02f9ba64f1e962ce1506
 	}
 }
 
