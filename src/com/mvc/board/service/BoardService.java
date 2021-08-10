@@ -220,22 +220,6 @@ public void like(String fpn, String email) {
 
 
 
-
-
-public int like() {
-	int success = 0;
-	String contentNo = req.getParameter("contentNO");
-	String email = req.getParameter("email");
-	String likeCnt = req.getParameter("likeCnt");
-	String footPrintNo = req.getParameter("footPrintNO");
-	BoardDAO dao = new BoardDAO();
-	success = dao.like(contentNo,email,likeCnt,footPrintNo);
-	System.out.println("좋아요 성공 ?"+success);
-	dao.resClose();
-	return success;
-}
-
-
 	
 }
 

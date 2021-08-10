@@ -14,6 +14,7 @@ import com.mvc.board.dto.FootprintDTO;
 import com.mvc.member.dto.MemberDTO;
 import com.mvc.msg.dto.MsgDTO;
 import com.mvc.serviceCenter.dao.ScDAO;
+import com.mvc.serviceCenter.dto.ReportDTO;
 import com.mvc.serviceCenter.dto.ScServiceDTO;
 
 
@@ -308,6 +309,17 @@ public class ScService {
 		return success;
 	}
 
+	public void reportsearch(String email) throws IOException {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		ScDAO dao = new ScDAO();
+		ArrayList<ReportDTO> list = null;
+		
+		list = dao.reportsearch(email);
+		dao.resClose();
+		map.put("list", list);
+		resp.setContentType("text/html; charset=UTF-8");
+		resp.getWriter().println(new Gson().toJson(map));
+	}
 	public ScServiceDTO stopReason(String email) {
 		System.out.println("정지사유를 볼 이메일은?: " + email);
 		ScDAO dao = new ScDAO();

@@ -34,8 +34,8 @@ max-width: 100%;
 <form class="d-inline-flex justify-content-end"  action="fpsearch" method="post">
 
    <!-- 내용시작 -->
+  
 <div class="row row-cols-1 row-cols-md-4 g-4 mt-4" id="card">
-   
        <c:if test="${feedlist eq null || feedlist eq ''}">
      <h1>해당 데이터가 존재하지 않습니다.</h1>
        </c:if>   
@@ -44,7 +44,7 @@ max-width: 100%;
          <div class="gogo col text-center" id="frame" style="opacity:0;">
                <p style="display : none;">${footprint.footPrintNO}</p>
                <div id="size">
-               <img src="/photo/${footprint.newFileName}" />
+               <img src="/photo/${footprint.newFileName}" 	onerror="this.src='view/test.jpg'"/>
                </div>
                <div class="card-body">
                   <p class="card-title">작성자 : ${footprint.email} </p>
@@ -64,20 +64,8 @@ max-width: 100%;
   </span>
 </button>
   <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-<<<<<<< HEAD
-    <li><a class="dropdown-item" href='./fdReportWrite?footPrintNO=${footprint.footPrintNO}'>피드 신고</a></li>
- 
-  </ul>
-=======
     <li><a class="dropdown-item" href='fdReportWrite.jsp?footPrintNO=${fpdetail.footPrintNO}'>피드 신고</a></li>
       </ul>
-  <button type="button" class="btn btn-primary position-relative" onclick="location.href='./like?footPrintNO=${footprint.footPrintNO}'" >
-  ♥
-  <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-    ${footprint.likeCnt}
-  </span>
-</button>
->>>>>>> 820f472e92302fc582061b1eac317951d2e0e48f
 </div>
          </div>
          </div>

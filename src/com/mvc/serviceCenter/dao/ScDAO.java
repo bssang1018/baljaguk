@@ -10,10 +10,8 @@ import java.util.HashMap;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
-
 import com.mvc.comment.dto.CommentDTO;
 import com.mvc.board.dto.FootprintDTO;
-
 import com.mvc.member.dto.MemberDTO;
 import com.mvc.msg.dto.MsgDTO;
 import com.mvc.serviceCenter.dto.ReportDTO;
@@ -174,7 +172,7 @@ public class ScDAO {
 				dto.setReportText(rs.getString("reporttext"));
 				dto.setEmail(rs.getString("email"));
 				dto.setReportDate(rs.getDate("reportdate"));
-				dto.setState(rs.getString("state"));
+				dto.setState(rs.getString("state").charAt(0));
 				list.add(dto);
 			}
 			System.out.println("list: "+list);
@@ -216,7 +214,7 @@ public class ScDAO {
 				dto.setReportText(rs.getString("reporttext"));
 				dto.setEmail(rs.getString("email"));
 				dto.setReportDate(rs.getDate("reportdate"));
-				dto.setState(rs.getString("state"));
+				dto.setState(rs.getString("state").charAt(0));
 				list.add(dto);
 			}
 			System.out.println("list: "+list);
@@ -631,66 +629,81 @@ public class ScDAO {
 		return msgNo;
 	}
 
-	//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-	public int stopregister(String loginemail, String email, String reason) {
-		int success = 0;
-		
-		sql = "SELECT * FROM admin WHERE banedemail = ?";
+	public ArrayList<ReportDTO> reportsearch(String email) {
+		sql = "SELECT reportno, categoryno, email, reporttext, reportdate, state FROM report1 WHERE email=?";
+		ArrayList<ReportDTO> list = null;
+		ReportDTO dto = null;
 		try {
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, email);
 			rs = ps.executeQuery();
-			if (rs.next()) {
-				System.out.println("이미 신고된 회원");
-				
-			} else {
-				sql = "INSERT INTO admin(adminemail, banedemail, reason, categoryno) VALUES(?,?,?,14)";
-				try {
-					ps = conn.prepareStatement(sql);
-					ps.setString(1, loginemail);
-					ps.setString(2, email);
-					ps.setString(3, reason);
-					success = ps.executeUpdate();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
+			list = new ArrayList<ReportDTO>();
+			while(rs.next()) {
+				dto = new ReportDTO();
+				dto.setReportNo(rs.getInt("reportno"));
+				dto.setCategoryNo(rs.getInt("categoryno"));
+				dto.setEmail(rs.getString("email"));
+				dto.setReportText(rs.getString("reporttext"));
+				dto.setReportDate(rs.getDate("reportdate"));
+				dto.setState(rs.getString("state").charAt(0));
+				list.add(dto);
 			}
-		} catch (SQLException e1) {
-			e1.printStackTrace();
-		}
-		return success;
-	}
-
-	public ScServiceDTO stopReason(String email) {
-		sql = "SELECT * FROM admin WHERE banedemail = ?";
-		ScServiceDTO dto = null;
-		try {
-			ps = conn.prepareStatement(sql);
-			ps.setString(1, email);
-			rs = ps.executeQuery();
-			if(rs.next()) {
-				System.out.println("정지사유 조회성공");
-				dto = new ScServiceDTO();
-				dto.setAdminEmail(rs.getString("adminemail"));
-				dto.setBanedEmail(rs.getString("banedemail"));
-				dto.setReason(rs.getString("reason"));
-				dto.setCategoryNo(rs.getString("categoryNo"));
-				dto.setReg_date(rs.getString("reg_date"));
-			}
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return dto;
+		return list;
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	public int stopregister(String loginemail, String email, String reason) {
+	      int success = 0;
+	      
+	      sql = "SELECT * FROM admin WHERE banedemail = ?";
+	      try {
+	         ps = conn.prepareStatement(sql);
+	         ps.setString(1, email);
+	         rs = ps.executeQuery();
+	         if (rs.next()) {
+	            System.out.println("이미 신고된 회원");
+	            
+	         } else {
+	            sql = "INSERT INTO admin(adminemail, banedemail, reason, categoryno) VALUES(?,?,?,14)";
+	            try {
+	               ps = conn.prepareStatement(sql);
+	               ps.setString(1, loginemail);
+	               ps.setString(2, email);
+	               ps.setString(3, reason);
+	               success = ps.executeUpdate();
+	            } catch (SQLException e) {
+	               e.printStackTrace();
+	            }
+	         }
+	      } catch (SQLException e1) {
+	         e1.printStackTrace();
+	      }
+	      return success;
+	   }
+
+	   public ScServiceDTO stopReason(String email) {
+	      sql = "SELECT * FROM admin WHERE banedemail = ?";
+	      ScServiceDTO dto = null;
+	      try {
+	         ps = conn.prepareStatement(sql);
+	         ps.setString(1, email);
+	         rs = ps.executeQuery();
+	         if(rs.next()) {
+	            System.out.println("정지사유 조회성공");
+	            dto = new ScServiceDTO();
+	            dto.setAdminEmail(rs.getString("adminemail"));
+	            dto.setBanedEmail(rs.getString("banedemail"));
+	            dto.setReason(rs.getString("reason"));
+	            dto.setCategoryNo(rs.getString("categoryNo"));
+	            dto.setReg_date(rs.getString("reg_date"));
+	         }
+	      } catch (SQLException e) {
+	         e.printStackTrace();
+	      }
+	      return dto;
+	   }
 }
 

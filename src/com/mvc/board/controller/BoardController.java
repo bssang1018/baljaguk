@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.mvc.board.service.BoardService;
 
 import com.oreilly.servlet.MultipartRequest;
+<<<<<<< HEAD
 
 
 
@@ -23,6 +24,9 @@ import com.oreilly.servlet.MultipartRequest;
 
 
 
+=======
+@WebServlet({"/like","/fpsearch","/fplist","/fpwriteOk","/fpwriteNo","/fpdetail","/fpdel","/fpupdateForm","/fpupdate","/fpserach","/feedlist","/fdReport","/fdReportWrite"})
+>>>>>>> 3a9c52670ca22f92ef4c02f9ba64f1e962ce1506
 
 
 
@@ -183,8 +187,11 @@ public class BoardController extends HttpServlet {
 			dis = req.getRequestDispatcher("/feedlist");
 			dis.forward(req, resp);
 			break;
+<<<<<<< HEAD
 
 			
+=======
+>>>>>>> 3a9c52670ca22f92ef4c02f9ba64f1e962ce1506
 		
 		  case "/like": 
 			  boolean suc;
@@ -196,6 +203,7 @@ public class BoardController extends HttpServlet {
 			  dis = req.getRequestDispatcher("/feedlist");
 			  dis.forward(req, resp);
 		  break;
+<<<<<<< HEAD
 		 
 		}		
 
@@ -224,7 +232,8 @@ public class BoardController extends HttpServlet {
 	     
 		
 		
+=======
+		}
+>>>>>>> 3a9c52670ca22f92ef4c02f9ba64f1e962ce1506
 	}
-
-	
 }
