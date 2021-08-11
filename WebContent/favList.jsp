@@ -129,12 +129,28 @@ td {
 .info .link {
 	color: #5085BB;
 }
+
+#detail {
+	width: 800px;
+	height: 400px;
+	float: left;
+	position: fixed;
+	left: 400px;
+	top: 150px;
+	z-index: 2;
+	background-color: white;
+	display: none;
+	overflow-y: auto;
+}
 </style>
 </head>
 <body>
+	<!-- 상단 메뉴바 -->
+	<c:import url="./view/topmenu.jsp" />
 	<h3>찜목록</h3>
+	<div id='detail' style=""></div>
 	<div id="map" style="width: 100%; height: 350px;"></div>
-	
+
 	<table>
 		<thead>
 			<tr>
@@ -147,18 +163,22 @@ td {
 		<tbody></tbody>
 	</table>
 	<script>
-		var jsonLocation = './VisitJeju_API/page1.json';
+		var jsonLocation = './VisitJeju_API/allAPI2.json';
 
 		var $latitude = 0;
 		var $longitude = 0;
 		var overlay = new Array();
 		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 		mapOption = {
-			center : new kakao.maps.LatLng(33.38453042646361,
-					126.56120892927193), // 지도의 중심좌표 (위도,경도)
-			level : 10
+			center : new kakao.maps.LatLng(33.59044474588304,
+					126.54468661424805), // 지도의 중심좌표 (위도,경도)
+			level : 11
 		// 지도의 확대 레벨
 		};
+
+		let db = listCall();//db읽어옴
+		//console.log(db.length);
+		let api = readAPI();//JSON파일 읽어옴
 
 		// 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
 		//지도를 생성하고 나서 마커를 찍어야 에러가 안생김.
@@ -191,37 +211,53 @@ td {
 		drawList();
 
 		function drawList() {
-			let db = listCall();//db읽어옴
-			let api = readAPI();//JSON파일 읽어옴
+			//let db = listCall();//db읽어옴
+			//let api = readAPI();//JSON파일 읽어옴
 			let link = "location.href='./favDel?apiNo=";
-			let favList= new Array();//배열에 JSON그대로 push하면 됨
+			let favList = new Array();//배열에 JSON그대로 push하면 됨
 			//let temp = JSON.parse(api);
 			//console.log(db);
 			//console.log(temp);
 			//console.log(api);
 
 			let content = "";
-			$.each(db, function(index, dbItem) {
-				
-				$.each(api, function(idx, apiItem) {
-					//console.log(api);
-					//console.log(items);
-					if (dbItem.apiNo == apiItem.contentsid) {
-						//console.log(apiItem);
-						//console.log(items);
-						favList.push(apiItem);						
-						link=link+apiItem.contentsid+"'";
-						//console.log(link);
-						content += '<tr><td><a href="#">' + apiItem.title	+ '</a></td>'
-						+'<td>' + dbItem.reg_date + '</td>'
-						+'<td>' + apiItem.address + '</td>';
-						//content+='<td><button name="' + idx + '" data-contentsid="'+ apiItem.contentsid + '" onclick="del(' + idx	+ ');">삭제</button></td></tr>';
-						content += '<td><button name="'+idx+'" data-contentsid="'+ apiItem.contentsid +'" onclick="'+link+	'">삭제</button></td></tr>';
-						link = "location.href='./favDel?apiNo=";
-						return;//$.each에서는 break대신 return사용
-					}
-				});
-			});			
+			$
+					.each(
+							db,
+							function(index, dbItem) {
+
+								$
+										.each(
+												api,
+												function(idx, apiItem) {
+													//console.log(api);
+													//console.log(items);
+													if (dbItem.apiNo == apiItem.contentsid) {
+														//console.log(apiItem);
+														//console.log(items);
+														favList.push(apiItem);
+														link = link
+																+ apiItem.contentsid
+																+ "'";
+														//console.log(link);
+														content += '<tr><td><a href="javascript:void(0);" onclick="detail('
+																+ idx
+																+ ')">'
+																+ apiItem.title
+																+ '</a></td>'
+																+ '<td>'
+																+ dbItem.reg_date
+																+ '</td>'
+																+ '<td>'
+																+ apiItem.address
+																+ '</td>';
+														//content+='<td><button name="' + idx + '" data-contentsid="'+ apiItem.contentsid + '" onclick="del(' + idx	+ ');">삭제</button></td></tr>';
+														content += '<td><button name="'+idx+'" data-contentsid="'+ apiItem.contentsid +'" onclick="'+link+	'">삭제</button></td></tr>';
+														link = "location.href='./favDel?apiNo=";
+														return;//$.each에서는 break대신 return사용
+													}
+												});
+							});
 			//console.log(favList);
 			markerCall(favList);
 			$("tbody").empty();//비워줘야 다른 내용을 부르거나 같은 내용을 부를때 덧붙여서 나오지 않는다
@@ -238,7 +274,8 @@ td {
 				async : false,
 				success : function(data) {
 					//console.log("ajax : " + data.items[0].alltag);
-					items = data.items;
+					console.log(data);
+					items = data;
 				},
 				error : function(e) {
 					console.log(e);
@@ -311,11 +348,21 @@ td {
 			}
 
 		} */
-		
+
 		//마커 찍기
 		function markerCall(items) {
 			console.log("markerCall");
 			let content = new Array();
+
+			// 마커 이미지의 이미지 주소입니다
+			var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
+
+			// 마커 이미지의 이미지 크기 입니다
+			var imageSize = new kakao.maps.Size(24, 35);
+			
+			// 마커 이미지를 생성합니다    
+			var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+
 			$
 					.each(
 							items,
@@ -329,31 +376,25 @@ td {
 								// 마커를 표시할 위치와 title 객체 배열입니다 
 								let positions = [ {
 									title : items.title,
-									latlng : new kakao.maps.LatLng(items.latitude,
-											items.longitude)
+									latlng : new kakao.maps.LatLng(
+											items.latitude, items.longitude)
 								} ];
 
-								// 마커 이미지의 이미지 주소입니다
-								var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
 
-								for (let i = 0; i < positions.length; i++) {
+								//for (let i = 0; i < positions.length; i++) {
 
-									// 마커 이미지의 이미지 크기 입니다
-									var imageSize = new kakao.maps.Size(24, 35);
 
-									// 마커 이미지를 생성합니다    
-									var markerImage = new kakao.maps.MarkerImage(
-											imageSrc, imageSize);
 
 									// 마커를 생성합니다
 									var marker = new kakao.maps.Marker({
 										map : map, // 마커를 표시할 지도
-										position : positions[i].latlng, // 마커를 표시할 위치
-										title : positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+										position : new kakao.maps.LatLng(
+												items.latitude, items.longitude), // 마커를 표시할 위치
+										title : items.title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
 										image : markerImage
 									// 마커 이미지 
 									});
-								}
+								//}
 
 								// 커스텀 오버레이에 표시할 컨텐츠 입니다
 								// 커스텀 오버레이는 아래와 같이 사용자가 자유롭게 컨텐츠를 구성하고 이벤트를 제어할 수 있기 때문에
@@ -361,9 +402,11 @@ td {
 								content[idx] = '<div class="wrap">'
 										+ '    <div class="info">'
 										+ '        <div class="title">'
-										+ ''
+										//	+ '<a href="javascript:void(0);" onclick="detail('
+										//+ idx
+										//+ ')">'
 										+ items.title
-										+ ''
+										//+ '</a>'
 										+ '            <div class="close" onclick="closeOverlay('
 										+ idx
 										+ ')" title="닫기"></div>'
@@ -374,13 +417,10 @@ td {
 										+ '           </div>'
 										+ '            <div class="desc">'
 										+ '                <div class="ellipsis">'
-										+ items.address
-										+ '</div>'
-										+ '                <div class="jibun ellipsis"> (지번) 영평동 2181</div>'
-										+ '                <button name="'+idx+'" class="btn_selected_place" data-contentsid="'+items.contentsid+'" onclick="fav('+idx+');">찜하기</button>'
-										+ '            </div>' + '        </div>'
-										+ '    </div>' + '</div>';
-										
+										+ items.address + '</div>'
+										+ '            </div>'
+										+ '        </div>' + '    </div>'
+										+ '</div>';
 
 								// 마커 위에 커스텀오버레이를 표시합니다
 								// 마커를 중심으로 커스텀 오버레이를 표시하기위해 CSS를 이용해 위치를 설정했습니다
@@ -391,12 +431,18 @@ td {
 								});
 
 								// 마커를 클릭했을 때 커스텀 오버레이를 표시합니다
-								kakao.maps.event.addListener(marker, 'click',
-										function() {
-									//closeOverlay();
-											//$("div.wrap").show();
-											overlay[idx].setMap(map);
-										});
+								kakao.maps.event
+										.addListener(
+												marker,
+												'click',
+												function() {
+													//closeOverlay();
+													//$("div.wrap").show();
+													for (let i = 0; i < db.length; i++) {//마커 클릭 시 다른 마커 모두 감춤
+														closeOverlay(i);
+													}
+													overlay[idx].setMap(map);
+												});
 							});
 		}
 
@@ -404,8 +450,53 @@ td {
 		function closeOverlay(idx) {
 			overlay[idx].setMap(null);
 		}
-		
-		
+
+		//title을 눌렀을 때 호출되는 함수
+		function detail(idx) {
+			$('#detail').show();
+			//console.log(db[idx].apiNo);
+			//let index = 0;
+			$("#detail").html(""); // 태그 초기화   
+
+			/* $.each(api, function(j, apiItem) {
+				console.log(apiItem.contentsid);
+				//console.log(items);
+				//console.log(j);
+				if (db[idx].apiNo == apiItem.contentsid) {
+					console.log(db[idx].apiNo);
+					console.log(apiItem.contentsid);
+					index = j;
+					return index;
+				}
+			});
+			console.log(index); */
+
+			$("#detail").append('<p>');
+			$("#detail").append(api[idx].title);
+			$("#detail").append('<button onclick="hideDetail()">닫기</button>');
+			$("#detail").append('</p>');
+			$("#detail")
+					.append(
+							'<img src="'+api[idx].repPhoto.photoid.imgpath+'" width="780px">');
+			$("#detail").append('<br>');
+			//$("#detail").append(items[idx].alltag);
+			$("#detail").append('<p>');
+			$("#detail").append(api[idx].introduction);
+			$("#detail").append('</p>');
+			$("#detail").append('연락처 : ' + api[idx].phoneno);
+			$("#detail").append('<p>');
+			$("#detail").append('주소');
+			$("#detail").append('<br>');
+			$("#detail").append(api[idx].address);
+			$("#detail").append('<br>');
+			$("#detail").append(api[idx].roadaddress);
+			$("#detail").append('</p>');
+			//$("#detail").append(contents);
+		}
+
+		function hideDetail() {
+			$('#detail').hide();
+		}
 		/* var msg = "${msg}";
 		if (msg != "") {
 			alert(msg);

@@ -7,7 +7,8 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script type="text/javascript"	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=af37bb113fb5c630dd1cdf63348a1073&libraries=services"></script>
+<script type="text/javascript"
+	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=af37bb113fb5c630dd1cdf63348a1073&libraries=services"></script>
 <style>
 .wrap {
 	position: absolute;
@@ -80,8 +81,8 @@
 
 .desc .ellipsis {
 	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
+	/* text-overflow: scroll; */
+	white-space: pre-wrap;
 }
 
 .desc .jibun {
@@ -296,14 +297,163 @@
 	display: inline-block;
 	margin-right: 10px;
 }
+
+/*커스텀 오버레이를 위한 css*/
+.wrap {
+	position: absolute;
+	left: 0;
+	bottom: 40px;
+	width: 288px;
+	height: 132px;
+	margin-left: -144px;
+	text-align: left;
+	overflow: hidden;
+	font-size: 12px;
+	font-family: 'Malgun Gothic', dotum, '돋움', sans-serif;
+	line-height: 1.5;
+}
+
+.wrap * {
+	padding: 0;
+	margin: 0;
+}
+
+.wrap .info {
+	width: 286px;
+	height: 120px;
+	border-radius: 5px;
+	border-bottom: 2px solid #ccc;
+	border-right: 1px solid #ccc;
+	overflow: hidden;
+	background: #fff;
+}
+
+.wrap .info:nth-child(1) {
+	border: 0;
+	box-shadow: 0px 1px 2px #888;
+}
+
+.info .title {
+	padding: 5px 0 0 10px;
+	height: 30px;
+	background: #eee;
+	border-bottom: 1px solid #ddd;
+	font-size: 18px;
+	font-weight: bold;
+}
+
+.info .close {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	color: #888;
+	width: 17px;
+	height: 17px;
+	background:
+		url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png');
+}
+
+.info .close:hover {
+	cursor: pointer;
+}
+
+.info .body {
+	position: relative;
+	overflow: hidden;
+}
+
+.info .desc {
+	position: relative;
+	margin: 13px 0 0 90px;
+	height: 75px;
+}
+
+.desc .ellipsis {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.desc .jibun {
+	font-size: 11px;
+	color: #888;
+	margin-top: -2px;
+}
+
+.info .img {
+	position: absolute;
+	top: 6px;
+	left: 5px;
+	width: 73px;
+	height: 71px;
+	border: 1px solid #ddd;
+	color: #888;
+	overflow: hidden;
+}
+
+.info:after {
+	content: '';
+	position: absolute;
+	margin-left: -12px;
+	left: 50%;
+	bottom: 0;
+	width: 22px;
+	height: 12px;
+	background:
+		url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')
+}
+
+.info .link {
+	color: #5085BB;
+}
+
+#detail {
+	width: 800px;
+	height: 400px;
+	float: left;
+	position: fixed;
+	left: 400px;
+	top: 150px;
+	z-index: 2;
+	background-color: white;	
+	display: none;
+	overflow-y: auto;
+
+}
 </style>
 </head>
 <body>
-	<a href="javascript:void(0);" id="전체">전체</a>
-	<a href="javascript:void(0);" id="관광지">관광지</a>
-	<a href="javascript:void(0);" id="음식점">음식점</a>
-	<a href="javascript:void(0);" id="숙박">숙박</a>
-	<a href="javascript:void(0);" id="쇼핑">쇼핑</a>
+	<!-- 상단 메뉴바 -->
+	<c:import url="./view/topmenu.jsp" />
+	<a href="javascript:void(0);" id="0" class="region">추자도</a>
+	<a href="javascript:void(0);" id="1" class="region">비양도</a>
+	<a href="javascript:void(0);" id="2" class="region">차귀도</a>
+	<a href="javascript:void(0);" id="3" class="region">가파도</a>
+	<a href="javascript:void(0);" id="4" class="region">마라도</a>
+	<a href="javascript:void(0);" id="5" class="region">우도</a>
+	<a href="javascript:void(0);" id="6" class="region">한림읍</a>
+	<a href="javascript:void(0);" id="7" class="region">애월읍</a>
+	<a href="javascript:void(0);" id="8" class="region">제주시내</a>
+	<a href="javascript:void(0);" id="9" class="region">조천읍</a>
+	<a href="javascript:void(0);" id="10" class="region">구좌읍</a>
+	<a href="javascript:void(0);" id="11" class="region">성산읍</a>
+	<a href="javascript:void(0);" id="12" class="region">표선면</a>
+	<a href="javascript:void(0);" id="13" class="region">남원읍</a>
+	<a href="javascript:void(0);" id="14" class="region">서귀포시내</a>
+	<a href="javascript:void(0);" id="15" class="region">중문동</a>
+	<a href="javascript:void(0);" id="16" class="region">안덕면</a>
+	<a href="javascript:void(0);" id="17" class="region">대정읍</a>
+	<a href="javascript:void(0);" id="18" class="region">한경면</a>
+
+	<div id='divid' style="display: none;">
+		<!-- <div id='divid' style="visibility: hidden;"> -->
+		<!-- <a href="javascript:void(0);" id="전체">전체</a> -->
+		<a href="javascript:void(0);" class="class" id="관광지">관광지</a> <a
+			href="javascript:void(0);" class="class" id="음식점">음식점</a> <a
+			href="javascript:void(0);" class="class" id="숙박">숙박</a> <a
+			href="javascript:void(0);" class="class" id="쇼핑">쇼핑</a>
+	</div>
+	<div id='detail' style=""></div>
 	<!-- 지도를 표시할 div 입니다 -->
 	<div class="map_wrap">
 		<div id="map"
@@ -323,24 +473,35 @@
 			<div id="pagination"></div>
 		</div>
 	</div>
-	<a href="#">발자국 전환</a>
-	<script type="text/javascript"
-		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=af37bb113fb5c630dd1cdf63348a1073"></script>
+	<button onclick="location.href='fplist'">발자국 전환</button>
+	<!-- <script type="text/javascript"
+		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=af37bb113fb5c630dd1cdf63348a1073"></script> -->
 
 </body>
 <script type="text/javascript">
-	var jsonLocation = './VisitJeju_API/page1.json';
-	var $latitude = 0;
-	var $longitude = 0;
+	var jsonLocation = [ './VisitJeju_API/추차도.json',
+			'./VisitJeju_API/비양도.json', './VisitJeju_API/차귀도.json',
+			'./VisitJeju_API/가파도.json', './VisitJeju_API/마라도.json',
+			'./VisitJeju_API/우도.json', './VisitJeju_API/한림.json',
+			'./VisitJeju_API/애월.json', './VisitJeju_API/제주시내.json',
+			'./VisitJeju_API/조천.json', './VisitJeju_API/구좌.json',
+			'./VisitJeju_API/성산.json', './VisitJeju_API/표선.json',
+			'./VisitJeju_API/남원.json', './VisitJeju_API/서귀포시내.json',
+			'./VisitJeju_API/중문.json', './VisitJeju_API/안덕.json',
+			'./VisitJeju_API/대정.json', './VisitJeju_API/한경.json' ];
+	//var $latitude = 0;
+	//var $longitude = 0;
+	let items;//json file에서 읽어온 data를 저장할 변수
 	var overlay = new Array();
 	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 	mapOption = {
 		center : new kakao.maps.LatLng(33.38453042646361, 126.56120892927193), // 지도의 중심좌표 (위도,경도)
-		level : 10
+		level : 11
 	// 지도의 확대 레벨
 	};
 	// 마커를 담을 배열입니다
 	var markers = [];
+	var region;
 	//placesSearchCB option
 	/* var options = {
 		page : 45
@@ -348,15 +509,26 @@
 
 	// 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
 	//지도를 생성하고 나서 마커를 찍어야 에러가 안생김.
-	map = new kakao.maps.Map(mapContainer, mapOption);
+	var map = new kakao.maps.Map(mapContainer, mapOption);
+
 	// 마커를 클릭하면 장소명을 표출할 인포윈도우 입니다
 	var infowindow = new kakao.maps.InfoWindow({
 		zIndex : 1
 	});
 
-	$("a").click(function() {
+	$(".class").click(function() {
 		//console.log("a태그 클릭 : " +$(this).attr("id"));
+		$("div.wrap").css({
+			"display" : "none"
+		});
+		$('#menu_wrap').show();
 		selectOpt(this);
+	});
+
+	$('.region').click(function() {
+		region = $(this).attr('id');
+		console.log(region);
+		$('#divid').show();
 	});
 
 	// 장소 검색 객체를 생성합니다
@@ -369,27 +541,33 @@
 
 		removeMarker();
 		switch ($chk) {
-		case "전체":
+		/* case "전체":
 			ps.keywordSearch('제주도 관광지', placesSearchCB);
-			break;
+			break; */
 		case "관광지":
+			$('#menu_wrap').hide();
 			//console.log("관광지 선택");
-			let items;//json file에서 읽어온 data를 저장할 변수
+			/* let items;//json file에서 읽어온 data를 저장할 변수 */
 			items = readAPI();
+			//console.log(items);
 			//console.log("items : "+items[0].alltag);
 			markerCall(items);
 			break;
 		case "음식점":
 			// 키워드로 장소를 검색합니다
-			ps.keywordSearch('제주도 음식점', placesSearchCB);
+			//console.log(document.getElementById(region).text);
+			ps.keywordSearch(document.getElementById(region).text + ' 음식점',
+					placesSearchCB);
 			break;
 		case "숙박":
 			// 키워드로 장소를 검색합니다
-			ps.keywordSearch('제주도 숙박', placesSearchCB);
+			ps.keywordSearch(document.getElementById(region).text + ' 숙박',
+					placesSearchCB);
 			break;
 		case "쇼핑":
 			// 키워드로 장소를 검색합니다
-			ps.keywordSearch('제주특별자치도 쇼핑', placesSearchCB);
+			ps.keywordSearch(document.getElementById(region).text + ' 쇼핑',
+					placesSearchCB);
 			break;
 		default:
 			break;
@@ -428,14 +606,17 @@
 	//API json file 읽어오기
 	function readAPI() {
 		let items;
+		//console.log(jsonLocation[region]);
 		$.ajax({
-			url : jsonLocation,
+			url : jsonLocation[region],
 			dataType : "json",
 			type : "POST",
 			async : false,
 			success : function(data) {
 				//console.log("ajax : " + data.items[0].alltag);
-				items = data.items;
+				console.log(data);
+				console.log(data[0].alltag);
+				items = data;
 			},
 			error : function(e) {
 				console.log(e);
@@ -445,17 +626,40 @@
 	}
 
 	//마커 찍기
-	function markerCall(items) {
+	function markerCall(item) {
 		console.log("markerCall");
+
+		// 마커 이미지의 이미지 주소입니다
+		let imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
+
+		// 마커 이미지의 이미지 크기 입니다
+		var imageSize = new kakao.maps.Size(24, 35);
+
+		// 마커 이미지를 생성합니다    
+		var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+
+		// 지도를 재설정할 범위정보를 가지고 있을 LatLngBounds 객체를 생성합니다
+		let bounds = new kakao.maps.LatLngBounds();
+
+		/* // 마커를 생성합니다
+		marker = new kakao.maps.Marker({
+			map : map, // 마커를 표시할 지도
+			position : new kakao.maps.LatLng(items.latitude, items.longitude), // 마커를 표시할 위치
+			title : items.title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+			image : markerImage
+		// 마커 이미지 
+		}); */
 		let content = new Array();
 		$
 				.each(
-						items,
+						item,
 						function(idx, items) {//item은 자바 스크립트 객체
 							//console.log("idx: "+idx);
-							//console.log("items: "+items);					
-							//console.log("items.latitude : "+ items.latitude);
-							//console.log("items.latitude : "+ items.longitude);
+							//console.log("items: "+items);
+							//console.log(items);
+							//console.log("items.title : "+ items.title);
+							console.log("items.latitude : " + items.latitude);
+							console.log("items.longitude : " + items.longitude);
 							//console.log("thumbnail : "	+ items.repPhoto.photoid.thumbnailpath);
 
 							// 마커를 표시할 위치와 title 객체 배열입니다 
@@ -465,37 +669,49 @@
 										items.longitude)
 							} ];
 
+							// LatLngBounds 객체에 좌표를 추가합니다
+							//bounds.extend(position);
+
 							// 마커 이미지의 이미지 주소입니다
 							var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
 
-							for (let i = 0; i < positions.length; i++) {
+							//for (let i = 0; i < positions.length; i++) {
 
-								// 마커 이미지의 이미지 크기 입니다
-								var imageSize = new kakao.maps.Size(24, 35);
+							// 마커 이미지의 이미지 크기 입니다
+							var imageSize = new kakao.maps.Size(24, 35);
 
-								// 마커 이미지를 생성합니다    
-								var markerImage = new kakao.maps.MarkerImage(
-										imageSrc, imageSize);
+							// 마커 이미지를 생성합니다    
+							var markerImage = new kakao.maps.MarkerImage(
+									imageSrc, imageSize);
 
-								// 마커를 생성합니다
-								var marker = new kakao.maps.Marker({
-									map : map, // 마커를 표시할 지도
-									position : positions[i].latlng, // 마커를 표시할 위치
-									title : positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
-									image : markerImage
-								// 마커 이미지 
-								});
-								markers.push(marker);
-							}
+							// 마커를 생성합니다
+							var marker = new kakao.maps.Marker({
+								map : map, // 마커를 표시할 지도
+								position : new kakao.maps.LatLng(
+										items.latitude, items.longitude), // 마커를 표시할 위치
+								title : items.title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+								image : markerImage
+							// 마커 이미지 
+							});
+							markers.push(marker);
+
+							// LatLngBounds 객체에 좌표를 추가합니다
+							bounds.extend(new kakao.maps.LatLng(items.latitude,
+									items.longitude));
+
+							//}						
 
 							// 커스텀 오버레이에 표시할 컨텐츠 입니다
 							// 커스텀 오버레이는 아래와 같이 사용자가 자유롭게 컨텐츠를 구성하고 이벤트를 제어할 수 있기 때문에
 							// 별도의 이벤트 메소드를 제공하지 않습니다 
 							content[idx] = '<div class="wrap">'
 									+ '    <div class="info">'
-									+ '        <div class="title">' + ''
+									+ '        <div class="title">'
+									+ '<a href="javascript:void(0);" onclick="detail('
+									+ idx
+									+ ')">'
 									+ items.title
-									+ ''
+									+ '</a>'
 									+ '            <div class="close" onclick="closeOverlay('
 									+ idx
 									+ ')" title="닫기"></div>'
@@ -508,7 +724,6 @@
 									+ '                <div class="ellipsis">'
 									+ items.address
 									+ '</div>'
-									+ '                <div class="jibun ellipsis"> (지번) 영평동 2181</div>'
 									+ '                <button name="'
 									+ idx
 									+ '" class="btn_selected_place" data-contentsid="'
@@ -525,17 +740,25 @@
 							overlay[idx] = new kakao.maps.CustomOverlay({
 								content : content[idx],
 								//map : map,
-								position : marker.getPosition()
+								position : new kakao.maps.LatLng(
+										items.latitude, items.longitude)
 							});
 
-							// 마커를 클릭했을 때 커스텀 오버레이를 표시합니다
+							// 마커를 클릭했을 때 커스텀 오버레이를 등록합니다
 							kakao.maps.event.addListener(marker, 'click',
 									function() {
-										//closeOverlay();
-										//$("div.wrap").show();
+										//console.log(item.length);
+										for (let i = 0; i < item.length; i++) {
+											closeOverlay(i);
+										}
 										overlay[idx].setMap(map);
 									});
 						});
+
+		// LatLngBounds 객체에 추가된 좌표들을 기준으로 지도의 범위를 재설정합니다
+		// 이때 지도의 중심좌표와 레벨이 변경될 수 있습니다
+		map.setBounds(bounds);
+
 	}
 
 	// 키워드 검색을 요청하는 함수입니다
@@ -771,10 +994,10 @@
 				success : function(data) {
 					console.log(data);
 					if (data.success) {
-						alert(data.cnt + '찜하기에 성공 했습니다.');
+						alert('찜하기에 성공 했습니다.');
 						//location.href='main.jsp';
 					} else {
-						alert('찜하기에 실패 했습니다.');
+						alert('이미 찜한 관광지입니다.');
 					}
 				},
 				error : function(e) {
@@ -785,6 +1008,37 @@
 
 		}
 
+	}
+
+	//title을 눌렀을 때 호출되는 함수
+	function detail(idx) {
+		$('#detail').show();
+		console.log(items[idx]);
+		 $("#detail").html(""); // 태그 초기화   
+	     
+		 $("#detail").append('<p>');	
+	     $("#detail").append(items[idx].title);
+	     $("#detail").append('<button onclick="hideDetail()">닫기</button>');
+	     $("#detail").append('</p>');
+	     $("#detail").append('<img src="'+items[idx].repPhoto.photoid.imgpath+'" width="780px">');
+	     $("#detail").append('<br>');
+	     //$("#detail").append(items[idx].alltag);
+	     $("#detail").append('<p>');
+	     $("#detail").append(items[idx].introduction);
+	     $("#detail").append('</p>');
+	     $("#detail").append('연락처 : '+items[idx].phoneno);
+	     $("#detail").append('<p>');
+	     $("#detail").append('주소');
+	     $("#detail").append('<br>');
+	     $("#detail").append(items[idx].address);
+	     $("#detail").append('<br>');
+	     $("#detail").append(items[idx].roadaddress);
+	     $("#detail").append('</p>');
+	     //$("#detail").append(contents);
+	}
+	
+	function hideDetail(){
+		$('#detail').hide();
 	}
 </script>
 </html>

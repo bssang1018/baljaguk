@@ -31,13 +31,20 @@ public class MapDAO {
 
 	public int fav(String email, String contentsid) throws SQLException {
 
-		String sql = "INSERT INTO tourinfofavorit(email,apino) VALUES(?,?)";
-
+		String sql = "SELECT email, apiNo FROM tourinfofavorit WHERE email=? AND apiNo=?";
 		ps = conn.prepareStatement(sql);
 		ps.setString(1, email);
 		ps.setString(2, contentsid);
-
-		return ps.executeUpdate();//
+		rs = ps.executeQuery(); 
+		if(rs.next()) {
+			return 0;
+		}else {
+			sql = "INSERT INTO tourinfofavorit(email,apino) VALUES(?,?)";
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, email);
+			ps.setString(2, contentsid);
+			return ps.executeUpdate();//
+		}
 	}
 
 	public void resClose() {
