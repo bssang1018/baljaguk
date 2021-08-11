@@ -144,12 +144,11 @@ img {
 																	+ item.email
 																	+ ' </p>'
 															content += '<hr/>'
-
+																content +=          '<p class="card-text" id="text">'+item.footprintText+'</p>'
 															content += '</div>'
 															content += '<div class="card-footer text-center">'
-															content += '<a class="btn btn-primary" href="fpdetail?footPrintNO='
-																	+ item.footPrintNO
-																	+ '">자세히 보기</a>'
+																   '<a class="btn btn-primary" href="fpdetail?footPrintNO='+item.footprintText+'">자세히 보기</p>'
+																	
 															content += '</div>'
 															content += '</div>'
 														})
