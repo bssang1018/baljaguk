@@ -269,7 +269,7 @@ public class FaqDAO {
 		
 		try {
 			ps= conn.prepareStatement(sql);
-			ps.setString(1, "%"+searchKey+'%');
+			ps.setString(1, searchKey);
 			ps.setInt(2, start);
 			ps.setInt(3, end);
 			rs= ps.executeQuery();
