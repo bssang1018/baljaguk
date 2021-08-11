@@ -117,7 +117,8 @@
    <form action="commentWriteForm" method="post">
    <div class="text-center">
    			<span>  댓글입력  </span><input type="text" name="commentText"/><button>등록</button>
-			<input type="hidden" name="footPrintNO" value="${footPrintNO}"/>   				
+			<input type="hidden" name="footPrintNO" value="${footPrintNO}"/>
+			<input type="hidden" name="footprintreport" value="${footprint.footPrintNO}"/>			
    </div>
    </form>
  

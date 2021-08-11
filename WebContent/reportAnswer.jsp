@@ -41,7 +41,7 @@
 				</tr>
 				<tr>
 					<th style="text-align: center">메세지 내용</th>
-					<td><textarea name="content" style="height: 300px; width: 300px;"></textarea></td>
+					<td><textarea name="content" style="height: 300px; width: 300px;" required></textarea></td>
 				</tr>
 		</table>
 		<div class="text-center" >
