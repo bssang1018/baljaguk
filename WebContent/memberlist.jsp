@@ -36,15 +36,17 @@
 	<div class="pageArea">
 	
 	</div>
+	<div style="float: right;">
 	<table>
 			<thead>
 				<tr>
 					<td><input class='search' type="text" name='email'/></td>
 					<td><button class="btn">검색</button></td>
-					<td><input type='button' onclick='location.href="/tree/index1.jsp"' value="목록으로"/></td>
+					<td><input type='button' onclick='location.href="/tree/index1.jsp"' value="목록으로" class="btn btn-outline-primary"/></td>
 				</tr>
 			</thead>
 		</table>
+	</div>
 	<!-- 하단단 메뉴바 -->
 	<c:import url="./view/bottom.jsp" />
 	 </div> 

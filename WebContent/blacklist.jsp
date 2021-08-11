@@ -35,6 +35,7 @@
 	<div class="pageArea">
 	
 	</div>
+	<div style="float: right;">
 	<table>
 			<thead>
 				<tr>
@@ -44,6 +45,7 @@
 				</tr>
 			</thead>
 		</table>
+	</div>
 	<!-- 하단단 메뉴바 -->
 	<c:import url="./view/bottom.jsp" />
 </div>
