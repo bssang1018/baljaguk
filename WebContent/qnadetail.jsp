@@ -80,7 +80,7 @@
      <form action="qnacommentWriteForm" method="post">
    	<table class="table table-striped" style="width: 500px; margin-left: auto; margin-right: auto;">
    			<tr>
-   				<td>댓글입력</td>
+   				<td>답변입력</td>
    				<td>
    					<input type="text" name="commentText1" required/><button>등록</button>
 					<input type="hidden" name="qnano" value="${qnano}"/>   				
