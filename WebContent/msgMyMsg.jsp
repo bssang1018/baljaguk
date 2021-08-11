@@ -41,7 +41,7 @@
 			<tr>
 				<td style="text-align: center"><input type="checkbox" value='${msges.msgNo}'/></td>
 				<td style="text-align: center">${msges.receiver_email}</td>
-				<td><a style="display: inline-block;
+				<td style="text-align: center"><a style="display: inline-block;
   										width: 200px;
   										white-space: nowrap;
   										overflow: hidden;

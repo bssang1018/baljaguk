@@ -11,9 +11,11 @@
 	<!-- 상단 메뉴바 -->
 <c:import url="./view/topmenu.jsp"/>
 
+<div class="col-6 center-block" style="width: 800px; margin-left: auto; margin-right: auto;">
 	<!-- 내용시작 -->
 	<form action="msgReport" method="post">
-<table class="table" style="width: 500px; margin-left: auto; margin-right: auto;">				
+	<h3>메세지 신고</h3>
+		<table class="table">				
 				<tr>
 					<th style="text-align: center">신고할 메세지 번호</th>
 					<td>
@@ -30,7 +32,7 @@
 				</tr>
 				<tr>
 					<th style="text-align: center">신고 사유</th>
-					<td><textarea name="reportContent" style="height: 300px; width: 300px;"></textarea></td>
+					<td><textarea name="reportContent" style="height: 300px; width: 500px;"></textarea></td>
 				</tr>	
 		</table>
 		
@@ -38,8 +40,9 @@
 			<button class="btn btn-primary">메세지 신고</button>
 			<input class="btn btn-primary" type="button" onclick="location.href='./msgMain'" value="이전으로" />
 		</div>
+</form>
+</div>
 	
-	</form>
 </body>
 <script>
 	var msgMsg = "${msgMsg}";
