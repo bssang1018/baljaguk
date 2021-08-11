@@ -38,7 +38,7 @@
 				</tr>
 				<tr>
 					<th style="text-align: center">신고 사유</th>
-					<td><textarea name="reportContent" style="height: 300px; width: 300px;"></textarea></td>
+					<td><textarea name="reportContent" style="height: 300px; width: 300px;"required></textarea></td>
 				</tr>	
 		</table>
 		

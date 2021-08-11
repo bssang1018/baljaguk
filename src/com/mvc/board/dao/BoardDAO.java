@@ -253,24 +253,8 @@ public class BoardDAO {
 		return dto;
 	}
 
-	public int uplike(String footPrintNO) {
-		int success = 0;
-		String sql ="UPDATE footprint SET  likeCnt = likeCnt +1 WHERE footPrintNO =?";
-		
-		try {
-			ps = conn.prepareStatement(sql);
-			ps.setString(1, footPrintNO);
-			success =ps.executeUpdate();
-			System.out.println("좋아요 수 올리기 성공 : "+success);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-		
-		return success;
-		
-		
-	}
+	
+	
 	
 	
 	public int fpdel(String footPrintNO) {
@@ -442,7 +426,7 @@ public class BoardDAO {
 	public void like(String fpn, String email) {
 		String sql1 = "select likecnt from likes where contentno=? AND email=?";
 		String sql2 = "INSERT  INTO likes(contentno, likecnt, email) VALUES(?,1,?)";
-		String sql3 = "UPDATE footprint SET likecnt  = (select count(email) from likes where contentno=? AND likecnt =1) where footprintno = ?";
+		String sql3 = "UPDATE footprint SET likecnt  = (select count(email) from likes where contentno=? AND likecnt = 1) where footprintno = ?";
 		String sql4 = "UPDATE likes SET likecnt = ? WHERE contentno =?";
 		try {
 			
@@ -480,7 +464,7 @@ public class BoardDAO {
 					ps = conn.prepareStatement(sql4);
 					ps.setInt(1, i);
 					ps.setString(2, fpn);
-					ps.execute();
+					ps.executeUpdate();
 				
 				ps = conn.prepareStatement(sql3);
 				ps.setString(1, fpn);
