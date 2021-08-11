@@ -36,6 +36,10 @@
       <td><input type="hidden" name="markerNO"></td>
    </tr>
      -->
+     <tr>
+				<th>마커</th>
+				<td>위도 : <input type="text" name="lat" id="lat" readonly>&nbsp;&nbsp; 경도 : <input type="text" name="lng" id="lng"readonly></td>
+			</tr>
    <tr>
       <th>발자국 내용</th>
       <td><textarea name="footprintText" style="height: 300px; width: 500px;"required></textarea></td>
@@ -63,6 +67,26 @@
    </tr>
    </table>
   </form>
+  <script>
+		var lat;
+		var lng;
+		rcvLatLng();//좌표값 받아와서 변수에 저장
+		
+		$('#lat').attr('value',lat);
+		$('#lng').attr('value',lng);
+
+		function rcvLatLng() {
+			let latLng;
+			if (localStorage.getItem('lat')) {
+				//console.log(localStorage.getItem('lat'));
+				lat = localStorage.getItem('lat');
+			}
+			if (localStorage.getItem('lng')) {
+				//console.log(localStorage.getItem('lng'));
+				lng = localStorage.getItem('lng');
+			}
+		}
+	</script>
 </body>
 
 
