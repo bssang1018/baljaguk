@@ -13,9 +13,8 @@
 <!-- 상단 메뉴바 -->
 <c:import url="./view/topmenu.jsp"/>
 	<!-- 내용시작 -->
-	<div class="container px-4 my-4 text-center">
+<div class="container px-4 my-4 text-center">
 <h2>회원목록</h2>
-		
 	<table class='table'>
 		<thead>
 			<tr>
@@ -43,7 +42,7 @@
 		</table>
 	<!-- 하단단 메뉴바 -->
 	<c:import url="./view/bottom.jsp" />
-	</div>
+	 </div> 
 </body>
 <script>
 var page = 1;
@@ -109,6 +108,7 @@ console.log($('.btn'));
  function searchList(list) {
 		console.log(list);
 		var content = "";
+		console.log("머야")
 		list.forEach(function(item, idx) {
 			console.log(item, idx);
 			content += "<tr>";
@@ -121,7 +121,7 @@ console.log($('.btn'));
 		});
 		$("tbody").empty();
 		$("tbody").append(content);
-		$("div").empty();
+		$("div.pageArea").empty();
 	}
 //페이징 처리 함수
 	function pageList(list){

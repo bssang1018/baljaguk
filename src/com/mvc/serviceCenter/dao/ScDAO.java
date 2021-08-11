@@ -572,7 +572,7 @@ public class ScDAO {
 	// admin 테이블에 제거
 	public int stopremove1(String email) {
 		int success = 0;
-		sql = "delete FROM admin WHERE banedemail=?";
+		sql = "delete FROM admin WHERE banedemail=? AND categoryno=14";
 		try {
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, email);
@@ -758,6 +758,7 @@ public class ScDAO {
 	public int blackregister(String loginemail, String email, String reason) {
 		int success = 0;
 		sql = "SELECT * FROM admin WHERE banedemail = ? AND categoryno = 15";
+		
 		try {
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, email);
@@ -805,10 +806,20 @@ public class ScDAO {
 		return dto;
 	}
 
-	
-
-
-
-	
+	public int blackremove1(String email) {
+		int success = 0;
+		sql = "delete FROM admin WHERE banedemail=? AND categoryno = 15";
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, email);
+			System.out.println("됌?");
+			success = ps.executeUpdate();
+			System.out.println("됌2?");
+			System.out.println("success: " + success);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return success;
+	}
 
 }

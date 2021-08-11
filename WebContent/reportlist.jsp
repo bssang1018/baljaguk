@@ -137,7 +137,6 @@ listCall(page,stx);
 			list.forEach(function(item, idx) {
 				console.log(item, idx);
 				content += "<tr>";
-				content += "<td>" + item.email + "</td>";
 				content += "<td>" + item.reportNo + "</td>";
 				content += "<td>" + item.categoryNo + "</td>";
 				content += "<td>" + item.reportText + "</td>";
@@ -150,7 +149,7 @@ listCall(page,stx);
 			});
 			$("tbody").empty();
 			$("tbody").append(content);
-			$("div").empty();
+			$("div.pageArea").empty();
 		}
 	//페이징 처리 함수
 		function pageList(list){

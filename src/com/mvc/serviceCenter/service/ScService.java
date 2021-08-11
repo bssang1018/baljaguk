@@ -309,11 +309,19 @@ public class ScService {
 
 	public int blackremove(String email) {
 		int success = 0;
+		int success1 = 0;
 		ScDAO dao = new ScDAO();
 		success = dao.blackremove(email);
+		if(success>0) {
+			System.out.println("member 테이블 0으로 변경");
+			success1 = dao.blackremove1(email);
+			if(success1>0) {
+				System.out.println("admin 테이블 삭제 완료");
+			}
+		}
 		dao.resClose();
 		
-		return success;
+		return success1;
 	}
 
 	public ScServiceDTO stopReason(String email) {

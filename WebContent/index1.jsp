@@ -17,7 +17,9 @@
 	<!-- 상단 메뉴바 -->
 <c:import url="./view/topmenu.jsp"/>
 	<!-- 내용시작 -->
+<div class="container px-4 my-4 text-center">
 <h2>관리자 페이지</h2>
+<br/><br/>
 <div class="btn-group " role="group">
 	<input class='btn1' type="button" value="전체회원보기"/>
 	<input class='btn2' type="button" value="신고글보기"/>
@@ -27,6 +29,7 @@
 	</div>
 <!-- 하단단 메뉴바 -->
 	<c:import url="./view/bottom.jsp" />
+</div>
 </body>
 <script>
 $(".btn1").click(function(){

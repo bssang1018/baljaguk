@@ -142,6 +142,7 @@ public class ScController extends HttpServlet {
 			email = req.getParameter("email");
 			dto = service.blackReason(email);
 			req.setAttribute("dto", dto);
+			System.out.println(dto);
 			dis = req.getRequestDispatcher("blackReason.jsp");
 			dis.forward(req, resp);
 			break;

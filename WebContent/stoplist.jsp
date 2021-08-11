@@ -122,7 +122,7 @@ console.log($('.btn'));
 		});
 		$("tbody").empty();
 		$("tbody").append(content);
-		$("div").empty();
+		$("div.pageArea").empty();
 	}
 //페이징 처리 함수
 	function pageList(list){
