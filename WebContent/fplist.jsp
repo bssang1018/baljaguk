@@ -70,9 +70,9 @@ img {
 						<p class="card-title">작성자 : ${footprint.email}</p>
 					</div>
 					<div class="card-footer text-center">
-						<td><a
+						<a
 							style="display: inline-block; max-width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"
-							href="fpdetail?footPrintNO=${footprint.footPrintNO}">${footprint.footprintText}</a></td>
+							href="fpdetail?footPrintNO=${footprint.footPrintNO}">${footprint.footprintText}</a>
 					</div>
 				</div>
 			</c:forEach>
@@ -101,8 +101,7 @@ img {
 	</div>
    
    </div>
-	</div>
-	</div>
+	
 	
 </body>
 <script>
@@ -189,25 +188,39 @@ img {
 		
 	});
 	
-drawMarker();
+	let fpMarker = drawMarker();
 	
 	function drawMarker() {
 		console.log("마커 지도에 그리기");
-		let items;
+		data = '<c:out value="${fplist}"/>';
+		//let data2 = ${fplist};
+		
+		//console.log(data);
+		console.log(data);
+		//console.log(data2);
+		
+		let arr = new Array();
+		<c:forEach items="${fplist}" var="item">
+			arr.push({lat:"${item.lat}"
+					,lng:"${item.lng}"});
+			</c:forEach>
+			console.log(arr);
+		
+		let marker;
 
 		//발자국 가져옴
 		$.ajax({
 			url : 'fplist',
 			dataType : "JSON",
-			type : "GET",
-			//async : false,
+			type : "POST",
+			async : false,
 			success : function(data) {
 				//console.log('json');
 				//console.log(JSON.stringify(data));
 				console.log(data);
 				console.log(data.readyState);
 				console.log(data.state);
-				if (!data.loginYN) {
+				/* if (!data.loginYN) {
 					alert('로그인이 필요한 서비스 입니다.');
 				} else {
 						//console.log(data.);
@@ -215,13 +228,13 @@ drawMarker();
 					if (data.lat != null && data.lng != null) {
 						items = data;
 					}
-				}
+				} */
 			},
 			error : function(e) {
 				console.log(e);
 			}
 		});
-		return items;
+		return marker;
 	}
 	
 	function sendlatLng() {//좌표 보냄
