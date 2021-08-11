@@ -42,7 +42,7 @@ public class MemberController extends HttpServlet {
 		
 		  case "/main": 
 		 System.out.println("홈");
-		 BoardService bservice = new BoardService(req);
+		 BoardService bservice = new BoardService(req,resp);
 		 req.setAttribute("M", bservice.Mfeedlist());
 		  dis = req.getRequestDispatcher("main.jsp");
 		  System.out.println("실행완료");
@@ -50,7 +50,7 @@ public class MemberController extends HttpServlet {
 		 break;
 		 
 		  case "/plusMain":
-			  bservice = new BoardService(req);
+			  bservice = new BoardService(req,resp);
 			  HashMap<String, Object> map = new HashMap<String, Object>();
 			  map.put("list", bservice.Mfeedlist());
 			  resp.setContentType("text/html; charset=UTF-8");
@@ -238,6 +238,9 @@ public class MemberController extends HttpServlet {
 			email = (String) req.getSession().getAttribute("loginemail");
 			success = service.cancel(email);
 			System.out.println("회원 탈퇴 성공? "+success);
+			req.getSession().removeAttribute("loginemail");
+			  req.getSession().removeAttribute("nickname");
+			  req.getSession().removeAttribute("suc");
 			dis = req.getRequestDispatcher("index.jsp");
 			dis.forward(req, resp);
 			break;

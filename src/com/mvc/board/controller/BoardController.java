@@ -46,7 +46,7 @@ public class BoardController extends HttpServlet {
 		System.out.println("addr : "+addr);
 		
 		RequestDispatcher dis = null;
-		BoardService service = new BoardService(req);
+		BoardService service = new BoardService(req, resp);
 		String page ="";
 		String msg = "";
 	    String fdmsg ="";

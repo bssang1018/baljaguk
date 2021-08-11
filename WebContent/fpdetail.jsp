@@ -27,8 +27,8 @@
       <td>${footprint.footPrintNO}</td>
    </tr>
    <tr>
-      <th>마커 번호</th>
-      <td>${footprint.markerNO}</td>
+      <th>좌표</th>
+      <td>위도 : ${footprint.lat}, 경도 : ${footprint.lat}</td>
    </tr>
    <tr>
       <th>작성자</th>
@@ -90,7 +90,7 @@
    </table>
    
    
-   
+ <c:if test="${commentdelete ne '1'}">
    <nav>
 			<ul class="pagination justify-content-center">
 				<c:if test="${map.startPage ne 1}">
@@ -113,19 +113,17 @@
 				</c:if>
 			</ul>
 			</nav>
-   
+
    <form action="commentWriteForm" method="post">
    <div class="text-center">
    			<span>  댓글입력  </span><input type="text" name="commentText"/><button>등록</button>
-			<input type="hidden" name="footPrintNO" value="${footPrintNO}"/>   				
+			<input type="hidden" name="footPrintNO" value="${footPrintNO}"/>
    </div>
    </form>
- 
+</c:if>
 </body>
 <script>
 	var footPrintNO = "${comment.footPrintNO}";
 	var loginemail = "${session.getAttribute('loginemail')}"
-
-	
 </script>
 </html>

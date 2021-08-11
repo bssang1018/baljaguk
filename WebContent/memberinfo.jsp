@@ -83,7 +83,7 @@ body, head {
 			</c:if>
 			<tr>
 				<td colspan="2">
-				<button type="button" class="btn btn-secondary btn-lg">개인정보 수정</button>
+				<button>개인정보 수정</button>
 				</td>
 			</tr>
 		</table>

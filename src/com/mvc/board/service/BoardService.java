@@ -1,41 +1,49 @@
 package com.mvc.board.service;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
-
+import com.google.gson.Gson;
 import com.mvc.board.dao.BoardDAO;
 import com.mvc.board.dto.FootprintDTO;
 
 public class BoardService {
 
 	HttpServletRequest req = null;
+	HttpServletResponse resp = null;
 	
-	
-	public BoardService(HttpServletRequest req) {
+	public BoardService(HttpServletRequest req, HttpServletResponse resp) {
 		try {
 			req.setCharacterEncoding("UTF-8");
 			this.req = req;
+			this.resp = resp;
 			
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
 	}
 
-	public ArrayList<FootprintDTO> fplist(String email) {
+	public ArrayList<FootprintDTO> fplist(String email) throws IOException {
 		
 		BoardDAO dao = new BoardDAO();
 		String page = req.getParameter("page");
 		if(page == null) {
 			page= "1";
 		}
+		HashMap<String, Object> map = new HashMap<String, Object>();
 		ArrayList<FootprintDTO> fplist = dao.fplist(email,Integer.parseInt(page));
 		System.out.println(fplist.size()+"건의 발자국");
 		
 		dao.resClose();
+		map.put("latlng", fplist);
+		resp.setContentType("text/html; charset=UTF-8");// 한글 꺠짐 방지
+		resp.getWriter().println(new Gson().toJson(map));
 		return fplist;
 	}
 	
@@ -96,7 +104,6 @@ public class BoardService {
 		System.out.println("footPrintNO : "+footPrintNO);
         BoardDAO dao = new BoardDAO();
 		dto = dao.fpdetail(footPrintNO);
-		//System.out.println("dto : "+dto);
 		dao.resClose();
 		return dto;
 	}

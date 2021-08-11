@@ -45,9 +45,9 @@ public class BoardDAO {
 	}
 	
 	public ArrayList<FootprintDTO> fplist(String email, int page) {
-		String sql="SELECT fnum, footPrintNO, email, reg_date, footprintText , likeCnt, oriFileName, newFileName" + 
+		String sql="SELECT fnum, footPrintNO, email, reg_date, footprintText , likeCnt, oriFileName, newFileName, lat, lng" + 
 				" FROM (SELECT ROW_NUMBER() OVER (ORDER BY f.footprintNO DESC) " + 
-				" AS fnum, f.footPrintNO, f.email, f.reg_date, f.footprintText, f.likeCnt, f.postblind ,P.oriFileName, P.newFileName" + 
+				" AS fnum, f.footPrintNO, f.email, f.reg_date, f.footprintText, f.likeCnt, f.postblind ,P.oriFileName, P.newFileName, f.lat, f.lng" + 
 				" FROM footprint f LEFT OUTER JOIN PostPic P ON f.footPrintNO =P.footPrintNO" + 
 				" WHERE f.email= ? AND postblind IS NULL OR postblind=0)WHERE fnum BETWEEN 1 AND ?";
 	    
@@ -84,6 +84,8 @@ public class BoardDAO {
 				dto.setLikeCnt(rs.getInt("likeCnt"));
 				dto.setOriFileName(rs.getString("oriFileName"));
 				dto.setNewFileName(rs.getString("newFileName"));
+				dto.setLat(rs.getBigDecimal("lat"));
+				dto.setLng(rs.getBigDecimal("lng"));
 				fplist.add(dto);
 			}
 		} catch (SQLException e) {
@@ -93,9 +95,9 @@ public class BoardDAO {
 	}
 	//피드 리스트
 	public ArrayList<FootprintDTO> feedlist(int page) {
-		String sql="SELECT fnum, footPrintNO,  email, reg_date, footprintText, likeCnt ,oriFileName, newFileName " + 
+		String sql="SELECT fnum, footPrintNO,  email, reg_date, footprintText, likeCnt ,oriFileName, newFileName, lat, lng " + 
 				 " FROM (SELECT ROW_NUMBER() OVER (ORDER BY f.footprintNO DESC)" + 
-				 " AS fnum, f.footPrintNO,  f.email, f.reg_date, f.footprintText, f.likeCnt , f.postblind,  P.oriFileName, P.newFileName " + 
+				 " AS fnum, f.footPrintNO,  f.email, f.reg_date, f.footprintText, f.likeCnt , f.postblind,  P.oriFileName, P.newFileName, f.lat, f.lng " + 
 				 " FROM footprint f LEFT OUTER JOIN PostPic P ON f.footPrintNO = P.footPrintNO"  + 
 				 " WHERE f.release = 1 AND f.postblind IS NULL OR f.postblind=0) WHERE fnum BETWEEN 1 AND ?";
 	   
@@ -142,9 +144,9 @@ public class BoardDAO {
 	
 	//메인 피드 리스트
 	public ArrayList<FootprintDTO> Mfeedlist(int page) {
-		String sql ="SELECT fnum, footPrintNO,  email, reg_date, footprintText, oriFileName, newFileName "
+		String sql ="SELECT fnum, footPrintNO,  email, reg_date, footprintText, oriFileName, newFileName, lat, lng "
 				+ "FROM (SELECT ROW_NUMBER() OVER (ORDER BY f.footprintNO DESC) "
-				+ "AS fnum, f.footPrintNO,  f.email, f.reg_date, f.footprintText, f.postblind, P.oriFileName, P.newFileName "
+				+ "AS fnum, f.footPrintNO,  f.email, f.reg_date, f.footprintText, f.postblind, P.oriFileName, P.newFileName, f.lat, f.lng "
 				+ "FROM footprint f LEFT OUTER JOIN PostPic P ON f.footPrintNO = P.footPrintNO "
 				+ "WHERE f.release = 1 AND f.postblind IS NULL OR f.postblind=0) WHERE fnum BETWEEN ? AND ? ";
 		// 한블럭당 페이지 갯수
@@ -189,8 +191,8 @@ public class BoardDAO {
 	//공개 글쓰기
 		public int fpwriteOk(FootprintDTO dto, String email) {
 			//발자국 글 등록 sql//찜마커가 지금 없으므로 뺴고 진행
-			String sql1 = "INSERT INTO footprint(footPrintNO, email,release, footprintText, likeCnt)"
-					+ " VALUES(footprint_seq.NEXTVAL,?,?,?,0)";
+			String sql1 = "INSERT INTO footprint(footPrintNO, email,release, footprintText, likeCnt, lat, lng)"
+					+ " VALUES(footprint_seq.NEXTVAL,?,?,?,0,?,?)";
 			//해시태그 등록 sql
 			
 			String sql2 ="INSERT INTO Post_Tag(footPrintNO, hashTag) VALUES(?,?)";
@@ -203,8 +205,8 @@ public class BoardDAO {
 				ps.setString(1, email);
 				ps.setString(2, String.valueOf(dto.getRelease()));// 공개가 1!!!
 				ps.setString(3, dto.getFootprintText());
-			    //ps.setInt(4, dto.getFootPrintNO());	
-			    //ps.setString(5, dto.getHashTag());
+			    ps.setBigDecimal(4, dto.getLat());	
+			    ps.setBigDecimal(5, dto.getLng());
 				ps.executeUpdate();
 				rs = ps.getGeneratedKeys();
 				if(rs.next()) {
@@ -232,7 +234,7 @@ public class BoardDAO {
 	//신고글 원본을 보기위한 함수생성 준성
 	public FootprintDTO fpdetail(String footPrintNO) {
 		FootprintDTO dto = null;
-		String sql = "SELECT f.footPrintNO , f.email, f.footprintText, f.reg_date, P.oriFileName, P.newFileName, f.release FROM footprint f LEFT OUTER JOIN PostPic P ON f.footPrintNO = P.footPrintNO WHERE f.footPrintNO = ?";
+		String sql = "SELECT f.footPrintNO , f.email, f.footprintText, f.reg_date, P.oriFileName, P.newFileName, f.release,  f.lat, f.lng FROM footprint f LEFT OUTER JOIN PostPic P ON f.footPrintNO = P.footPrintNO WHERE f.footPrintNO = ?";
 		try {
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, footPrintNO);
@@ -245,6 +247,8 @@ public class BoardDAO {
 				dto.setReg_date(rs.getDate("reg_date"));
 				dto.setOriFileName(rs.getString("oriFileName"));
 				dto.setNewFileName(rs.getString("newFileName"));
+				dto.setLat(rs.getBigDecimal("lat"));
+				dto.setLng(rs.getBigDecimal("lng"));
 				dto.setRelease(rs.getString("release").charAt(0));
 			}
 		} catch (SQLException e) {
@@ -253,24 +257,8 @@ public class BoardDAO {
 		return dto;
 	}
 
-	public int uplike(String footPrintNO) {
-		int success = 0;
-		String sql ="UPDATE footprint SET  likeCnt = likeCnt +1 WHERE footPrintNO =?";
-		
-		try {
-			ps = conn.prepareStatement(sql);
-			ps.setString(1, footPrintNO);
-			success =ps.executeUpdate();
-			System.out.println("좋아요 수 올리기 성공 : "+success);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-		
-		return success;
-		
-		
-	}
+	
+	
 	
 	
 	public int fpdel(String footPrintNO) {
@@ -414,8 +402,7 @@ public class BoardDAO {
 		int success =0;
 		String sql1 ="SELECT reportNo FROM report1 WHERE contentNO =? AND state =1";
 		String sql2 ="INSERT INTO report1(reportNo, contentNO, email, reportText, state)"
-				          +"VALUES(reportNo_seq.NEXTVAL,?,?,?,1)";
-
+				          +"VALUES(reportNo_seq.NEXTVAL,?,?,?,0)";
 		try {
 			ps = conn.prepareStatement(sql1);
 			ps.setString(1, contentNO);
@@ -442,8 +429,8 @@ public class BoardDAO {
 	public void like(String fpn, String email) {
 		String sql1 = "select likecnt from likes where contentno=? AND email=?";
 		String sql2 = "INSERT  INTO likes(contentno, likecnt, email) VALUES(?,1,?)";
-		String sql3 = "UPDATE footprint SET likecnt  = (select count(email) from likes where contentno=? AND likecnt =1) where footprintno = ?";
-		String sql4 = "UPDATE likes SET likecnt = ? WHERE contentno =?";
+		String sql3 = "UPDATE footprint SET likecnt  = (select count(email) from likes where contentno=? AND likecnt = 1) where footprintno = ?";
+		String sql4 = "UPDATE likes SET likecnt = ? WHERE contentno =? AND email=?";
 		try {
 			
 			ps = conn.prepareStatement(sql1);
@@ -480,7 +467,9 @@ public class BoardDAO {
 					ps = conn.prepareStatement(sql4);
 					ps.setInt(1, i);
 					ps.setString(2, fpn);
-					ps.execute();
+					ps.setString(3, email);
+					ps.executeUpdate();
+					System.out.println("sql4번 실행");
 				
 				ps = conn.prepareStatement(sql3);
 				ps.setString(1, fpn);

@@ -2,6 +2,7 @@ package com.mvc.board.service;
 
 import java.io.File;
 import java.io.IOException;
+import java.math.BigDecimal;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -33,6 +34,13 @@ public class UploadService {
 			MultipartRequest multi = new MultipartRequest(req, savePath, maxSize, "UTF-8", new DefaultFileRenamePolicy());
 			
 			dto = new FootprintDTO();
+			
+			BigDecimal lat = new BigDecimal(multi.getParameter("lat"));
+			BigDecimal lng = new BigDecimal(multi.getParameter("lng"));
+			System.out.println("위도 : "+lat+", 경도 : "+lng);
+			dto.setLat(lat);
+			dto.setLng(lng);
+			
 			
 			String footprintText = multi.getParameter("footprintText");
 			System.out.println("footprintText : "+footprintText);
