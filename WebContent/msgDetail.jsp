@@ -22,10 +22,10 @@
 
 <div class="col-6 center-block" style="margin:100 auto;">
 <h2>메세지 상세보기</h2>
-	<table class="table" style="table-layout:fixed;">
+	<table class="table" style="word-break:break-all; width: 800px;">
     <tr>
 				<th style="text-align: center">메세지 넘버</th>
-				<td>${msgDetail.msgNo}</td>
+				<td style="width:550px;">${msgDetail.msgNo}</td>
 			</tr>
 			<tr>
 				<th style="text-align: center">보낸 사람</th>

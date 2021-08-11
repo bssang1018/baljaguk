@@ -25,7 +25,7 @@
 
 <div class="col-6 center-block" style="margin:100 auto;">
 	<h3>내가 보낸 메세지</h3>
- <table class="table">
+ <table class="table" style="word-break:break-all; width: 800px;">
 		<tr>
 			<th class="col-1" style="text-align: center"></th>
 			<th class="col-2" style="text-align: center">받는 사람</th>
@@ -41,7 +41,7 @@
 			<tr>
 				<td style="text-align: center"><input type="checkbox" value='${msges.msgNo}'/></td>
 				<td style="text-align: center">${msges.receiver_email}</td>
-				<td style="text-align: center"><a style="display: inline-block;
+				<td style="text-align: center; width:550px;"><a style="display: inline-block;
   										width: 200px;
   										white-space: nowrap;
   										overflow: hidden;
