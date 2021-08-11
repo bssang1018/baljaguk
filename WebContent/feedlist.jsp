@@ -128,8 +128,8 @@ $(document).on('click','#plusBtn',function(){
                 content +=       '<div class="card-body">'
                 content +=          '<p class="card-title">작성자 : '+item.email+' </p>'
                 content +=          '<hr/>'
-                	content +=   '<a style=" display: inline-block; max-width:100% ; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" href="fpdetail?footPrintNO='+item.footPrintText+'"></a>'
-             
+                	content +=   '<a style=" display: inline-block; max-width:100% ; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" href="fpdetail?footPrintNO='+item.footPrintNO+'">${footprint.footPrintText}s</a>'
+                	content +=  '<hr/>'
                 content +=       '</div>'
                 content +='<div class="btn-group">'
                 
