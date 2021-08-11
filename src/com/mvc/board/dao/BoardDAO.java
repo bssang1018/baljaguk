@@ -402,8 +402,7 @@ public class BoardDAO {
 		int success =0;
 		String sql1 ="SELECT reportNo FROM report1 WHERE contentNO =? AND state =1";
 		String sql2 ="INSERT INTO report1(reportNo, contentNO, email, reportText, state)"
-				          +"VALUES(reportNo_seq.NEXTVAL,?,?,?,1)";
-
+				          +"VALUES(reportNo_seq.NEXTVAL,?,?,?,0)";
 		try {
 			ps = conn.prepareStatement(sql1);
 			ps.setString(1, contentNO);

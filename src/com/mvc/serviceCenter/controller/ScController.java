@@ -76,6 +76,7 @@ public class ScController extends HttpServlet {
 				String footPrintNO = service.contentload(reportno);
 				BoardService service1 = new BoardService(req,resp);
 				req.setAttribute("footprint", service1.fpdetail(footPrintNO));
+				req.setAttribute("commentdelete", "1");
 				dis = req.getRequestDispatcher("fpdetail.jsp");
 				dis.forward(req, resp);
 			} else if (stx.equals("rmessload")) {

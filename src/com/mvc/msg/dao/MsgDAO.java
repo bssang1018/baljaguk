@@ -111,7 +111,8 @@ public class MsgDAO {
 	// 신고답변 성공시 답변여부 올리기 함수
 	public int stateup(String reportno) {
 		int success = 0;
-		String sql = "UPDATE report1 set state = 0 WHERE reportno = ?";
+		String sql = "UPDATE report1 set state = 1 WHERE reportno = ?";
+		System.out.println("신고번호: "+reportno);
 		try {
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, reportno);

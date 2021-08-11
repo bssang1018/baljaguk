@@ -55,7 +55,6 @@ public class CommentController extends HttpServlet {
 		case "/commentWrite" :
 			System.out.println("댓글 작성 요청...");
 			footPrintNO = req.getParameter("footPrintNO");
-			System.out.println(footPrintNO);
 			String commentText = req.getParameter("commentText");
 			service.commentWrite(loginemail, footPrintNO, commentText);
 			req.setAttribute("footPrintNO", footPrintNO);
@@ -69,7 +68,7 @@ public class CommentController extends HttpServlet {
 			System.out.println(footPrintNO);
 			req.setAttribute("map", service.commentList(footPrintNO));
 			req.setAttribute("footPrintNO", footPrintNO);
-			dis = req.getRequestDispatcher("fpdetail.jsp");
+			dis = req.getRequestDispatcher("/fpdetail.jsp");
 			dis.forward(req, resp);
 			break;
 				

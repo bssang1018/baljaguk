@@ -90,42 +90,45 @@
    </table>
    
    
-   
+ <c:if test="${commentdelete ne '1'}">
    <nav>
 			<ul class="pagination justify-content-center">
 				<c:if test="${map.startPage ne 1}">
 				<li class="page-item">
-				<a class="page-link" href="./commentList?page=${map.startPage-1}&footPrintNO=${footPrintNO}" aria-label="Previous"> <span aria-hidden="true">&laquo;</span></a>
+				<a class="page-link" href="./fpdetail?page=${map.startPage-1}&footPrintNO=${footPrintNO}" aria-label="Previous"> <span aria-hidden="true">&laquo;</span></a>
 				</li>
 				</c:if>
 				<c:forEach var="i" begin="${map.startPage}" end="${map.endPage}">
 				<c:if test="${i ne map.currPage}">
-				<li class="page-item"><a class="page-link" href="./commentList?page=${i}&footPrintNO=${footPrintNO}">${i}</a></li>
+				<li class="page-item"><a class="page-link" href="./fpdetail?page=${i}&footPrintNO=${footPrintNO}">${i}</a></li>
 				</c:if>
 				<c:if test="${i eq map.currPage}">
-				<li class="page-item active"><a class="page-link" href="./commentList?page=${i}&footPrintNO=${footPrintNO}">${i}</a></li>
+				<li class="page-item active"><a class="page-link" href="./fpdetail?page=${i}&footPrintNO=${footPrintNO}">${i}</a></li>
 				</c:if>
 				</c:forEach>
 				<c:if test="${map.totalPage ne map.endPage}">
-				<li class="page-item"><a class="page-link" href="./commentList?page=${map.endPage+1}&footPrintNO=${footPrintNO}"
+				<li class="page-item"><a class="page-link" href="./fpdetail?page=${map.endPage+1}&footPrintNO=${footPrintNO}"
 					aria-label="Next"> <span aria-hidden="true">&raquo;</span>
 				</a></li>
 				</c:if>
 			</ul>
 			</nav>
-   
+
    <form action="commentWriteForm" method="post">
    <div class="text-center">
+<<<<<<< HEAD
    			<span>  댓글입력  </span><input type="text" name="commentText"required/><button>등록</button>
 			<input type="hidden" name="footPrintNO" value="${footPrintNO}"/>   				
+=======
+   			<span>  댓글입력  </span><input type="text" name="commentText"/><button>등록</button>
+			<input type="hidden" name="footPrintNO" value="${footPrintNO}"/>
+>>>>>>> 7c96d47483f6894af4a9b02de036a37f8269026b
    </div>
    </form>
- 
+</c:if>
 </body>
 <script>
 	var footPrintNO = "${comment.footPrintNO}";
 	var loginemail = "${session.getAttribute('loginemail')}"
-
-	
 </script>
 </html>

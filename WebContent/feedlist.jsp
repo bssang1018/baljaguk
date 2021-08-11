@@ -120,6 +120,23 @@ $(document).on('click','#plusBtn',function(){
              console.log(data);      
               content='';
               $.each(data.list,function(i,item){
+             	content += '<div class="col text-center " id="frame" >'
+           		content += '<p style="display : none;">'+item.footPrintNO+'</p>'
+            	content += '<div id="size">'
+           		content += '<img src="/photo/'+item.newFileName+'" />'
+                content += '</div>'
+                content += '<div class="card-body">'
+                content += '<p class="card-title">작성자 : '+item.email+' </p>'
+                content += '<hr/>'
+                content += '<a style=" display: inline-block; max-width:100% ; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" href="fpdetail?footPrintNO='+item.footPrintText+'"></a>'
+                content += '</div>'
+                content += '<div class="btn-group">'
+                content += '<button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">더보기</button>'
+                content += '<button type="button" class="btn btn-primary position-relative" onclick="location.href=\'./like?footPrintNO='+item.footPrintNO+'" >'
+                content += '♥'
+                content += '<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">0</span>'
+                content += '</button>'
+                content += '<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">'
              content +=    '<div class="col text-center " id="frame" >'
              content +=    '<p style="display : none;">'+item.footPrintNO+'</p>'
              content +=       '<div id="size">'
@@ -143,12 +160,13 @@ $(document).on('click','#plusBtn',function(){
                 content +='</button>'
                 content +=  '<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">'
                 content += '<li><a class="dropdown-item" href="./fdReportWrite?footPrintNO='+item.footPrintNO+'">피드 신고</a></li>'
-                content +=    '</ul>'
+                content += '</ul>'
                 content += '</div>'
                 	content +=    '</div>'   
                 
                 
                 content +=    '</div>'      
+                content += '</div>'      
               })
               $('#card').append(content);
           },
