@@ -244,6 +244,19 @@ img {
 		localStorage.setItem('lng', latlng.getLng());
 		window.location = './fpwrite.jsp';
 	}
+	
+	makers = []
+	// 지도에 마커를 표시하는 함수입니다
+	function displayMarker(place) {
+
+		// 마커를 생성하고 지도에 표시합니다
+		var marker = new kakao.maps.Marker({
+			map : map,
+			position : new kakao.maps.LatLng(place.y, place.x)
+		});
+
+		markers.push(marker);
+	}
 </script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <!-- 	<script
