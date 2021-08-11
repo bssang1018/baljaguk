@@ -27,8 +27,8 @@
       <td>${footprint.footPrintNO}</td>
    </tr>
    <tr>
-      <th>마커 번호</th>
-      <td>${footprint.markerNO}</td>
+      <th>좌표</th>
+      <td>위도 : ${footprint.lat}, 경도 : ${footprint.lat}</td>
    </tr>
    <tr>
       <th>작성자</th>

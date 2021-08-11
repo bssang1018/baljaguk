@@ -93,7 +93,7 @@ img {
 			</div>
 			<div class="col-4 text-center">
 				<input type="button" class="btn btn-primary"
-					onclick="location.href='fpwrite.jsp'" value="발자국 남기기" />
+					onclick="sendlatLng()" value="발자국 남기기" />
 			</div>
    </form>
 			 <div class="text-center">
@@ -175,24 +175,59 @@ img {
 	});
 	// 지도에 마커를 표시합니다
 	marker.setMap(map);
-
+	// 클릭한 위도, 경도 정보를 저장할 변수 
+	var latlng;
 	// 지도에 클릭 이벤트를 등록합니다
 	// 지도를 클릭하면 마지막 파라미터로 넘어온 함수를 호출합니다
 	kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
 
 		// 클릭한 위도, 경도 정보를 가져옵니다 
-		var latlng = mouseEvent.latLng;
+		latlng = mouseEvent.latLng;
 
 		// 마커 위치를 클릭한 위치로 옮깁니다
 		marker.setPosition(latlng);
-
-		var message = '클릭한 위치의 위도는 ' + latlng.getLat() + ' 이고, ';
-		message += '경도는 ' + latlng.getLng() + ' 입니다';
-
-		var resultDiv = document.getElementById('clickLatlng');
-		resultDiv.innerHTML = message;
-
+		
 	});
+	
+drawMarker();
+	
+	function drawMarker() {
+		console.log("마커 지도에 그리기");
+		let items;
+
+		//발자국 가져옴
+		$.ajax({
+			url : 'fplist',
+			dataType : "JSON",
+			type : "GET",
+			//async : false,
+			success : function(data) {
+				//console.log('json');
+				//console.log(JSON.stringify(data));
+				//console.log(data);
+				console.log(data.latLng);
+				if (!data.loginYN) {
+					alert('로그인이 필요한 서비스 입니다.');
+				} else {
+						//console.log(data.);
+						//console.log(data.lng);						
+					if (data.lat != null && data.lng != null) {
+						items = data;
+					}
+				}
+			},
+			error : function(e) {
+				console.log(e);
+			}
+		});
+		return items;
+	}
+	
+	function sendlatLng() {//좌표 보냄
+		localStorage.setItem('lat', latlng.getLat());
+		localStorage.setItem('lng', latlng.getLng());
+		window.location = './fpwrite.jsp';
+	}
 </script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <!-- 	<script
