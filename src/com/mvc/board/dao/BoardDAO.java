@@ -45,9 +45,9 @@ public class BoardDAO {
 	}
 	
 	public ArrayList<FootprintDTO> fplist(String email, int page) {
-		String sql="SELECT fnum, footPrintNO, markerNO, email, reg_date, footprintText , likeCnt, oriFileName, newFileName" + 
+		String sql="SELECT fnum, footPrintNO, email, reg_date, footprintText , likeCnt, oriFileName, newFileName" + 
 				" FROM (SELECT ROW_NUMBER() OVER (ORDER BY f.footprintNO DESC) " + 
-				" AS fnum, f.footPrintNO, f.markerNO, f.email, f.reg_date, f.footprintText, f.likeCnt, f.postblind ,P.oriFileName, P.newFileName" + 
+				" AS fnum, f.footPrintNO, f.email, f.reg_date, f.footprintText, f.likeCnt, f.postblind ,P.oriFileName, P.newFileName" + 
 				" FROM footprint f LEFT OUTER JOIN PostPic P ON f.footPrintNO =P.footPrintNO" + 
 				" WHERE f.email= ? AND postblind IS NULL OR postblind=0)WHERE fnum BETWEEN 1 AND ?";
 	    
@@ -78,7 +78,6 @@ public class BoardDAO {
 				dto = new FootprintDTO();
 				dto.setBoardNO(rs.getInt("fnum"));
 				dto.setFootPrintNO(rs.getInt("footPrintNO"));
-				dto.setMarkerNO(rs.getInt("markerNO"));
 				dto.setEmail(rs.getString("email"));
 				dto.setReg_date(rs.getDate("reg_date"));
 				dto.setFootprintText(rs.getString("footprintText"));
@@ -94,9 +93,9 @@ public class BoardDAO {
 	}
 	//피드 리스트
 	public ArrayList<FootprintDTO> feedlist(int page) {
-		String sql="SELECT fnum, footPrintNO, markerNO, email, reg_date, footprintText, likeCnt ,oriFileName, newFileName " + 
+		String sql="SELECT fnum, footPrintNO,  email, reg_date, footprintText, likeCnt ,oriFileName, newFileName " + 
 				 " FROM (SELECT ROW_NUMBER() OVER (ORDER BY f.footprintNO DESC)" + 
-				 " AS fnum, f.footPrintNO, f.markerNO, f.email, f.reg_date, f.footprintText, f.likeCnt , f.postblind,  P.oriFileName, P.newFileName " + 
+				 " AS fnum, f.footPrintNO,  f.email, f.reg_date, f.footprintText, f.likeCnt , f.postblind,  P.oriFileName, P.newFileName " + 
 				 " FROM footprint f LEFT OUTER JOIN PostPic P ON f.footPrintNO = P.footPrintNO"  + 
 				 " WHERE f.release = 1 AND f.postblind IS NULL OR f.postblind=0) WHERE fnum BETWEEN 1 AND ?";
 	   
@@ -125,7 +124,6 @@ public class BoardDAO {
 				dto = new FootprintDTO();
 				dto.setBoardNO(rs.getInt("fnum"));
 				dto.setFootPrintNO(rs.getInt("footPrintNO"));
-				dto.setMarkerNO(rs.getInt("markerNO"));
 				dto.setEmail(rs.getString("email"));
 				dto.setReg_date(rs.getDate("reg_date"));
 				dto.setFootprintText(rs.getString("footprintText"));
@@ -144,9 +142,9 @@ public class BoardDAO {
 	
 	//메인 피드 리스트
 	public ArrayList<FootprintDTO> Mfeedlist(int page) {
-		String sql ="SELECT fnum, footPrintNO, markerNO, email, reg_date, footprintText, oriFileName, newFileName "
+		String sql ="SELECT fnum, footPrintNO,  email, reg_date, footprintText, oriFileName, newFileName "
 				+ "FROM (SELECT ROW_NUMBER() OVER (ORDER BY f.footprintNO DESC) "
-				+ "AS fnum, f.footPrintNO, f.markerNO, f.email, f.reg_date, f.footprintText, f.postblind, P.oriFileName, P.newFileName "
+				+ "AS fnum, f.footPrintNO,  f.email, f.reg_date, f.footprintText, f.postblind, P.oriFileName, P.newFileName "
 				+ "FROM footprint f LEFT OUTER JOIN PostPic P ON f.footPrintNO = P.footPrintNO "
 				+ "WHERE f.release = 1 AND f.postblind IS NULL OR f.postblind=0) WHERE fnum BETWEEN ? AND ? ";
 		// 한블럭당 페이지 갯수
@@ -174,7 +172,6 @@ public class BoardDAO {
 					dto = new FootprintDTO();
 					dto.setBoardNO(rs.getInt("fnum"));
 					dto.setFootPrintNO(rs.getInt("footPrintNO"));
-					dto.setMarkerNO(rs.getInt("markerNO"));
 					dto.setEmail(rs.getString("email"));
 					dto.setReg_date(rs.getDate("reg_date"));
 					dto.setFootprintText(rs.getString("footprintText"));
@@ -235,7 +232,7 @@ public class BoardDAO {
 	//신고글 원본을 보기위한 함수생성 준성
 	public FootprintDTO fpdetail(String footPrintNO) {
 		FootprintDTO dto = null;
-		String sql = "SELECT f.footPrintNO ,f.markerNO, f.email, f.footprintText, f.reg_date, P.oriFileName, P.newFileName, f.release FROM footprint f LEFT OUTER JOIN PostPic P ON f.footPrintNO = P.footPrintNO WHERE f.footPrintNO = ?";
+		String sql = "SELECT f.footPrintNO , f.email, f.footprintText, f.reg_date, P.oriFileName, P.newFileName, f.release FROM footprint f LEFT OUTER JOIN PostPic P ON f.footPrintNO = P.footPrintNO WHERE f.footPrintNO = ?";
 		try {
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, footPrintNO);
@@ -243,7 +240,6 @@ public class BoardDAO {
 			if(rs.next()) {
 				dto = new FootprintDTO();
 				dto.setFootPrintNO(rs.getInt("footPrintNO"));
-				dto.setMarkerNO(rs.getInt("markerNO"));
 				dto.setEmail(rs.getString("email"));
 				dto.setFootprintText(rs.getString("footprintText"));
 				dto.setReg_date(rs.getDate("reg_date"));

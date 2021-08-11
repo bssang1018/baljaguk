@@ -36,7 +36,7 @@
 			</tr>
 			<tr>
 				<th>내용</th>
-				<td><textarea name="footprintText">${footprint.footprintText}</textarea></td>
+				<td><textarea name="footprintText" style="height: 300px; width: 300px;"required>${footprint.footprintText}</textarea></td>
 			</tr>
 			<tr>
 				<th>사진</th>

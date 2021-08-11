@@ -88,7 +88,7 @@ height:auto;
  <div class="col-4"></div>
  <div class="col-4 text-center mb-3">
  <div class="input-group">
-   <input class="form-control me-1" type="search" placeholder="검색어를 입력해주세요" aria-label="Search" name="hashtag"/>
+   <input class="form-control me-1" type="search" placeholder="검색어를 입력해주세요" aria-label="Search" name="hashtag"required/>
          <button class="btn btn-outline-secondary" type="submit">search</button>
  </div>
    </div>

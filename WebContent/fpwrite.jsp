@@ -38,7 +38,7 @@
      -->
    <tr>
       <th>발자국 내용</th>
-      <td><textarea name="footprintText"></textarea></td>
+      <td><textarea name="footprintText" style="height: 300px; width: 500px;"required></textarea></td>
    </tr>
    <tr>
        <th>사진</th>
