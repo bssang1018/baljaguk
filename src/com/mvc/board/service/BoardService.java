@@ -96,7 +96,6 @@ public class BoardService {
 		System.out.println("footPrintNO : "+footPrintNO);
         BoardDAO dao = new BoardDAO();
 		dto = dao.fpdetail(footPrintNO);
-		//System.out.println("dto : "+dto);
 		dao.resClose();
 		return dto;
 	}

@@ -55,12 +55,6 @@ public class CommentController extends HttpServlet {
 		case "/commentWrite" :
 			System.out.println("댓글 작성 요청...");
 			footPrintNO = req.getParameter("footPrintNO");
-			if(footPrintNO.equals("")) {
-				System.out.println("없다");
-				footPrintNO = req.getParameter("footprintreport");
-				System.out.println("footprintno"+footPrintNO);
-			}
-			System.out.println(footPrintNO);
 			String commentText = req.getParameter("commentText");
 			service.commentWrite(loginemail, footPrintNO, commentText);
 			req.setAttribute("footPrintNO", footPrintNO);

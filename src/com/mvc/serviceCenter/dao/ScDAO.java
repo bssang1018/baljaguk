@@ -725,9 +725,7 @@ public class ScDAO {
 			ps.setInt(1, reportno);
 			rs = ps.executeQuery();
 			if (rs.next()) {
-				System.out.println("여기옴?");
 				footPrintNO = rs.getString("footprintno");
-				System.out.println("footprintno: " + rs.getInt("footprintno"));
 			}
 
 		} catch (SQLException e) {
