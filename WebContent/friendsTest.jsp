@@ -88,7 +88,7 @@
  			<c:forEach items="${recomendList}" var="friend">
  				<tr>
  					<td style="text-align: center">${friend.email}</td>
- 					<td style="text-align: center"><input type="button" onclick="location.href='./friendsAdd?friends_email=${friend.email}'" value="친구추가"/></td>
+ 					<td style="text-align: center"><input type="button" onclick="location.href='./friendsAddOverlay?friends_email=${friend.email}'" value="친구추가"/></td>
  				</tr>
  			</c:forEach>
  		</table>

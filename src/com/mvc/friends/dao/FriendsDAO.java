@@ -34,18 +34,30 @@ public class FriendsDAO {
 	public boolean friendsAddOverlay(String loginemail, String friends_email) {
 		boolean overlay = false;
 		String sql = "SELECT email,friends_email,block FROM friends "+
-							"(WHERE email = ? AND friends_email = ?) AND relation = 1";
+							"WHERE (email = ? AND friends_email = ?) AND relation = 1";
 		try {
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, loginemail);
 			ps.setString(2, friends_email);
 			rs = ps.executeQuery();
-			if(rs.next()) {
+			if(rs.next()) { //이미 친구등록이 돼서 나온결과 있다면...
 				System.out.println("이미 친구등록이 된 이메일!");
 				overlay = true;
-			} else {
+			} else { //조회결과가 없다면..
 				System.out.println("친구등록 가능한 이메일!");
 				overlay = false;
+				
+				sql = "INSERT INTO friends(email,friends_email,block, relation) "
+						+ "VALUES(?,?,0,1)";
+				
+				try {
+					ps = conn.prepareStatement(sql);
+					ps.setString(1, loginemail);
+					ps.setString(2, friends_email);
+					ps.executeUpdate();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -55,8 +67,7 @@ public class FriendsDAO {
 	
 	public int friendsAdd(String loginemail, String friends_email) {
 		int success = 0;
-		String sql = "INSERT INTO friends(email,friends_email,block, relation) "
-							+ "VALUES(?,?,0,1)";
+		String sql = "UPDATE friends SET relation = 1, block = 0 WHERE (email = ? AND friends_email = ?)";
 		//block 컬럼에 0 넣는건, 차단하지 않았다는 뜻임! //1이 차단! 생성할땐 무조건 안차단!
 		try {
 			ps = conn.prepareStatement(sql);
