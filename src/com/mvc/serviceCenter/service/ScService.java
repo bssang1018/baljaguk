@@ -115,12 +115,6 @@ public class ScService {
 		return footPrintNO;
 	}
 
-	public int commentload(int reportno) {
-		ScDAO dao = new ScDAO();
-		dao.commentload(reportno);
-		return 0;
-	}
-
 	public int messageload(int reportno) {
 		int msgNo = 0;
 		ScDAO dao = new ScDAO();
@@ -246,15 +240,22 @@ public class ScService {
 		
 	}
 
-	public int blackregister(String email) {
+	public int blackregister(String loginemail, String email, String reason) {
 		int success = 0;
+		int success1 = 0;
 		ScDAO dao = new ScDAO();
-		String reason = req.getParameter("reason");
-		System.out.println("이메일: "+email+"사유: "+reason);
-		success = dao.blackregister(email,reason);
+		System.out.println("관리자 이메일: "+loginemail+ "이메일: "+email+"사유: "+reason);
+		success = dao.blackregister(loginemail, email, reason);
+		if(success > 0 ) {
+			System.out.println("admin에 등록완료");
+			success1 = dao.blackregister1(email, reason);
+			if(success1>0) {
+				System.out.println("member에 업데이트 완료");
+			}
+		}
 		dao.resClose();
-		System.out.println("success: "+success);
-		return success;
+		
+		return success1;
 	}
 
 	public int stopregister(String loginemail, String email, String reason) {
@@ -269,11 +270,17 @@ public class ScService {
 
 	public int stopremove(String email) {
 		int success = 0;
+		int success1 = 0;
 		ScDAO dao = new ScDAO();
 		success = dao.stopremove(email);
+		if(success>0) {
+			System.out.println("member 테이블 0으로 변경");
+			success1 = dao.stopremove1(email);
+			System.out.println("admin 테이블 삭제 완료");
+		}
 		dao.resClose();
 		
-		return success;
+		return success1;
 		
 	}
 
@@ -341,6 +348,39 @@ public class ScService {
 		resp.setContentType("text/html; charset=UTF-8");
 		resp.getWriter().println(new Gson().toJson(map));
 		
+	}
+	
+	//정지회원 DB에 1 추가
+	public int stopregister1(String email) {
+		int success = 0;
+		ScDAO dao = new ScDAO();
+		String reason = req.getParameter("reason");
+		System.out.println("이메일: "+email+"사유: "+reason);
+		success = dao.stopregister1(email,reason);
+		dao.resClose();
+		System.out.println("success: "+success);
+		return success;
+		
+	}
+
+	public int blackregister1(String email) {
+		int success = 0;
+		ScDAO dao = new ScDAO();
+		String reason = req.getParameter("reason");
+		System.out.println("이메일: "+email+"사유: "+reason);
+		success = dao.blackregister1(email,reason);
+		dao.resClose();
+		System.out.println("success: "+success);
+		return success;
+	}
+
+	public ScServiceDTO blackReason(String email) {
+		System.out.println("블랙사유를 볼 이메일은?: " + email);
+		ScDAO dao = new ScDAO();
+		ScServiceDTO dto = null; 
+		dto = dao.blackReason(email);
+		dao.resClose();
+		return dto;
 	}
 
 	

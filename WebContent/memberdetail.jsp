@@ -38,8 +38,8 @@
 			<td>${member.phone}</td>
 		</tr>
 		<tr>
-			<th>블랙리스트</th>
-			<td>${member.blackList}</td>
+			<th>블랙리스트여부</th>
+			<td>${member.blackList}<input type="button" onclick="location.href='./blackReason?email=${member.email}'" value="블랙리스트사유보기"/></td>
 		</tr>
 		<tr>
 			<th>회원정지여부</th>
@@ -51,7 +51,7 @@
 		</tr>
 		<tr>
 			<td colspan="2">
-			<button onclick="location.href='../'">뒤로가기</button>
+			<button onclick="history.back()">뒤로가기</button>
 			</td>
 		</tr>
 	</table>

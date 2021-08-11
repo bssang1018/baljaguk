@@ -17,9 +17,9 @@ import com.mvc.serviceCenter.dto.ScServiceDTO;
 import com.mvc.serviceCenter.service.ScService;
 
 @WebServlet({ "/rcontload", "/rmessload", "/reportsearch", "/detail", "/contentload", "/messageload", "/memberlist",
-		"/membersearch", "/memberdetail", "/blacklist", "/blacksearch", "/blackwriteform", "/blackregister",
-		"/blackremove", "/stoplist", "/stopmembersearch", "/stopwriteform", "/stopregister", "/stopremove",
-		"/withdrawlist","/withdrawsearch", "/stopReason" })
+		"/membersearch", "/memberdetail", "/blacklist", "/blacksearch", "/blackwriteform", "/blackregister","/blackReason",
+		"/blackremove", "/stoplist", "/stopmembersearch", "/stopwriteform", "/stopregister", "/stopremove", "/stopReason",
+		"/withdrawlist","/withdrawsearch" })
 public class ScController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
@@ -42,7 +42,7 @@ public class ScController extends HttpServlet {
 
 		RequestDispatcher dis = null;
 		ScService service = new ScService(req, resp);
-
+		ScServiceDTO dto = null;
 		String page = req.getParameter("page");
 		if (page == null) {
 			page = "1";
@@ -114,12 +114,18 @@ public class ScController extends HttpServlet {
 		// 회원블랙리스트 함수
 		case "/blackregister":
 			System.out.println("블랙리스트 등록");
+			String loginemail = (String) req.getSession().getAttribute("loginemail");
 			email = req.getParameter("email");
-			if (service.blackregister(email) > 0) {
-				System.out.println("수정 성공");
+			String reason = req.getParameter("reason");
+			if (service.blackregister(loginemail, email, reason) > 0) {
+				service.blackregister1(email);
+				System.out.println("블랙리스트등록 성공");
 				dis = req.getRequestDispatcher("memberlist.jsp");
 				dis.forward(req, resp);
-			};
+			} else {
+				System.out.println("블랙리스트등록 실패");
+				resp.sendRedirect("memberlist.jsp");
+			}
 			break;
 		// 회원블랙리스트 해제 함수
 		case "/blackremove":
@@ -131,7 +137,14 @@ public class ScController extends HttpServlet {
 				dis.forward(req, resp);
 			};
 			break;
-
+		case "/blackReason":
+			System.out.println("블랙사유 보기요청...");
+			email = req.getParameter("email");
+			dto = service.blackReason(email);
+			req.setAttribute("dto", dto);
+			dis = req.getRequestDispatcher("blackReason.jsp");
+			dis.forward(req, resp);
+			break;
 		// 회원리스트 출력 및 검색 함수
 		// 회원리스트 불러오기
 		case "/memberlist":
@@ -172,16 +185,16 @@ public class ScController extends HttpServlet {
 				System.out.println("정지 해제 성공");
 				dis = req.getRequestDispatcher("stoplist.jsp");
 				dis.forward(req, resp);
-			}
-			;
+			};
 			break;
 			// 회원정지 함수
 		case "/stopregister":
 			System.out.println("정지 등록");
-			String loginemail = (String) req.getSession().getAttribute("loginemail");
+			loginemail = (String) req.getSession().getAttribute("loginemail");
 			email = req.getParameter("email");
-			String reason = req.getParameter("reason");
+			reason = req.getParameter("reason");
 			if (service.stopregister(loginemail, email, reason) > 0) {
+				service.stopregister1(email);
 				System.out.println("정지등록 성공");
 				dis = req.getRequestDispatcher("memberlist.jsp");
 				dis.forward(req, resp);
@@ -205,7 +218,7 @@ public class ScController extends HttpServlet {
 		case "/stopReason":
 			System.out.println("정지사유 보기요청...");
 			email = req.getParameter("email");
-			ScServiceDTO dto = service.stopReason(email);
+			dto = service.stopReason(email);
 			req.setAttribute("dto", dto);
 			dis = req.getRequestDispatcher("stopReason.jsp");
 			dis.forward(req, resp);
