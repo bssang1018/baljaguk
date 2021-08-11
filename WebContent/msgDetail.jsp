@@ -22,7 +22,7 @@
 
 <div class="col-6 center-block" style="margin:100 auto;">
 <h2>메세지 상세보기</h2>
-	<table class="table">
+	<table class="table" style="table-layout:fixed;">
     <tr>
 				<th style="text-align: center">메세지 넘버</th>
 				<td>${msgDetail.msgNo}</td>
