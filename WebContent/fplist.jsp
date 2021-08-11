@@ -72,7 +72,7 @@ img {
 					<div class="card-footer text-center">
 						<td><a
 							style="display: inline-block; max-width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"
-							href="fpdetail?footPrintNO=${footprint.footPrintNO}">${footprint.footprintText}</a></td>
+							href="fpdetail?footPrintNO=${footprint.footPrintNO}">자세히 보기</a></td>
 					</div>
 				</div>
 			</c:forEach>
@@ -144,10 +144,10 @@ img {
 																	+ item.email
 																	+ ' </p>'
 															content += '<hr/>'
-																content +=          '<p class="card-text" id="text">'+item.footprintText+'</p>'
+																content +=   '<a style=" display: inline-block; max-width:100% ; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" href="fpdetail?footPrintNO='+item.footPrintNO+'">자세히 보기</a>'
 															content += '</div>'
 															content += '<div class="card-footer text-center">'
-																   '<a class="btn btn-primary" href="fpdetail?footPrintNO='+item.footprintText+'">자세히 보기</p>'
+																   '<a class="btn btn-primary" href="fpdetail?footPrintNO='+item.footPrintNO+'">자세히 보기</p>'
 																	
 															content += '</div>'
 															content += '</div>'
