@@ -63,7 +63,7 @@ body, head {
 		<table class="table table-bordered text-center align-middle" >
 			<tr>
 				<td>EMAIL</td>
-				<td class="input-group mb-1"><input type="email" name="email"   class="form-control" minlength="1" required/>
+				<td class="input-group mb-1"><input type="email" name="email"  id="email" class="form-control" minlength="1" required/>
 				<input class="btn btn-outline-secondary" type="button"  name="overlay" id ="overlay" value="중복확인"/></td>
 			</tr>
 			<tr>
@@ -114,7 +114,7 @@ body, head {
 			</tr>
 			<tr>
 				<td colspan="2">
-				<button>회원가입</button>
+				<button OnClick = "javascript:GoToEnroll()">회원가입</button>
 				</td>
 			</tr>
 		</table>
@@ -153,7 +153,6 @@ if(success == "false") {
 					}else if(data.overlay){
 						alert("이미 사용 중 입니다.");
 						 $("input[name='email']").val("");//입력한 아이디를 공백으로 만듬
-					
 				}else{
 						alert("사용 가능합니다.")
 					}
@@ -165,6 +164,36 @@ if(success == "false") {
 		});
 	});
 	
+	// 이메일이 잘못되었는지 확인하는 함수 
+
+	function CheckEmail(str)
+	{                                                 
+	     var reg_email = /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
+	     if(!reg_email.test(str)) {                            
+	          return false;         
+	     }                            
+	     else {                       
+	          return true;         
+	     }                            
+	}                                
+
+	function GoToEnroll()                
+	{                                          
+/* 		var email       = document.getElementById("email"); */
+		if (!email.value) {             
+			alert("이메일을 입력하세요!");
+			obEmail.focus();	
+			return;
+		}               
+		else   {          
+			if(!CheckEmail(email.value))	{
+				alert("이메일 형식이 잘못되었습니다");
+				obEmail.focus();
+				return;
+			}                
+		}                      
+	}                           
+
 	function check_pw() {
 	      var p1 = document.getElementById('pw1').value;
 	      var p2 = document.getElementById('pw2').value;
@@ -188,5 +217,6 @@ if(success == "false") {
 	    		  }
 	    }
 	      }
+	
 </script>
 </html>
