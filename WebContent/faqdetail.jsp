@@ -17,26 +17,26 @@
 	<h3>${noticefaq.email}</h3> --%>
 	
 	<h2 style="text-align: center">faq 상세보기</h2>	
-	<table class="table table-striped" style="width: 500px; margin-left: auto; margin-right: auto;">
+	<table class="table table-striped" style="width: 600px; margin-left: auto; margin-right: auto; word-break:break-all;">
 		<tr>
 			<th style="text-align: center">글번호</th>
-			<td>${noticefaq.idx}</td>
+			<td width="400px">${noticefaq.idx}</td>
 		</tr>
 		<tr>
 			<th style="text-align: center">제목</th>
-			<td>${noticefaq.title}</td>
+			<td width="400px">${noticefaq.title}</td>
 		</tr>
 		<tr>
 			<th style="text-align: center">작성자</th>
-			<td>${noticefaq.email}</td>
+			<td width="400px">${noticefaq.email}</td>
 		</tr>
 		<tr>
 			<th style="text-align: center">작성일</th>
-			<td>${noticefaq.reg_date}</td>
+			<td width="400px">${noticefaq.reg_date}</td>
 		</tr>
 		<tr>
 			<th style="text-align: center">내용</th>
-			<td>${noticefaq.content}</td>
+			<td width="400px">${noticefaq.content}</td>
 		</tr>			
 	</table>
 				<div class="text-center" >
