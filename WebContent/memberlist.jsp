@@ -41,7 +41,7 @@
 			<thead>
 				<tr>
 					<td><input class='search' type="text" name='email'/></td>
-					<td><button class="btn">검색</button></td>
+					<td><button class="btn" style="">검색</button></td>
 					<td><input type='button' onclick='location.href="/tree/index1.jsp"' value="목록으로" class="btn btn-outline-primary"/></td>
 				</tr>
 			</thead>
