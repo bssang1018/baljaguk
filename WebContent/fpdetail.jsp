@@ -116,7 +116,7 @@
    
    <form action="commentWriteForm" method="post">
    <div class="text-center">
-   			<span>  댓글입력  </span><input type="text" name="commentText"/><button>등록</button>
+   			<span>  댓글입력  </span><input type="text" name="commentText"required/><button>등록</button>
 			<input type="hidden" name="footPrintNO" value="${footPrintNO}"/>   				
    </div>
    </form>
