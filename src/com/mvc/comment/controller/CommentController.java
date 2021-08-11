@@ -69,7 +69,7 @@ public class CommentController extends HttpServlet {
 			System.out.println(footPrintNO);
 			req.setAttribute("map", service.commentList(footPrintNO));
 			req.setAttribute("footPrintNO", footPrintNO);
-			dis = req.getRequestDispatcher("fpdetail.jsp");
+			dis = req.getRequestDispatcher("/fpdetail.jsp");
 			dis.forward(req, resp);
 			break;
 				

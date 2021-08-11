@@ -95,19 +95,19 @@
 			<ul class="pagination justify-content-center">
 				<c:if test="${map.startPage ne 1}">
 				<li class="page-item">
-				<a class="page-link" href="./commentList?page=${map.startPage-1}&footPrintNO=${footPrintNO}" aria-label="Previous"> <span aria-hidden="true">&laquo;</span></a>
+				<a class="page-link" href="./fpdetail?page=${map.startPage-1}&footPrintNO=${footPrintNO}" aria-label="Previous"> <span aria-hidden="true">&laquo;</span></a>
 				</li>
 				</c:if>
 				<c:forEach var="i" begin="${map.startPage}" end="${map.endPage}">
 				<c:if test="${i ne map.currPage}">
-				<li class="page-item"><a class="page-link" href="./commentList?page=${i}&footPrintNO=${footPrintNO}">${i}</a></li>
+				<li class="page-item"><a class="page-link" href="./fpdetail?page=${i}&footPrintNO=${footPrintNO}">${i}</a></li>
 				</c:if>
 				<c:if test="${i eq map.currPage}">
-				<li class="page-item active"><a class="page-link" href="./commentList?page=${i}&footPrintNO=${footPrintNO}">${i}</a></li>
+				<li class="page-item active"><a class="page-link" href="./fpdetail?page=${i}&footPrintNO=${footPrintNO}">${i}</a></li>
 				</c:if>
 				</c:forEach>
 				<c:if test="${map.totalPage ne map.endPage}">
-				<li class="page-item"><a class="page-link" href="./commentList?page=${map.endPage+1}&footPrintNO=${footPrintNO}"
+				<li class="page-item"><a class="page-link" href="./fpdetail?page=${map.endPage+1}&footPrintNO=${footPrintNO}"
 					aria-label="Next"> <span aria-hidden="true">&raquo;</span>
 				</a></li>
 				</c:if>
