@@ -17,6 +17,11 @@ body, head {
 	margin: 0;
 	padding: 0;
 }
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
 
 </style>
 </head>
@@ -94,7 +99,7 @@ body, head {
 			</tr>
 			<tr>
 				<td>PHONE</td>
-				<td><input type="text" class="form-control" name="phone" minlength="11" maxlength="12" placeholder="- 제외 입력해주세요" required/> </td>
+				<td><input type="number" class="form-control" name="phone" minlength="11" maxlength="12" placeholder="- 제외 입력해주세요" required/> </td>
 			</tr>
 			<tr>
 				<td>STYLE</td>
