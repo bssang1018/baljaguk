@@ -204,8 +204,9 @@ drawMarker();
 			success : function(data) {
 				//console.log('json');
 				//console.log(JSON.stringify(data));
-				//console.log(data);
-				console.log(data.latLng);
+				console.log(data);
+				console.log(data.readyState);
+				console.log(data.state);
 				if (!data.loginYN) {
 					alert('로그인이 필요한 서비스 입니다.');
 				} else {

@@ -74,7 +74,7 @@ public class ScController extends HttpServlet {
 			if (stx.equals("rcontload")) {
 				System.out.println("신고글 원본 가기");
 				String footPrintNO = service.contentload(reportno);
-				BoardService service1 = new BoardService(req);
+				BoardService service1 = new BoardService(req,resp);
 				req.setAttribute("footprint", service1.fpdetail(footPrintNO));
 				dis = req.getRequestDispatcher("fpdetail.jsp");
 				dis.forward(req, resp);
