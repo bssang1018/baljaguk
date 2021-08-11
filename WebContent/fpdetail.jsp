@@ -116,13 +116,8 @@
 
    <form action="commentWriteForm" method="post">
    <div class="text-center">
-<<<<<<< HEAD
-   			<span>  댓글입력  </span><input type="text" name="commentText"required/><button>등록</button>
+   			<span>  댓글입력  </span><input type="text" name="commentText" required/><button>등록</button>
 			<input type="hidden" name="footPrintNO" value="${footPrintNO}"/>   				
-=======
-   			<span>  댓글입력  </span><input type="text" name="commentText"/><button>등록</button>
-			<input type="hidden" name="footPrintNO" value="${footPrintNO}"/>
->>>>>>> 7c96d47483f6894af4a9b02de036a37f8269026b
    </div>
    </form>
 </c:if>
