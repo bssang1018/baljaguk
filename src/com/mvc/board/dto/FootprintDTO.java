@@ -1,11 +1,12 @@
 package com.mvc.board.dto;
 
 
+import java.math.BigDecimal;
 import java.sql.Date;
 
 public class FootprintDTO {
 	private int footPrintNO;
-	private int markerNO;
+	//private int markerNO;
 	private String email;
 	private Date reg_date;
 	private String footprintText;
@@ -17,6 +18,8 @@ public class FootprintDTO {
 	private int boardNO;
 	private String hashTag; 
 	private String contentNO;
+	private BigDecimal lat;
+	private BigDecimal lng;
 	
 	public String getHashTag() {
 		return hashTag;
@@ -36,12 +39,11 @@ public class FootprintDTO {
 	public void setFootPrintNO(int footPrintNO) {
 		this.footPrintNO = footPrintNO;
 	}
-	public int getMarkerNO() {
-		return markerNO;
-	}
-	public void setMarkerNO(int markerNO) {
-		this.markerNO = markerNO;
-	}
+
+	/*
+	 * public int getMarkerNO() { return markerNO; } public void setMarkerNO(int
+	 * markerNO) { this.markerNO = markerNO; }
+	 */
 	public String getEmail() {
 		return email;
 	}
@@ -96,6 +98,19 @@ public class FootprintDTO {
 	public void setContentNO(String contentNO) {
 		this.contentNO = contentNO;
 	}
+	public BigDecimal getLat() {
+		return lat;
+	}
+	public void setLat(BigDecimal lat) {
+		this.lat = lat;
+	}
+	public BigDecimal getLng() {
+		return lng;
+	}
+	public void setLng(BigDecimal lng) {
+		this.lng = lng;
+	}
+	
 	
 	
 	
