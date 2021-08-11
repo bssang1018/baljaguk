@@ -238,6 +238,9 @@ public class MemberController extends HttpServlet {
 			email = (String) req.getSession().getAttribute("loginemail");
 			success = service.cancel(email);
 			System.out.println("회원 탈퇴 성공? "+success);
+			req.getSession().removeAttribute("loginemail");
+			  req.getSession().removeAttribute("nickname");
+			  req.getSession().removeAttribute("suc");
 			dis = req.getRequestDispatcher("index.jsp");
 			dis.forward(req, resp);
 			break;
