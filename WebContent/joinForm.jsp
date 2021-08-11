@@ -114,7 +114,7 @@ body, head {
 			</tr>
 			<tr>
 				<td colspan="2">
-				<button type="button" class="btn btn-secondary btn-lg">회원가입</button>
+				<button>회원가입</button>
 				</td>
 			</tr>
 		</table>
