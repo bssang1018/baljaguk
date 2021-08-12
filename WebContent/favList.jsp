@@ -319,39 +319,7 @@ td {
 			return items;
 		}
 
-		//삭제를 눌렀을 때 호출되는 함수
-		/* function del(apiNo) {
-			//console.log("삭제하기 클릭 api No : " +$("button[name='"+apiNo+"']").attr("data-contentsid"));
-			//console.log(apiNo);
-			let conID = $("button[name='" + apiNo + "']").attr(
-					"data-contentsid");
-			if (conID != null) {
-
-				 $.ajax({
-					type : 'GET',
-					url : 'favDel',
-					data : {
-						'contentsid' : conID
-					},
-					dataType : 'JSON',
-					success : function(data) {
-						console.log(data);
-						if (data.success) {
-							alert(data.cnt + '삭제에 성공 했습니다.');
-							//location.href='main.jsp';
-						} else {
-							alert('삭제에 실패 했습니다.');
-						}
-					},
-					error : function(e) {
-						console.log(e);
-					}
-				});
-			} else {
-
-			}
-
-		} */
+		
 
 		//마커 찍기
 		function markerCall(items) {
@@ -431,8 +399,7 @@ td {
 												marker,
 												'click',
 												function() {
-													//closeOverlay();
-													//$("div.wrap").show();
+													//closeOverlay();													
 													for (let i = 0; i < db.length; i++) {//마커 클릭 시 다른 마커 모두 감춤
 														markers[i]
 																.setImage(markerImage);
