@@ -28,7 +28,7 @@
    </tr>
    <tr>
       <th>좌표</th>
-      <td>위도 : ${footprint.lat}, 경도 : ${footprint.lat}</td>
+      <td>위도 : ${footprint.lat}, 경도 : ${footprint.lng}</td>
    </tr>
    <tr>
       <th>작성자</th>
