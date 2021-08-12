@@ -72,7 +72,7 @@ height:auto;
   </span>
 </button>
   <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-    <li><a class="dropdown-item" href='./fdReportWrite.jsp?footPrintNO=${footprint.footPrintNO}'>피드 신고</a></li>
+    <li><a class="dropdown-item" href='./fdReportWrite?footPrintNO=${footprint.footPrintNO}'>피드 신고</a></li>
       </ul>
 </div>
          </div>
@@ -134,7 +134,7 @@ $(document).on('click','#plusBtn',function(){
                 content += '<button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">더보기</button>'
                 content += '<button type="button" class="btn btn-primary position-relative" onclick="location.href=\'./like?footPrintNO='+item.footPrintNO+'" >'
                 content += '♥'
-                content += '<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">0</span>'
+                content += '<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">1</span>'
                 content += '</button>'
                 content += '<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">'
              content +=    '<div class="col text-center " id="frame" >'
