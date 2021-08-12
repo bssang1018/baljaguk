@@ -71,24 +71,83 @@ public class MsgDAO {
 	
 	public int write(String sender, String reciever, String content) {
 		//msgOpen 은 열람 여부 인데, 처음보낼때 0이고, 읽으면 1.
-		//작성일은 Default Sysdate 
+		//작성일은 Default Sysdate
+		//회원탈퇴여부 확인하고, 회원탈퇴가 1 이면 메세지 못보냄
+		String cancleMember;
 		int success = 0;
-		String sql = "INSERT INTO message(msgNo,sender_email,receiver_email,msgContent,msgOpen) "
-							+ "VALUES(msgNo_seq.NEXTVAL,?,?,?,0)";
+		
+		String sql2 = "SELECT cancelmember FROM member WHERE email = ?";
 		try {
-			ps = conn.prepareStatement(sql);
-			ps.setString(1, sender);
-			ps.setString(2, reciever);
-			ps.setString(3, content);
-			success = ps.executeUpdate();
-			if(success>0) {
-				System.out.println("메시지 DB 삽입 성공! 삽입개수: "+success);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
+			ps = conn.prepareStatement(sql2);
+			ps.setString(1, reciever);
+			rs = ps.executeQuery();
+			rs.next();
+			cancleMember = rs.getString(1);
+			if (cancleMember.equals("1")) {
+				System.out.println("상대방이 회원탈퇴한 유저 입니다...");
+				success = 0;
+			} else {
+				String sql = "INSERT INTO message(msgNo,sender_email,receiver_email,msgContent,msgOpen) "
+						+ "VALUES(msgNo_seq.NEXTVAL,?,?,?,0)";
+					try {
+						ps = conn.prepareStatement(sql);
+						ps.setString(1, sender);
+						ps.setString(2, reciever);
+						ps.setString(3, content);
+						success = ps.executeUpdate();
+						if(success>0) {
+							System.out.println("메시지 DB 삽입 성공! 삽입개수: "+success);
+						}
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+			}	
+		} catch (SQLException e1) {
+			e1.printStackTrace();
 		}
 		return success;
 	}
+
+	
+	public int writeAns(String sender, String reciever, String content) {
+		String cancleMember;
+		int success = 0;
+		
+		String sql2 = "SELECT cancelmember FROM member WHERE email = ?";
+		
+		String sql = "INSERT INTO message(msgNo,sender_email,receiver_email,msgContent,msgOpen) "
+							+ "VALUES(msgNo_seq.NEXTVAL,?,?,?,0)";
+		
+		try {
+			ps = conn.prepareStatement(sql2);
+			ps.setString(1, reciever);
+			rs = ps.executeQuery();
+			rs.next();
+			cancleMember = rs.getString(1);
+			if (cancleMember.equals("1")) {
+				System.out.println("상대방이 회원탈퇴한 유저 입니다...");
+				success = 0;
+			} else {
+				try {
+					ps = conn.prepareStatement(sql);
+					ps.setString(1, sender);
+					ps.setString(2, reciever);
+					ps.setString(3, content);
+					success = ps.executeUpdate();
+					if(success>0) {
+						System.out.println("메시지 DB 삽입 성공! 삽입개수: "+success);
+					}
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		return success;
+	}
+
+		
 	// 신고답변 함수
 	public int repwrite(String sender, String reciever, String content) {
 		int success = 0;
@@ -513,25 +572,5 @@ public class MsgDAO {
 		
 		return msgMap;
 	}
-
-	public int writeAns(String sender, String reciever, String content) {
-		int success = 0;
-		String sql = "INSERT INTO message(msgNo,sender_email,receiver_email,msgContent,msgOpen) "
-							+ "VALUES(msgNo_seq.NEXTVAL,?,?,?,0)";
-		try {
-			ps = conn.prepareStatement(sql);
-			ps.setString(1, sender);
-			ps.setString(2, reciever);
-			ps.setString(3, content);
-			success = ps.executeUpdate();
-			if(success>0) {
-				System.out.println("메시지 DB 삽입 성공! 삽입개수: "+success);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return success;
-	}
-
 	
 }
