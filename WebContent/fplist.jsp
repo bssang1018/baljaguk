@@ -158,9 +158,10 @@ img {
 	left: 400px;
 	top: 150px;
 	z-index: 2;
-	background-color: white;
+	background-color: white;	
 	display: none;
 	overflow-y: auto;
+
 }
 </style>
 
@@ -181,7 +182,9 @@ img {
 					<td colspan="5">해당 데이터가 존재하지 않습니다.</td>
 				</tr>
 			</c:if>
+			
 			<c:forEach items="${fplist}" var="footprint" varStatus="no">
+			
 				<div class="gogo col text-center" id="frame" style="opacity: 0;">
 					<p style="display: none;">${footprint.footPrintNO}</p>
 					<div id="size">
@@ -192,11 +195,14 @@ img {
 						<p class="card-title">작성자 : ${footprint.email}</p>
 					</div>
 					<div class="card-footer text-center">
+						
 						<a
 							style="display: inline-block; max-width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"
-							href="fpdetail?footPrintNO=${footprint.footPrintNO}">${footprint.footprintText}</a>
 
+							href="fpdetail?footPrintNO=${footprint.footPrintNO}">자세히 보기</a>
+                           
 					</div>
+					
 				</div>
 			</c:forEach>
 		</div>
@@ -210,24 +216,26 @@ img {
 			<div class="col-4 text-center mb-3">
 				<div class="input-group">
 					<input class="form-control me-1" type="search"
-						placeholder="검색어를 입력해주세요" aria-label="Search" name="hashtag"
-						required />
+						placeholder="검색어를 입력해주세요" aria-label="Search" name="hashtag" required/>
 					<button class="btn btn-outline-secondary" type="submit">search</button>
 				</div>
 			</div>
 			<div class="col-4 text-center">
-				<input type="button" class="btn btn-primary" onclick="sendlatLng()"
-					value="발자국 남기기" />
+				<input type="button" class="btn btn-primary"
+					onclick="location.href='fpwrite.jsp'" value="발자국 남기기" />
 			</div>
-		</form>
-		<div class="text-center">
-			<button id="plusBtn" class="btn btn-primary"
-				style="margin-bottom: 100px">더보기</button>
-		</div>
-
+   </form>
+   
+  <c:if test='${sessionScope.loginemail eq footprint.email}'>
+			 <div class="text-center">
+	
+   <button id="plusBtn" class="btn btn-primary" style="margin-bottom:100px">더보기</button>
+		
 	</div>
-
-
+    </c:if>
+   </div>
+	
+	
 </body>
 <script>
 	$('.gogo').animate({
@@ -256,6 +264,7 @@ img {
 												.each(
 														data.list,
 														function(i, item) {
+															
 															content += '<div class="col text-center " id="frame" >'
 															content += '<p style="display : none;">'
 																	+ item.footPrintNO
@@ -267,13 +276,14 @@ img {
 															content += '<p class="card-title">작성자 : '
 																	+ item.email
 																	+ ' </p>'
-															content += '<hr/>'
-																content +=   '<a style=" display: inline-block; max-width:100% ; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" href="fpdetail?footPrintNO='+item.footPrintNO+'">자세히 보기</a>'
+															content +='</div>'
+															content +=	'<div class="card-footer text-center">'
+															content +=   '<a style=" display: inline-block; max-width:100% ; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" href="fpdetail?footPrintNO='+item.footPrintNO+'">자세히 보기</a>'
 															content += '</div>'
-															content += '<div class="card-footer text-center">'
-																   '<a class="btn btn-primary" href="fpdetail?footPrintNO='+item.footPrintNO+'">자세히 보기</p>'
-																	
+															
 															content += '</div>'
+															
+														
 															content += '</div>'
 														})
 										$('#card').append(content);
@@ -316,13 +326,9 @@ img {
 	});
 	
 	function sendlatLng() {//좌표 보냄
-		try{
-			localStorage.setItem('lat', latlng.getLat());
-			localStorage.setItem('lng', latlng.getLng());		
-			window.location = './fpwrite.jsp';
-		}catch(err){
-			alert("등록할 위치를 선택해 주세요");
-		}
+		localStorage.setItem('lat', latlng.getLat());
+		localStorage.setItem('lng', latlng.getLng());
+		window.location = './fpwrite.jsp';
 	}
 	
 	//////////////////////////////////////////////////////////////////////////////
@@ -453,6 +459,7 @@ img {
 	function closeOverlay(idx) {
 		overlay[idx].setMap(null);
 	}
+	var loginemail = "${session.getAttribute('loginemail')}"
 </script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <!-- 	<script
