@@ -176,6 +176,8 @@ td {
 		// 지도의 확대 레벨
 		};
 
+		var markers = new Array();
+
 		let db = listCall();//db읽어옴
 		//console.log(db.length);
 		let api = readAPI();//JSON파일 읽어옴
@@ -349,20 +351,22 @@ td {
 
 		} */
 
+		// 마커 이미지의 이미지 주소입니다
+		//var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
+
+		// 마커 이미지의 이미지 크기 입니다
+		var imageSize = new kakao.maps.Size(24, 35);
+
+		// 마커 이미지를 생성합니다    
+		var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+
 		//마커 찍기
 		function markerCall(items) {
 			console.log("markerCall");
 			let content = new Array();
-
-			// 마커 이미지의 이미지 주소입니다
-			var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
-
-			// 마커 이미지의 이미지 크기 입니다
-			var imageSize = new kakao.maps.Size(24, 35);
-			
-			// 마커 이미지를 생성합니다    
-			var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
-
+			var icon = new kakao.maps.MarkerImage(
+					'https://i1.daumcdn.net/dmaps/apis/n_local_blit_04.png',
+					new kakao.maps.Size(31, 35));
 			$
 					.each(
 							items,
@@ -380,20 +384,18 @@ td {
 											items.latitude, items.longitude)
 								} ];
 
-
 								//for (let i = 0; i < positions.length; i++) {
 
-
-
-									// 마커를 생성합니다
-									var marker = new kakao.maps.Marker({
-										map : map, // 마커를 표시할 지도
-										position : new kakao.maps.LatLng(
-												items.latitude, items.longitude), // 마커를 표시할 위치
-										title : items.title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
-										image : markerImage
-									// 마커 이미지 
-									});
+								// 마커를 생성합니다
+								var marker = new kakao.maps.Marker({
+									map : map, // 마커를 표시할 지도
+									position : new kakao.maps.LatLng(
+											items.latitude, items.longitude), // 마커를 표시할 위치
+									title : items.title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+									image : markerImage
+								// 마커 이미지 
+								});
+								markers.push(marker);
 								//}
 
 								// 커스텀 오버레이에 표시할 컨텐츠 입니다
@@ -439,8 +441,11 @@ td {
 													//closeOverlay();
 													//$("div.wrap").show();
 													for (let i = 0; i < db.length; i++) {//마커 클릭 시 다른 마커 모두 감춤
+														markers[i]
+																.setImage(markerImage);
 														closeOverlay(i);
 													}
+													marker.setImage(icon);
 													overlay[idx].setMap(map);
 												});
 							});
@@ -449,6 +454,7 @@ td {
 		// 커스텀 오버레이를 닫기 위해 호출되는 함수입니다 
 		function closeOverlay(idx) {
 			overlay[idx].setMap(null);
+			markers[idx].setImage(markerImage);
 		}
 
 		//title을 눌렀을 때 호출되는 함수

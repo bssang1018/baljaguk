@@ -16,13 +16,11 @@ import com.mvc.board.dto.FootprintDTO;
 public class BoardService {
 
 	HttpServletRequest req = null;
-	HttpServletResponse resp = null;
 	
-	public BoardService(HttpServletRequest req, HttpServletResponse resp) {
+	public BoardService(HttpServletRequest req) {
 		try {
 			req.setCharacterEncoding("UTF-8");
 			this.req = req;
-			this.resp = resp;
 			
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
@@ -36,14 +34,11 @@ public class BoardService {
 		if(page == null) {
 			page= "1";
 		}
-		HashMap<String, Object> map = new HashMap<String, Object>();
+		
 		ArrayList<FootprintDTO> fplist = dao.fplist(email,Integer.parseInt(page));
 		System.out.println(fplist.size()+"건의 발자국");
 		
 		dao.resClose();
-		map.put("latlng", fplist);
-		resp.setContentType("text/html; charset=UTF-8");// 한글 꺠짐 방지
-		resp.getWriter().println(new Gson().toJson(map));
 		return fplist;
 	}
 	
