@@ -331,9 +331,20 @@ public class MemberDAO {
 		}
 		return dto;
 	}
-
+	
 	public boolean cancel(String email) {
 		sql = "UPDATE member SET cancelmember = 1 WHERE email = ?"; //1은 회원 탈퇴로 하자
+		//<추가>회원탈퇴시 friends 테이블의 relation = 0 으로 업데이트 (friends_email 컬럼을 조건으로)(친구목록에서 자동으로 삭제하기 위함)
+		sql  = "UPDATE friends SET relation = 0 WHERE friends_email = ?";
+		
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, email);
+			ps.executeUpdate();
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+
 		boolean suc = false;	
 		try {
 			ps = conn.prepareStatement(sql);

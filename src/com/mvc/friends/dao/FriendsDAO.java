@@ -187,18 +187,17 @@ public class FriendsDAO {
 	public ArrayList<TourStyleDTO> friendsRecomend(String loginemail) {
 		/*
 		String sql = "SELECT email FROM "
-				+ "(SELECT ROW_NUMBER() OVER(ORDER BY email DESC) AS rnum, email, categoryNo FROM TourStyle WHERE categoryNo = (SELECT categoryNo FROM TourStyle WHERE email = ?)) "
-				+ " WHERE rnum BETWEEN 1 AND 5";
-		String sql = "SELECT email FROM "
-				+"(SELECT ROW_NUMBER() OVER(ORDER BY email DESC) AS rnum, categoryNo, email FROM TourStyle WHERE email NOT IN (SELECT friends_email FROM friends WHERE email = 'test@test') AND categoryNo = (SELECT categoryNo FROM TourStyle WHERE email = 'test@test')) "
+				+"(SELECT ROW_NUMBER() OVER(ORDER BY DBMS_RANDOM.RANDOM()) AS rnum, categoryNo, email FROM TourStyle WHERE email NOT IN (SELECT friends_email FROM friends WHERE email = ?) AND categoryNo = (SELECT categoryNo FROM TourStyle WHERE email = ?) AND email != ? ) "
 				+"WHERE rnum BETWEEN 1 AND 5";
 		*/
-		
-		String sql = "SELECT email FROM "
-				+"(SELECT ROW_NUMBER() OVER(ORDER BY DBMS_RANDOM.RANDOM()) AS rnum, categoryNo, email FROM TourStyle WHERE email NOT IN (SELECT friends_email FROM friends WHERE email = ?) AND categoryNo = (SELECT categoryNo FROM TourStyle WHERE email = ?) AND email != ?) "
-				+"WHERE rnum BETWEEN 1 AND 5";
 		//ORDER BY DBMS_RANDOM.RANDOM() => 랜덤으로 정렬!
 		
+		String sql = "SELECT rnum, email FROM " + 
+				"(SELECT ROW_NUMBER()OVER(ORDER BY DBMS_RANDOM.RANDOM()) AS rnum, email FROM(SELECT email FROM member WHERE cancelmember = 0" + 
+				"INTERSECT " + 
+				"SELECT email FROM tourstyle WHERE categoryno = (SELECT categoryno FROM tourstyle WHERE email = ?) AND email IN (SELECT email FROM tourstyle WHERE email != ?))" + 
+				") " + 
+				"WHERE rnum BETWEEN 1 AND 5";
 		TourStyleDTO dto = null;
 		ArrayList<TourStyleDTO> recomendList = null;
 		
@@ -206,7 +205,6 @@ public class FriendsDAO {
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, loginemail);
 			ps.setString(2, loginemail);
-			ps.setString(3, loginemail);
 			rs = ps.executeQuery();
 			recomendList = new ArrayList<TourStyleDTO>();
 			while(rs.next()){
@@ -311,6 +309,7 @@ public class FriendsDAO {
 	}
 	
 	public HashMap<String, Object> friendsList(int page, String loginemail) {
+
 		String sql ="SELECT friends_email FROM "
 						 +"(SELECT ROW_NUMBER() OVER(ORDER BY email DESC)AS rnum, email, friends_email, block FROM friends WHERE ( email = ? AND relation = 1) AND block = 0 ) "
 						 +"WHERE rnum BETWEEN ? AND ?";
