@@ -158,10 +158,9 @@ img {
 	left: 400px;
 	top: 150px;
 	z-index: 2;
-	background-color: white;	
+	background-color: white;
 	display: none;
 	overflow-y: auto;
-
 }
 </style>
 
@@ -195,7 +194,6 @@ img {
 					<div class="card-footer text-center">
 						<a
 							style="display: inline-block; max-width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"
-
 							href="fpdetail?footPrintNO=${footprint.footPrintNO}">${footprint.footprintText}</a>
 
 					</div>
@@ -212,22 +210,24 @@ img {
 			<div class="col-4 text-center mb-3">
 				<div class="input-group">
 					<input class="form-control me-1" type="search"
-						placeholder="검색어를 입력해주세요" aria-label="Search" name="hashtag" required/>
+						placeholder="검색어를 입력해주세요" aria-label="Search" name="hashtag"
+						required />
 					<button class="btn btn-outline-secondary" type="submit">search</button>
 				</div>
 			</div>
 			<div class="col-4 text-center">
-				<input type="button" class="btn btn-primary"
-					onclick="sendlatLng()" value="발자국 남기기" />
+				<input type="button" class="btn btn-primary" onclick="sendlatLng()"
+					value="발자국 남기기" />
 			</div>
-   </form>
-			 <div class="text-center">
-   <button id="plusBtn" class="btn btn-primary" style="margin-bottom:100px">더보기</button>
+		</form>
+		<div class="text-center">
+			<button id="plusBtn" class="btn btn-primary"
+				style="margin-bottom: 100px">더보기</button>
+		</div>
+
 	</div>
-   
-   </div>
-	
-	
+
+
 </body>
 <script>
 	$('.gogo').animate({
@@ -316,9 +316,13 @@ img {
 	});
 	
 	function sendlatLng() {//좌표 보냄
-		localStorage.setItem('lat', latlng.getLat());
-		localStorage.setItem('lng', latlng.getLng());
-		window.location = './fpwrite.jsp';
+		try{
+			localStorage.setItem('lat', latlng.getLat());
+			localStorage.setItem('lng', latlng.getLng());		
+			window.location = './fpwrite.jsp';
+		}catch(err){
+			alert("등록할 위치를 선택해 주세요");
+		}
 	}
 	
 	//////////////////////////////////////////////////////////////////////////////

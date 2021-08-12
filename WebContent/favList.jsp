@@ -164,7 +164,8 @@ td {
 	</table>
 	<script>
 		var jsonLocation = './VisitJeju_API/allAPI2.json';
-
+		// 마커 이미지를 생성합니다    
+		var markerImage = new kakao.maps.MarkerImage("https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png", new kakao.maps.Size(24, 35));
 		var $latitude = 0;
 		var $longitude = 0;
 		var overlay = new Array();
@@ -350,15 +351,6 @@ td {
 			}
 
 		} */
-
-		// 마커 이미지의 이미지 주소입니다
-		//var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
-
-		// 마커 이미지의 이미지 크기 입니다
-		var imageSize = new kakao.maps.Size(24, 35);
-
-		// 마커 이미지를 생성합니다    
-		var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
 
 		//마커 찍기
 		function markerCall(items) {
