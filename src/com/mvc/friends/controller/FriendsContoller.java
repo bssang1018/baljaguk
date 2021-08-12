@@ -70,8 +70,7 @@ public class FriendsContoller extends HttpServlet {
 			//overlay=false; => 중복된 이메일 없음! overlay=true; => 중복된 이메일 있음 
 			boolean overlay = service.friendsAddOverlay(loginemail, friends_email);
 			if(overlay) {
-				msgMsg = "이미 친구등록된 이메일 입니다!";
-				System.out.println("이미 친구등록된 이메일!");
+				msgMsg = "이미 친구등록된 이메일 이거나, 회원탈퇴를 한 유저입니다!";
 				req.setAttribute("msgMsg", msgMsg);
 				dis = req.getRequestDispatcher("/friendsList");
 				dis.forward(req, resp);

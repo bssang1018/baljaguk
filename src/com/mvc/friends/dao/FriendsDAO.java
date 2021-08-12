@@ -30,42 +30,65 @@ public class FriendsDAO {
 		}
 	} //생성자 end
 
-	
+	//회원탈퇴 여부와 친구추가 중복여부 확인
 	public boolean friendsAddOverlay(String loginemail, String friends_email) {
 		boolean overlay = false;
+		String cancleMember;
+		
+		String sql2 = "SELECT cancelmember FROM member WHERE email = ?";
 		String sql = "SELECT email,friends_email,block FROM friends "+
 							"WHERE (email = ? AND friends_email = ?) AND relation = 1";
+		
 		try {
-			ps = conn.prepareStatement(sql);
-			ps.setString(1, loginemail);
-			ps.setString(2, friends_email);
+			ps = conn.prepareStatement(sql2);
+			ps.setString(1, friends_email);
 			rs = ps.executeQuery();
-			if(rs.next()) { //이미 친구등록이 돼서 나온결과 있다면...
-				System.out.println("이미 친구등록이 된 이메일!");
+			rs.next();
+			cancleMember = rs.getString(1);
+			
+			if(cancleMember.equals("1")) {
+				System.out.println("상대방이 회원탈퇴한 유저 입니다...");
 				overlay = true;
-			} else { //조회결과가 없다면..
-				System.out.println("친구등록 가능한 이메일!");
-				overlay = false;
-				
-				sql = "INSERT INTO friends(email,friends_email,block, relation) "
-						+ "VALUES(?,?,0,1)";
-				
+			} else {
+			
 				try {
 					ps = conn.prepareStatement(sql);
 					ps.setString(1, loginemail);
 					ps.setString(2, friends_email);
-					ps.executeUpdate();
+					rs = ps.executeQuery();
+					if(rs.next()) { //이미 친구등록이 돼서 나온결과 있다면...
+						System.out.println("친구등록 불가능한 이메일!");
+						overlay = true; //친구등록 실패!
+					} else { //조회결과가 없다면..
+						System.out.println("친구등록 가능한 이메일!");
+						overlay = false;
+						
+						sql = "INSERT INTO friends(email,friends_email,block, relation) "
+								+ "VALUES(?,?,0,1)";
+						
+						try {
+							ps = conn.prepareStatement(sql);
+							ps.setString(1, loginemail);
+							ps.setString(2, friends_email);
+							ps.executeUpdate();
+						} catch (SQLException e) {
+							e.printStackTrace();
+						}
+					}
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
+				
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
+			
+		} catch (SQLException e1) {
+			e1.printStackTrace();
 		}
 		return overlay;
 	}
 	
 	public int friendsAdd(String loginemail, String friends_email) {
+		
 		int success = 0;
 		String sql = "UPDATE friends SET relation = 1, block = 0 WHERE (email = ? AND friends_email = ?)";
 		//block 컬럼에 0 넣는건, 차단하지 않았다는 뜻임! //1이 차단! 생성할땐 무조건 안차단!
@@ -77,7 +100,6 @@ public class FriendsDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
 		return success;
 	}
 
