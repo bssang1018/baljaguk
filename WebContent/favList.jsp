@@ -141,6 +141,7 @@ td {
 	background-color: white;
 	display: none;
 	overflow-y: auto;
+	border: 1px solid black;
 }
 </style>
 </head>

@@ -476,7 +476,16 @@
 	<button onclick="location.href='fplist'">발자국 전환</button>
 	<!-- <script type="text/javascript"
 		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=af37bb113fb5c630dd1cdf63348a1073"></script> -->
-
+	<table>
+		<thead>
+			<tr>
+				<th>관광지명</th>				
+				<th>관광지 주소</th>
+				<th>삭제</th>
+			</tr>
+		</thead>
+		<tbody></tbody>
+	</table>
 </body>
 <script type="text/javascript">
 	var jsonLocation = [ './VisitJeju_API/추차도.json',
@@ -650,6 +659,7 @@
 		// 마커 이미지 
 		}); */
 		let content = new Array();
+		let content2 = new Array();
 		$
 				.each(
 						item,
@@ -735,8 +745,17 @@
 									+ '        </div>'
 									+ '    </div>' + '</div>';
 
+									content2[idx] = '<tr><td><a href="javascript:void(0);" onclick="markerTrg('
+										+ idx
+										+ ')">'
+										+ items.title
+										+ '</a></td>'										
+										+ '<td>'
+										+ items.address
+										+ '</td>';
 							// 마커 위에 커스텀오버레이를 표시합니다
 							// 마커를 중심으로 커스텀 오버레이를 표시하기위해 CSS를 이용해 위치를 설정했습니다
+							
 							overlay[idx] = new kakao.maps.CustomOverlay({
 								content : content[idx],
 								//map : map,
@@ -758,9 +777,15 @@
 		// LatLngBounds 객체에 추가된 좌표들을 기준으로 지도의 범위를 재설정합니다
 		// 이때 지도의 중심좌표와 레벨이 변경될 수 있습니다
 		map.setBounds(bounds);
-
+		$("tbody").empty();//비워줘야 다른 내용을 부르거나 같은 내용을 부를때 덧붙여서 나오지 않는다
+		$("tbody").append(content2);
 	}
 
+	function markerTrg(idx){
+		kakao.maps.event.trigger(markers[idx], 'click'); 
+		console.log(markers[idx]);
+	}
+	
 	// 키워드 검색을 요청하는 함수입니다
 	function searchPlaces() {
 
