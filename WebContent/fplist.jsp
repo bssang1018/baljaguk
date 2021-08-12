@@ -222,7 +222,7 @@ img {
 			</div>
 			<div class="col-4 text-center">
 				<input type="button" class="btn btn-primary"
-					onclick="location.href='fpwrite.jsp'" value="발자국 남기기" />
+					onclick="sendlatLng()" value="발자국 남기기" />
 			</div>
    </form>
    
@@ -326,9 +326,14 @@ img {
 	});
 	
 	function sendlatLng() {//좌표 보냄
+		try{
 		localStorage.setItem('lat', latlng.getLat());
 		localStorage.setItem('lng', latlng.getLng());
 		window.location = './fpwrite.jsp';
+			
+		}catch(err){
+			alert("등록할 위치를 선택해 주세요");
+		}
 	}
 	
 	//////////////////////////////////////////////////////////////////////////////
