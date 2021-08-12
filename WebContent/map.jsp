@@ -480,8 +480,7 @@
 		<thead>
 			<tr>
 				<th>관광지명</th>				
-				<th>관광지 주소</th>
-				<th>삭제</th>
+				<th>관광지 주소</th>		
 			</tr>
 		</thead>
 		<tbody></tbody>
